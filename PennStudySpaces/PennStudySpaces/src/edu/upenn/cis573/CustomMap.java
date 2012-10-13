@@ -10,6 +10,7 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
@@ -112,6 +113,15 @@ public class CustomMap extends MapActivity {
 
 			OverlayItem overlayitem = new OverlayItem(q, "", "");
 			pins.addOverlay(overlayitem);
+			
+			//my test code
+			
+			float results[] = new float[3];
+			Location.distanceBetween(latitude, longitude, gpsLat, gpsLong, results);
+			
+			//put the distance between current place and studyspace
+			System.out.println("The distance is" + results[0]);
+			System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		}
 
 		/*
@@ -227,6 +237,8 @@ public class CustomMap extends MapActivity {
 		    }   
 			return true;
 		}
+		
+	
 		
 		
 		@Override

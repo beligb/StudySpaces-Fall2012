@@ -34,6 +34,20 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.app.Activity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.Criteria;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import java.awt.*;
+
+
+
 
 public class SearchActivity extends Activity {
 	
@@ -70,13 +84,68 @@ public class SearchActivity extends Activity {
     private SharedPreferences search;
     static final String SEARCH_PREFERENCES = "searchPreferences";
     
+    //revise the program
+    protected LocationManager locationManager;
+    private String provider;
+    private LocationListener locationListener;
+    
+    public static double latitude = 0;
+    public static double longitude = 0;
     
     
     /** Called when the activity is first created. */
+  
+    protected void showCurrentLocation() {
+    	 
+    	        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    	        boolean enabled = locationManager
+    	        		  .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+    	        		// Check if enabled and if not send user to the GSP settings
+    	        		// Better solution would be to display a dialog and suggesting to 
+    	        		// go to the settings
+    	        		if (!enabled) {
+    	        		  System.out.println("THE GPS IS NOT ENABLEED");
+    	        		} 
+    	        // Define the criteria how to select the locatioin provider -> use
+    	        // default
+    	        Criteria criteria = new Criteria();
+    	        provider = locationManager.getBestProvider(criteria, false);
+    	        Location location = locationManager.getLastKnownLocation(provider);
+
+    	        if(location == null){
+    	        	 System.out.println("CURRENT LOCATION NOT AVAILAVBLE");
+ 	                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+ 	                if(location != null){
+ 	                	System.out.println("Finally it works");
+ 	                }else{
+ 	                	System.out.println("OOOOOOOOPs, doesn't work again!");
+ 	                }
+    	        }
+    	        if (location != null) {
+    	            String message = String.format(
+    	                    "Current Location \n Longitude: %1$s \n Latitude: %2$s",
+    	                    location.getLongitude(), location.getLatitude()
+    	            );
+    	            latitude = location.getLatitude();
+    	            longitude = location.getLongitude();
+    	            
+    	         //   onLocationChanged(location);
+    	            System.out.println("CURRENT LOCATION ISISISISISISISIS");
+    	            System.out.println(message);
+    	        } 
+    	         
+    }         
+
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
+        
+        //get the location Manager in order to get the current location
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
         
         
 
@@ -607,6 +676,10 @@ public class SearchActivity extends Activity {
     	Intent i = new Intent();
     	//Put your searchOption class here
     	i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
+    	
+    	//on search trigger test
+    	System.out.println("TIGGER THE SEARCH BUTTON BUTTON BUTTON BUTTON");
+    	this.showCurrentLocation();
     	setResult(RESULT_OK, i);
     	//ends this activity
     	finish();

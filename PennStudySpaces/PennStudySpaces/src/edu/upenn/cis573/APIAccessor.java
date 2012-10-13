@@ -81,6 +81,8 @@ public class APIAccessor {
 			    		);
 			    
 			    study_spaces.add(temp);
+			   //test the sequences of the result
+			    System.out.println(temp.getBuildingName());
 			}
 			
 		}

@@ -10,7 +10,7 @@ import java.util.Date;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class StudySpace implements Serializable {
+public class StudySpace implements Serializable, Comparable<StudySpace> {
 	/**
 	 * 
 	 */
@@ -37,6 +37,8 @@ public class StudySpace implements Serializable {
 	private String comments;
 	private Room[] rooms;
 	private String[] foursquare;
+	
+	private double distance;
 
 	public StudySpace(String name, double lat, double lon, int num_rooms,
 			String b_name, int max_occ, boolean has_wh, String pri,
@@ -55,6 +57,22 @@ public class StudySpace implements Serializable {
 		has_big_screen = has_big_s;
 		comments = comm;
 		rooms = r;
+	}
+	//sort the studyspace based on the distance
+	@Override
+	public int compareTo(StudySpace compareSpace){
+		
+		return (int)(this.distance - compareSpace.distance);
+	
+	}
+	
+	
+	public void setDistance(double d){
+		this.distance = d;
+	}
+	
+	public double getDistance(){
+		return this.distance;
 	}
 
 	public String[] getFoursquare() {

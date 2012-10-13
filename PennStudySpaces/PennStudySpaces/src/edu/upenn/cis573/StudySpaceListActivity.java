@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Collections;
 
 import edu.upenn.cis573.R;
 
@@ -34,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.location.*;
 
 public class StudySpaceListActivity extends ListActivity {
 
@@ -343,9 +345,33 @@ public class StudySpaceListActivity extends ListActivity {
 			this.list_items = SpaceInfo.sortByRank(filtered);
 			this.list_items = filterByPeople(list_items);
 			this.list_items = filterByDate(list_items);
+			this.list_items = sortByDistance(list_items);
 			this.before_search = (ArrayList<StudySpace>) this.list_items.clone();
 			
+			//debug output
+			System.out.println("STUDYLISTLISTLISTLISTLISTLISTLISTLISTLIST");
+			for(StudySpace temp: this.list_items){
+				System.out.println(temp.getBuildingName());
+			}
+			System.out.println("The current place is: latitude:" + SearchActivity.latitude + "Longitude: " + SearchActivity.longitude);
+			
 			notifyDataSetChanged();
+		}
+		
+		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
+			double currentLatitude = SearchActivity.latitude;
+			double currentLongitude = SearchActivity.longitude;
+			for(StudySpace temp: arr){
+				double spaceLatitude = temp.getSpaceLatitude();
+				double spaceLongitude = temp.getSpaceLongitude();
+				float results[] = new float[3];
+				Location.distanceBetween(currentLatitude, currentLongitude, spaceLatitude, spaceLongitude, results);
+				double distance = results[0];
+				temp.setDistance(distance);
+			}
+			Collections.sort(arr);
+			System.out.println("Results havs already been sorted!");
+			return arr;
 		}
 		
 		public void searchNames(String query){
