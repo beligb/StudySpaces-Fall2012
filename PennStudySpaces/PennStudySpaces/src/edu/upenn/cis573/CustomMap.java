@@ -48,6 +48,12 @@ public class CustomMap extends MapActivity {
 	List<Overlay> mapOverlays;
 	Drawable drawable;
 	PinOverlay pins;
+	
+	 Boolean isInternetPresent = false;
+	 
+	    // Connection detector class
+	ConnectionDetector cd;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,22 @@ public class CustomMap extends MapActivity {
 		Intent i = super.getIntent();
 		StudySpace o = (StudySpace) i.getSerializableExtra("STUDYSPACE");
 
+
+        cd = new ConnectionDetector(getApplicationContext());
+        
+        
+     // get Internet status
+        isInternetPresent = cd.isConnectingToInternet();
+
+        // check for Internet status
+        if (isInternetPresent) {
+            // Internet Connection is Present
+            // make HTTP requests
+//            showAlertDialog(SplashScreen.this, "Internet Connection",
+//                    "You have internet connection", true);
+        	
+        	
+        
 		setContentView(R.layout.mapview);
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
@@ -141,8 +163,16 @@ public class CustomMap extends MapActivity {
 		
 		mc.animateTo(avg);
 		mc.setZoom(17);
-	}
-
+	} else {
+        // Internet connection is not present
+        // Ask user to connect to Internet
+        cd.showAlertDialog(CustomMap.this, "No Internet Connection",
+                "You don't have internet connection.", false);
+        
+        
+    }
+        
+}
 	/*
 	 * class MapOverlay extends Overlay {
 	 * 

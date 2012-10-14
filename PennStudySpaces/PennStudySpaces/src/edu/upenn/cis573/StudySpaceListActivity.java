@@ -63,6 +63,10 @@ public class StudySpaceListActivity extends ListActivity {
 		
 		
 		ss_list = new ArrayList<StudySpace>(); // List to store StudySpaces
+		
+		
+	        
+	        
 		this.ss_adapter = new StudySpaceListAdapter(this, R.layout.sslistitem,
 				ss_list);
 		this.setListAdapter(this.ss_adapter); // Adapter to read list and
@@ -87,8 +91,28 @@ public class StudySpaceListActivity extends ListActivity {
 		Thread thread = new Thread(null, viewAvailableSpaces, "ThreadName"); // change
 																				// name?
 		thread.start();
+		
+		
+		 // flag for Internet connection status
+	    Boolean isInternetPresent = false;
+	 
+	    // Connection detector class
+	    ConnectionDetector cd;
+	    
+	    cd = new ConnectionDetector(getApplicationContext());
+        
+        
+	     // get Internet status
+	        isInternetPresent = cd.isConnectingToInternet();
+	        
+	       if(isInternetPresent){ 
 		ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
 				"Please wait...", "Retrieving data ...", true);
+	       }
+	       else{
+	    	   ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
+	   				"Connection error ", " Please connect to internet.....", true); 
+	       }
 		
 		//Start up the search options screen
 		Intent i = new Intent(this, SearchActivity.class);
