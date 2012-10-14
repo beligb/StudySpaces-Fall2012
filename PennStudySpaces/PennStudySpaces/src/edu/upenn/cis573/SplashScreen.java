@@ -1,13 +1,31 @@
 package edu.upenn.cis573;
 
 import edu.upenn.cis573.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+
+import android.app.AlertDialog;
+
+import android.content.DialogInterface;
+
+import android.view.View;
+import android.widget.Button;
+
+
 public class SplashScreen extends Activity {
+	
+	
+	 // flag for Internet connection status
+    Boolean isInternetPresent = false;
+ 
+    // Connection detector class
+    ConnectionDetector cd;
+
     protected boolean _active = true;
     protected int _splashTime = 5000;
     
@@ -17,6 +35,28 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         
+        cd = new ConnectionDetector(getApplicationContext());
+        
+        
+     // get Internet status
+        isInternetPresent = cd.isConnectingToInternet();
+
+        // check for Internet status
+        if (isInternetPresent) {
+            // Internet Connection is Present
+            // make HTTP requests
+//            showAlertDialog(SplashScreen.this, "Internet Connection",
+//                    "You have internet connection", true);
+        	
+        	
+        } else {
+            // Internet connection is not present
+            // Ask user to connect to Internet
+            cd.showAlertDialog(SplashScreen.this, "No Internet Connection",
+                    "You don't have internet connection.", false);
+            
+            
+        }
         
         // thread for displaying the SplashScreen
         Thread splashTread = new Thread() {
@@ -41,7 +81,8 @@ public class SplashScreen extends Activity {
         splashTread.start();
     }
     
-    @Override
+
+	@Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             _active = false;

@@ -10,8 +10,11 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -71,6 +74,14 @@ public class SearchActivity extends Activity {
     static final String SEARCH_PREFERENCES = "searchPreferences";
     
     
+    Boolean isInternetPresent = false;
+    
+    // Connection detector class
+    ConnectionDetector cd;
+
+    
+    
+
     
     /** Called when the activity is first created. */
     @Override
@@ -79,12 +90,9 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.search);
         
         
-
-        search = getSharedPreferences(SEARCH_PREFERENCES, 0);
+     search = getSharedPreferences(SEARCH_PREFERENCES, 0);
         
-        
-        
-    
+       
 
         /*
         Log.d("", "Trying to load Bundle.");
@@ -102,16 +110,13 @@ public class SearchActivity extends Activity {
         
         
         captureViewElements();
-        
-        
-        
-        
-        
-      
-    	mSearchOptions = new SearchOptions();
+        mSearchOptions = new SearchOptions();
     	
-    	
-        setUpNumberOfPeopleSlider(); // Here???
+    	setUpNumberOfPeopleSlider(); // Here???
+        
+    
+        
+        
         
     	
     
@@ -123,36 +128,12 @@ public class SearchActivity extends Activity {
         	mNumberOfPeopleSlider.setProgress(mSearchOptions.getNumberOfPeople()); // BAD.
         	updateNumberOfPeopleDisplay(); // BAD.
         }
-        
        
-        
-        
-        
-        
-        
     	resetTimeAndDateData();
-        
-    	
-    	
-    	
-    	
-    	
-    	
-        
-        
-      
-
-        
-        
-    	
-        
-        
+     
         setUpCheckBoxes();
         setUpPrivate();
-        
-        
-        
-        
+     
         updateTimeAndDateDisplays();
         
         
@@ -295,13 +276,7 @@ public class SearchActivity extends Activity {
 		mNumberOfPeopleTextView.setText(Integer.toString(mSearchOptions.getNumberOfPeople()) + personPeopleString);
 	}
     
-    
-    
-    
-    
-    
-    
-    
+      
     private void roundCalendar(Calendar c) {
         if (c.get(Calendar.MINUTE) >= 1 && c.get(Calendar.MINUTE) <= 29) {
         	c.add(Calendar.MINUTE, 30 - c.get(Calendar.MINUTE));
@@ -424,10 +399,7 @@ public class SearchActivity extends Activity {
         updateDateText();
     }
     
-    
-    
-
-    
+ 
     private static String pad(int c) {
         if (c >= 10)
             return String.valueOf(c);
@@ -435,14 +407,7 @@ public class SearchActivity extends Activity {
             return "0" + String.valueOf(c);
     }
     
-    
-    
-    
-    
-
-
-    	
-    private TimePicker.OnTimeChangedListener mStartTimeChangedListener =
+     private TimePicker.OnTimeChangedListener mStartTimeChangedListener =
     	new TimePicker.OnTimeChangedListener() {
 	        public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 	        	updateStartTimeDisplay(view, hourOfDay, minute);
@@ -602,6 +567,14 @@ public class SearchActivity extends Activity {
     
     //Updates search options then delivers intent
     public void onSearchButtonClick(View view) {
+    	
+    	 cd = new ConnectionDetector(getApplicationContext());
+         
+         // get Internet status
+         isInternetPresent = cd.isConnectingToInternet();
+
+    	
+    	if (isInternetPresent){
     	putDataInSearchOptionsObject();
     	//Returns to List activity
     	Intent i = new Intent();
@@ -610,6 +583,12 @@ public class SearchActivity extends Activity {
     	setResult(RESULT_OK, i);
     	//ends this activity
     	finish();
+    	}
+    	else{
+            cd.showAlertDialog(SearchActivity.this, "No Internet Connection",
+                    "You don't have internet connection.", false);
+            
+    	}
     }
     
     
