@@ -1,10 +1,7 @@
 package edu.upenn.cis573;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-
-import android.util.Log;
 
 public class SpaceInfo {
 

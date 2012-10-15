@@ -6,23 +6,24 @@
     android:orientation="vertical"
     android:padding="5dip" >
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="1" >
+   	<TableRow
+   		android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/searchButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onSearchButtonClick"
-                android:text="@string/search_button" />
-        </TableRow>
-    </TableLayout>
+        <Button
+        	android:id="@+id/searchButton"
+        	android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+        	android:onClick="onSearchButtonClick"
+         	android:text="@string/search_button" />
+            
+        <Button
+        	android:id="@+id/favoritesButton"
+        	android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+         	android:onClick="onFavoritesButtonClick"
+       		android:text="@string/favorites_button" />
+    </TableRow>
 
     <TextView
         android:id="@+id/numberOfPeopleTextView"

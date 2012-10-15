@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import org.json.*;
 
-import android.util.Log;
-
 public class APIAccessor {
 	
 	//public static JSONObject availabilities;

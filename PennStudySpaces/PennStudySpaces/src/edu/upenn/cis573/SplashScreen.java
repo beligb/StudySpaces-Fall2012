@@ -3,18 +3,9 @@ package edu.upenn.cis573;
 import edu.upenn.cis573.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
-
-
-import android.app.AlertDialog;
-
-import android.content.DialogInterface;
-
-import android.view.View;
-import android.widget.Button;
 
 
 public class SplashScreen extends Activity {

@@ -1,14 +1,10 @@
 package edu.upenn.cis573;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class SearchOptions implements Serializable, Parcelable {
 	

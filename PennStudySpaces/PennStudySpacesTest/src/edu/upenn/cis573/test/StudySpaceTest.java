@@ -3,13 +3,8 @@ package edu.upenn.cis573.test;
 
 import junit.framework.TestCase;
 
-import org.junit.Test;
-
 import edu.upenn.cis573.Room;
 import edu.upenn.cis573.StudySpace;
-
-import android.test.AndroidTestCase;
-import android.util.Log;
 
 public class StudySpaceTest extends TestCase {
 	

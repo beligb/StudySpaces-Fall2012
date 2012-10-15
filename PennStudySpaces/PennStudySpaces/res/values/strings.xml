@@ -13,8 +13,8 @@
     <string name="info">Info</string>
     
     
-    <string name="filter">filter</string>
-    <string name="favorites">favorites</string>
+    <string name="filter">Filter</string>
+    <string name="favorites">Favorites</string>
     <string name="add_favorites">Add to favorites</string>
     <string name="remove_favorites">Unfavorite</string>
     <string name="your_favorite">This is your favorite StudySpace</string>
@@ -22,4 +22,5 @@
     <string name="add_calendar">Add to Calendar</string>
     <string name="add_reserve">Reserve Online</string>
     <string name="add_text">Notify friends</string>
+    <string name="favorites_button">Favorites</string>
 </resources>

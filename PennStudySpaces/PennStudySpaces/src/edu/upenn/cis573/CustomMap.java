@@ -10,7 +10,6 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
@@ -20,7 +19,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
@@ -32,8 +30,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Looper;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -46,8 +42,8 @@ public class CustomMap extends MapActivity {
 	GeoPoint q;
 	GeoPoint avg;
 	List<Overlay> mapOverlays;
-	Drawable drawable;
-	PinOverlay pins;
+	Drawable drawableRed, drawableBlue;
+	PinOverlay pinsRed, pinsBlue;
 	
 	 Boolean isInternetPresent = false;
 	 
@@ -81,8 +77,10 @@ public class CustomMap extends MapActivity {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 
-		drawable = this.getResources().getDrawable(R.drawable.pushpin);
-		pins = new PinOverlay(drawable);
+		drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
+		drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
+		pinsBlue = new PinOverlay(drawableBlue);
+		pinsRed = new PinOverlay(drawableRed);
 
 		mc = mapView.getController();
 
@@ -134,16 +132,15 @@ public class CustomMap extends MapActivity {
 			q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
 
 			OverlayItem overlayitem = new OverlayItem(q, "", "");
-			pins.addOverlay(overlayitem);
+			pinsBlue.addOverlay(overlayitem);
+			
+			mapOverlays = mapView.getOverlays();
+			mapOverlays.add(pinsBlue);
 			
 			//my test code
 			
 			float results[] = new float[3];
 			Location.distanceBetween(latitude, longitude, gpsLat, gpsLong, results);
-			
-			//put the distance between current place and studyspace
-			System.out.println("The distance is" + results[0]);
-			System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 		}
 
 		/*
@@ -154,10 +151,10 @@ public class CustomMap extends MapActivity {
 
 		OverlayItem overlayitem = new OverlayItem(p, "", "");
 
-		pins.addOverlay(overlayitem);
+		pinsRed.addOverlay(overlayitem);
 
 		mapOverlays = mapView.getOverlays();
-		mapOverlays.add(pins);
+		mapOverlays.add(pinsRed);
 		
 		avg = new GeoPoint((int) (avgLat * 1E6), (int) (avgLong * 1E6));
 		

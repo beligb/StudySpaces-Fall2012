@@ -1,11 +1,7 @@
 package edu.upenn.cis573.test;
 
-import static org.junit.Assert.*;
-
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Test;
-
 import edu.upenn.cis573.Room;
 
 public class RoomTest extends junit.framework.TestCase {

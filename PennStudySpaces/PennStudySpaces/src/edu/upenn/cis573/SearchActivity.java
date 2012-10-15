@@ -2,60 +2,35 @@ package edu.upenn.cis573;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
-
 import edu.upenn.cis573.R;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-import android.app.Activity;
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.Criteria;
 import android.location.LocationManager;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import java.awt.*;
-
-
-
 
 public class SearchActivity extends Activity {
-	
-	
-	
+
+	private Button mFavoritesButton;
 	private Button mSearchButton;
 	private TextView mNumberOfPeopleTextView;
 	private SeekBar mNumberOfPeopleSlider;
@@ -651,7 +626,6 @@ public class SearchActivity extends Activity {
     	i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
     	
     	//on search trigger test
-    	System.out.println("TIGGER THE SEARCH BUTTON BUTTON BUTTON BUTTON");
     	this.showCurrentLocation();
     	setResult(RESULT_OK, i);
     	//ends this activity
@@ -664,7 +638,32 @@ public class SearchActivity extends Activity {
     	}
     }
     
-    
+    //Updates search options then delivers intent
+    public void onFavoritesButtonClick(View view) {
+    	
+    	 cd = new ConnectionDetector(getApplicationContext());
+         
+        // get Internet status
+        isInternetPresent = cd.isConnectingToInternet();
+    	if (isInternetPresent){
+    	//putDataInSearchOptionsObject();
+    	//Returns to List activity
+    	//Intent i = new Intent();
+    	//Put your searchOption class here
+    	//i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
+    	
+    	//on search trigger test
+    	//this.showCurrentLocation();
+    	//setResult(RESULT_OK, i);
+    	//ends this activity
+    	//finish();
+    	}
+    	else{
+            cd.showAlertDialog(SearchActivity.this, "No Internet Connection",
+                    "You don't have internet connection.", false);
+            
+    	}
+    }    
 
     
     private void putDataInSearchOptionsObject() {
@@ -707,6 +706,7 @@ public class SearchActivity extends Activity {
         
         // General:
     	mSearchButton = (Button)findViewById(R.id.searchButton);
+    	mFavoritesButton = (Button)findViewById(R.id.favoritesButton);
     	mNumberOfPeopleTextView = (TextView)findViewById(R.id.numberOfPeopleTextView);
     	mNumberOfPeopleSlider = (SeekBar)findViewById(R.id.numberOfPeopleSlider);
     	mPrivateCheckBox = (CheckBox)findViewById(R.id.privateCheckBox);
