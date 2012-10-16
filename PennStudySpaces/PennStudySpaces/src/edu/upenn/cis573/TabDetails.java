@@ -194,12 +194,14 @@ public class TabDetails extends Fragment {
 		Calendar cal = Calendar.getInstance();              
 		Intent intent = new Intent(Intent.ACTION_EDIT);
 		intent.setType("vnd.android.cursor.item/event");
+		intent.putExtra("title", "PennStudySpaces Reservation confirmed. ");
+		intent.putExtra("description", "Supported by PennStudySpaces");
+		intent.putExtra("eventLocation", o.getBuildingName()+" - "+o.getRooms()[0].getRoomName());
 		intent.putExtra("beginTime", cal.getTimeInMillis());
-		
 		intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-		intent.putExtra("title", "PennStudySpaces Reservation confirmed. Details - "+o.getBuildingName()+" - "+o.getRooms()[0].getRoomName()+"\nTime: ");
 		return intent;
 	}
+
 	public Intent getTextIntent(View v){
 		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 		try {
