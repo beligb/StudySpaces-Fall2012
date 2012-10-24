@@ -1,5 +1,6 @@
 package edu.upenn.cis573;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -149,6 +151,8 @@ public class StudySpaceListActivity extends ListActivity {
 
 
 	}
+	
+	
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) { // click
@@ -219,6 +223,8 @@ public class StudySpaceListActivity extends ListActivity {
 			ss_adapter.allToFav();
 		}
 	}
+	
+   
 
 	public void onFilterClick(View view){
 		//Start up the search options screen
@@ -227,6 +233,23 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
 	}
 
+	
+	@Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
+    	Intent i = new Intent(this, SearchActivity.class);
+		startActivityForResult(i,
+				StudySpaceListActivity.ACTIVITY_SearchActivity);
+        return true;
+    }
+    return super.onKeyDown(keyCode, event);
+    
+    }
+	
+
+	
+
+	
 	private class StudySpaceListAdapter extends ArrayAdapter<StudySpace> {
 
 		private ArrayList<StudySpace> list_items;
