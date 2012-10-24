@@ -109,6 +109,7 @@ public class StudySpaceDetails extends FragmentActivity {
 		i.putExtra("STUDYSPACE", o);
 		startActivity(i);
 	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -132,6 +133,7 @@ public class StudySpaceDetails extends FragmentActivity {
 		editor.putBoolean(o.getBuildingName()+o.getSpaceName(), true);
 		editor.commit();
 	}
+	
 	public void onRemoveFavClick(View v){
 		p.removeFavorites(o.getBuildingName()+o.getSpaceName());
 		tabdetails.onRemoveFavClick(v);
@@ -139,6 +141,7 @@ public class StudySpaceDetails extends FragmentActivity {
 		editor.putBoolean(o.getBuildingName()+o.getSpaceName(), false);
 		editor.commit();
 	}
+	
 	public void onCalClick(View v) {
 		tabdetails.onCalClick(v);
 

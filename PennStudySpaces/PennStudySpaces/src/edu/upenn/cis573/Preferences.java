@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public class Preferences implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HashMap<String, Boolean> favorites;
 	
 	public Preferences(){

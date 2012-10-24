@@ -22,6 +22,7 @@ public class SearchOptions implements Serializable, Parcelable {
 	private boolean hasWhiteboard = false;
 	private boolean hasComputer = false;
 	private boolean hasProjector = false;
+	private boolean favSelected = false;
 	
 	private boolean engiBox;
 	private boolean wharBox;
@@ -63,6 +64,9 @@ public class SearchOptions implements Serializable, Parcelable {
 	}
 	public void setProjector(boolean _hasProjector) {
 		hasProjector = _hasProjector;
+	}
+	public void setFavSelected(boolean _favSelected) {
+		favSelected = _favSelected;
 	}
 	public void setEngi(boolean _bool){
 		engiBox = _bool;
@@ -112,6 +116,9 @@ public class SearchOptions implements Serializable, Parcelable {
 	}
 	public boolean getProjector() {
 		return hasProjector;
+	}
+	public boolean getFavSelected() {
+		return favSelected;
 	}
 	public boolean getEngi(){
 		return engiBox;
@@ -178,7 +185,7 @@ public class SearchOptions implements Serializable, Parcelable {
 		out.writeInt(year);
 		out.writeInt(month);
 		out.writeInt(day);
-		boolean[] booleanArray = {isPrivate, hasWhiteboard, hasComputer, hasProjector, engiBox, wharBox, libBox, othBox};
+		boolean[] booleanArray = {isPrivate, hasWhiteboard, hasComputer, hasProjector, engiBox, wharBox, libBox, othBox, favSelected};
 		out.writeBooleanArray(booleanArray);
     }
 
@@ -203,7 +210,7 @@ public class SearchOptions implements Serializable, Parcelable {
         year = in.readInt();
         month = in.readInt();
         day = in.readInt();
-        boolean[] booleanArray = {false, false, false, false, false, false, false, false};
+        boolean[] booleanArray = {false, false, false, false, false, false, false, false, false};
         in.readBooleanArray(booleanArray);
         isPrivate = booleanArray[0];
         hasWhiteboard = booleanArray[1];
@@ -213,6 +220,7 @@ public class SearchOptions implements Serializable, Parcelable {
         wharBox = booleanArray[5];
         libBox = booleanArray[6];
         othBox = booleanArray[7];
+        favSelected = booleanArray[8];
     }
 	public SearchOptions() {
 		// TODO Auto-generated constructor stub

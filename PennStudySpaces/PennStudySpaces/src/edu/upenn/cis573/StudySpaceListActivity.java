@@ -35,38 +35,34 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
 	private ArrayList<StudySpace> ss_list = null; // List containing available
-													// rooms
+	// rooms
 	private StudySpaceListAdapter ss_adapter; // Adapter to format list items
 	private Runnable viewAvailableSpaces; // runnable to get available spaces
 	public static final int ACTIVITY_ViewSpaceDetails = 1;
 	public static final int ACTIVITY_SearchActivity = 2;
 	private SearchOptions searchOptions; //create a default searchoption later
-	private boolean favSelected = false;
+	private boolean favSelected;
 	private Preferences preferences;
-	
+
 	private SharedPreferences favorites;
-    static final String FAV_PREFERENCES = "favoritePreferences";
+	static final String FAV_PREFERENCES = "favoritePreferences";
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.sslist);
-		
+
 		favorites = getSharedPreferences(FAV_PREFERENCES, 0);
-		
-		
+
+
 		ss_list = new ArrayList<StudySpace>(); // List to store StudySpaces
-		
-		
-	        
-	        
+
 		this.ss_adapter = new StudySpaceListAdapter(this, R.layout.sslistitem,
 				ss_list);
 		this.setListAdapter(this.ss_adapter); // Adapter to read list and
-												// display
-		
-		
+		// display
+
 		Map<String, ?> items = favorites.getAll();
 		preferences = new Preferences(); 		//Change this when bundle is implemented.
 		for(String s: items.keySet()){
@@ -75,39 +71,36 @@ public class StudySpaceListActivity extends ListActivity {
 				preferences.addFavorites(s);
 			}
 		}
-		
-		
+
 		viewAvailableSpaces = new Runnable() {
 			public void run() {
 				getSpaces(); // retrieves list of study spaces
 			}
 		};
 		Thread thread = new Thread(null, viewAvailableSpaces, "ThreadName"); // change
-																				// name?
+		// name?
 		thread.start();
-		
-		
-		 // flag for Internet connection status
-	    Boolean isInternetPresent = false;
-	 
-	    // Connection detector class
-	    ConnectionDetector cd;
-	    
-	    cd = new ConnectionDetector(getApplicationContext());
-        
-        
-	     // get Internet status
-	        isInternetPresent = cd.isConnectingToInternet();
-	        
-	       if(isInternetPresent){ 
-		ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
-				"Please wait...", "Retrieving data ...", true);
-	       }
-	       else{
-	    	   ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
-	   				"Connection error ", " Please connect to internet.....", true); 
-	       }
-		
+
+
+		// flag for Internet connection status
+		Boolean isInternetPresent = false;
+
+		// Connection detector class
+		ConnectionDetector cd;
+
+		cd = new ConnectionDetector(getApplicationContext());
+
+		// get Internet status
+		isInternetPresent = cd.isConnectingToInternet();
+
+		if(isInternetPresent){ 
+			ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
+					"Please wait...", "Retrieving data ...", true);
+		} else {
+			ss_ProgressDialog = ProgressDialog.show(StudySpaceListActivity.this,
+					"Connection error ", " Please connect to internet.....", true); 
+		}
+
 		//Start up the search options screen
 		Intent i = new Intent(this, SearchActivity.class);
 		startActivityForResult(i,
@@ -142,19 +135,19 @@ public class StudySpaceListActivity extends ListActivity {
 					ss_adapter.filterSpaces();
 			}
 		});
-		
-		*/
+
+		 */
 		final TextView search = (EditText)findViewById(R.id.search);
-	    search.addTextChangedListener(new TextWatcher(){
-	        public void afterTextChanged(Editable s) {
-	        	String query = search.getText().toString();
-	        	ss_adapter.searchNames(query);
-	        }
-	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-	        public void onTextChanged(CharSequence s, int start, int before, int count){}
-	    }); 
-	    
-		
+		search.addTextChangedListener(new TextWatcher(){
+			public void afterTextChanged(Editable s) {
+				String query = search.getText().toString();
+				ss_adapter.searchNames(query);
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+			public void onTextChanged(CharSequence s, int start, int before, int count){}
+		}); 
+
+
 	}
 
 	@Override
@@ -163,8 +156,8 @@ public class StudySpaceListActivity extends ListActivity {
 		// getListAdapter().getItem(position)).getSpaceName();
 		// Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
 		Intent i = new Intent(this, StudySpaceDetails.class);
-		 i.putExtra("STUDYSPACE", (StudySpace)getListAdapter().getItem(position));
-		 i.putExtra("PREFERENCES", preferences);
+		i.putExtra("STUDYSPACE", (StudySpace)getListAdapter().getItem(position));
+		i.putExtra("PREFERENCES", preferences);
 		startActivityForResult(i,
 				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
 	}
@@ -173,17 +166,22 @@ public class StudySpaceListActivity extends ListActivity {
 			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 		switch(requestCode){
-			case ACTIVITY_SearchActivity:
-				searchOptions = (SearchOptions) intent.getSerializableExtra("SEARCH_OPTIONS");
-				favSelected = false;
-				ImageView image = (ImageView) this.findViewById(R.id.favorite_button);
-				image.setImageResource(R.color.yellow);
+		case ACTIVITY_SearchActivity:
+			searchOptions = (SearchOptions) intent.getSerializableExtra("SEARCH_OPTIONS");
+			ImageView image = (ImageView) this.findViewById(R.id.favorite_button);
+			image.setImageResource(R.color.yellow);
+			favSelected = searchOptions.getFavSelected();
+			System.out.println("SEARCH ACTIVITY " + favSelected);
+			if(favSelected) {
+				ss_adapter.allToFav();
+			} else {
 				ss_adapter.filterSpaces();
-				ss_adapter.updateFavorites(preferences);
+			}
+			ss_adapter.updateFavorites(preferences);
 			break;
-			case ACTIVITY_ViewSpaceDetails:
-				preferences = (Preferences) intent.getSerializableExtra("PREFERENCES");
-				ss_adapter.updateFavorites(preferences);
+		case ACTIVITY_ViewSpaceDetails:
+			preferences = (Preferences) intent.getSerializableExtra("PREFERENCES");
+			ss_adapter.updateFavorites(preferences);
 			break;
 		}
 	}
@@ -208,26 +206,25 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 		runOnUiThread(returnRes);
 	}
-	
+
 	public void onFavClick(View v){
 		ImageView image = (ImageView) this.findViewById(R.id.favorite_button);
-		if(favSelected){
+		if(favSelected) {
 			favSelected = false;
 			image.setImageResource(R.color.yellow);
 			ss_adapter.favToAll();
-		}else{
+		} else {
 			favSelected = true;
 			image.setImageResource(R.color.lightblue);
 			ss_adapter.allToFav();
 		}
-		
 	}
-	
+
 	public void onFilterClick(View view){
 		//Start up the search options screen
-			Intent i = new Intent(this, SearchActivity.class);
-			startActivityForResult(i,
-						StudySpaceListActivity.ACTIVITY_SearchActivity);
+		Intent i = new Intent(this, SearchActivity.class);
+		startActivityForResult(i,
+				StudySpaceListActivity.ACTIVITY_SearchActivity);
 	}
 
 	private class StudySpaceListAdapter extends ArrayAdapter<StudySpace> {
@@ -237,7 +234,7 @@ public class StudySpaceListActivity extends ListActivity {
 		private ArrayList<StudySpace> before_search;
 		private ArrayList<StudySpace> fav_orig_items;
 		private ArrayList<StudySpace> temp;	//Store list items for when favorites is displayed
-		
+
 
 		public StudySpaceListAdapter(Context context, int textViewResourceId,
 				ArrayList<StudySpace> items) {
@@ -259,7 +256,7 @@ public class StudySpaceListActivity extends ListActivity {
 
 			StudySpace o = list_items.get(position);
 			if (o != null) {
-				
+
 				TextView tt = (TextView) v.findViewById(R.id.nametext);
 				TextView bt = (TextView) v.findViewById(R.id.roomtext);
 				if (tt != null) {
@@ -276,49 +273,49 @@ public class StudySpaceListActivity extends ListActivity {
 				}
 				ImageView image = (ImageView) v.findViewById(R.id.icon);
 				int resID;
-			       if(image!=null){
-			    	   Resources resource = getResources();
-			    	   if(o.getBuildingType().equals(StudySpace.ENGINEERING))
-			    		   resID = resource.getIdentifier("engiicon", "drawable", getPackageName());
-			    	   else if(o.getBuildingType().equals(StudySpace.WHARTON))
-			    		   resID = resource.getIdentifier("whartonicon", "drawable", getPackageName());
-						else if(o.getBuildingType().equals(StudySpace.LIBRARIES))
-							resID = resource.getIdentifier("libicon", "drawable", getPackageName());
-						else resID = resource.getIdentifier("othericon","drawable",getPackageName());
-			    	   image.setImageResource(resID);
-			       }
-			      ImageView priv = (ImageView) v.findViewById(R.id.priv);
-			      ImageView wb = (ImageView) v.findViewById(R.id.wb);
-			      ImageView comp = (ImageView) v.findViewById(R.id.comp);
-			      ImageView proj = (ImageView) v.findViewById(R.id.proj);
-			      if(priv!=null && o.getPrivacy().equals("S"))
-			    	  priv.setVisibility(View.INVISIBLE);
-			      else priv.setVisibility(View.VISIBLE);
-			      if(wb!=null && !o.hasWhiteboard())
-			    	  wb.setVisibility(View.INVISIBLE);
-			      else wb.setVisibility(View.VISIBLE);
-			      if(comp!=null && !o.hasComputer())
-			    	  comp.setVisibility(View.INVISIBLE);
-			      else comp.setVisibility(View.VISIBLE);
-			      if(proj!=null && !o.has_big_screen())
-			    	  proj.setVisibility(View.INVISIBLE);
-			      else proj.setVisibility(View.VISIBLE);
+				if(image!=null){
+					Resources resource = getResources();
+					if(o.getBuildingType().equals(StudySpace.ENGINEERING))
+						resID = resource.getIdentifier("engiicon", "drawable", getPackageName());
+					else if(o.getBuildingType().equals(StudySpace.WHARTON))
+						resID = resource.getIdentifier("whartonicon", "drawable", getPackageName());
+					else if(o.getBuildingType().equals(StudySpace.LIBRARIES))
+						resID = resource.getIdentifier("libicon", "drawable", getPackageName());
+					else resID = resource.getIdentifier("othericon","drawable",getPackageName());
+					image.setImageResource(resID);
+				}
+				ImageView priv = (ImageView) v.findViewById(R.id.priv);
+				ImageView wb = (ImageView) v.findViewById(R.id.wb);
+				ImageView comp = (ImageView) v.findViewById(R.id.comp);
+				ImageView proj = (ImageView) v.findViewById(R.id.proj);
+				if(priv!=null && o.getPrivacy().equals("S"))
+					priv.setVisibility(View.INVISIBLE);
+				else priv.setVisibility(View.VISIBLE);
+				if(wb!=null && !o.hasWhiteboard())
+					wb.setVisibility(View.INVISIBLE);
+				else wb.setVisibility(View.VISIBLE);
+				if(comp!=null && !o.hasComputer())
+					comp.setVisibility(View.INVISIBLE);
+				else comp.setVisibility(View.VISIBLE);
+				if(proj!=null && !o.has_big_screen())
+					proj.setVisibility(View.INVISIBLE);
+				else proj.setVisibility(View.VISIBLE);
 			}
 			return v;
 		}
-		
+
 		@Override
 		public int getCount(){
 			return list_items.size();
 		}
-		
+
 		@Override
 		public StudySpace getItem(int position){
 			return list_items.get(position);
 		}
-		
+
 		public void filterSpaces(){
-			
+
 			ArrayList<StudySpace> filtered = (ArrayList<StudySpace>) orig_items.clone();
 
 			int i = 0;
@@ -359,23 +356,23 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 
 			//this.list_items = filtered;
-			
+
 			this.list_items = SpaceInfo.sortByRank(filtered);
 			this.list_items = filterByPeople(list_items);
 			this.list_items = filterByDate(list_items);
 			this.list_items = sortByDistance(list_items);
 			this.before_search = (ArrayList<StudySpace>) this.list_items.clone();
-			
+
 			//debug output
-			System.out.println("STUDYLISTLISTLISTLISTLISTLISTLISTLISTLIST");
-			for(StudySpace temp: this.list_items){
-				System.out.println(temp.getBuildingName());
-			}
-			System.out.println("The current place is: latitude:" + SearchActivity.latitude + "Longitude: " + SearchActivity.longitude);
-			
+			//System.out.println("STUDYLISTLISTLISTLISTLISTLISTLISTLISTLIST");
+			//for(StudySpace temp: this.list_items){
+			//System.out.println(temp.getBuildingName());
+			//}
+			//System.out.println("The current place is: latitude:" + SearchActivity.latitude + "Longitude: " + SearchActivity.longitude);
+
 			notifyDataSetChanged();
 		}
-		
+
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
 			double currentLatitude = SearchActivity.latitude;
 			double currentLongitude = SearchActivity.longitude;
@@ -391,23 +388,23 @@ public class StudySpaceListActivity extends ListActivity {
 			System.out.println("Results havs already been sorted!");
 			return arr;
 		}
-		
+
 		public void searchNames(String query){
 			query = query.toLowerCase();
 			this.list_items = (ArrayList<StudySpace>) this.before_search.clone();
 			if(!query.equals("")){
-			for(int i = list_items.size()-1; i>=0; i--){
-				StudySpace s = list_items.get(i);
-				if(s.getBuildingName().toLowerCase().indexOf(query)>=0 || s.getSpaceName().toLowerCase().indexOf(query)>=0 || s.getRoomNames().toLowerCase().indexOf(query)>=0){
-					
-				}else{
-					list_items.remove(i);
+				for(int i = list_items.size()-1; i>=0; i--){
+					StudySpace s = list_items.get(i);
+					if(s.getBuildingName().toLowerCase().indexOf(query)>=0 || s.getSpaceName().toLowerCase().indexOf(query)>=0 || s.getRoomNames().toLowerCase().indexOf(query)>=0){
+
+					}else{
+						list_items.remove(i);
+					}
 				}
-			}
 			}
 			notifyDataSetChanged();
 		}
-		
+
 		//switch to favorites
 		public void allToFav(){
 			this.temp = this.list_items;	//remember list items
@@ -422,11 +419,11 @@ public class StudySpaceListActivity extends ListActivity {
 			this.fav_orig_items = SpaceInfo.sortByRank(this.orig_items);
 			for(int i = fav_orig_items.size()-1; i>=0; i--){
 				if(!p.isFavorite(fav_orig_items.get(i).getBuildingName()+fav_orig_items.get(i).getSpaceName()))
-						fav_orig_items.remove(i);
+					fav_orig_items.remove(i);
 			}
 		}
 	}
-	
+
 	public ArrayList<StudySpace> filterByDate(ArrayList<StudySpace> arr){
 		Date d1 = searchOptions.getStartDate();
 		Date d2 = searchOptions.getEndDate();
@@ -444,7 +441,7 @@ public class StudySpaceListActivity extends ListActivity {
 					}
 				} catch (Exception e) {
 					//Log.e("exception","here");
-						//arr.remove(i);		shouldn't be here
+					//arr.remove(i);		shouldn't be here
 				}
 			}
 
@@ -453,7 +450,7 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 		return arr;
 	}
-	
+
 	public ArrayList<StudySpace> filterByPeople(ArrayList<StudySpace> arr){
 		for(int i = arr.size()-1; i>=0; i--){
 			if(arr.get(i).getMaximumOccupancy()<searchOptions.getNumberOfPeople())
@@ -461,26 +458,26 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 		return arr;
 	}
-	
-	 @Override
-     public boolean onCreateOptionsMenu(Menu menu) {
-         MenuInflater inflater = getMenuInflater();
-         inflater.inflate(R.menu.menu, menu);
-         return true;
-     }
-     @Override
-     public boolean onOptionsItemSelected(MenuItem item) {
-         switch (item.getItemId()) {
-             case R.id.meme:     
-           	  startActivity(new Intent(this, Meme.class));
-                                 break;
-             case R.id.about:     
-              	  startActivity(new Intent(this, About.class));
-             break;
-             case R.id.help:     
-              	  startActivity(new Intent(this, Help.class));
-             break;
-         }
-         return true;
-     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.meme:     
+			startActivity(new Intent(this, Meme.class));
+			break;
+		case R.id.about:     
+			startActivity(new Intent(this, About.class));
+			break;
+		case R.id.help:     
+			startActivity(new Intent(this, Help.class));
+			break;
+		}
+		return true;
+	}
 }
