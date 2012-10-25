@@ -7,6 +7,7 @@ import edu.upenn.cis573.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +77,7 @@ public class SearchActivity extends Activity {
 
 	// Connection detector class
 	ConnectionDetector cd;
+	private ProgressDialog ss_ProgressDialog = null;
 
 	/** Called when the activity is first created. */
 
@@ -99,6 +101,9 @@ public class SearchActivity extends Activity {
 
 		if(location == null){
 			System.out.println("CURRENT LOCATION NOT AVAILAVBLE");
+			
+			
+			
 			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			if(location != null){
 				System.out.println("Finally it works");
@@ -559,6 +564,8 @@ public class SearchActivity extends Activity {
 	//Clicking back button. Does not update mSearchOptions.
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		
+		
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			
 			putDataInSearchOptionsObject();
@@ -567,6 +574,8 @@ public class SearchActivity extends Activity {
 			//Put your searchOption class here
 			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
 			setResult(RESULT_OK, i);
+			
+			
 			//ends this activity
 			finish();
 		}

@@ -9,9 +9,11 @@ import java.util.Collections;
 import edu.upenn.cis573.R;
 
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -37,6 +39,7 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
 	private ArrayList<StudySpace> ss_list = null; // List containing available
+	private AlertDialog alert = null;
 	// rooms
 	private StudySpaceListAdapter ss_adapter; // Adapter to format list items
 	private Runnable viewAvailableSpaces; // runnable to get available spaces
@@ -201,13 +204,16 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private void getSpaces() {
 		try {
+			
 			ss_list.addAll(APIAccessor.getStudySpaces()); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
+			
 			Log.i("ARRAY", "" + ss_list.size());
 		} catch (Exception e) {
 			Log.e("BACKGROUND_PROC", "Something went wrong!");
 		}
+		
 		runOnUiThread(returnRes);
 	}
 
@@ -340,6 +346,7 @@ public class StudySpaceListActivity extends ListActivity {
 		public void filterSpaces(){
 
 			ArrayList<StudySpace> filtered = (ArrayList<StudySpace>) orig_items.clone();
+			
 
 			int i = 0;
 			while(i<filtered.size()){
@@ -363,6 +370,7 @@ public class StudySpaceListActivity extends ListActivity {
 					filtered.remove(i);
 					continue;
 				}
+				
 				if(searchOptions.getWhiteboard() && !filtered.get(i).hasWhiteboard()){
 					filtered.remove(i);
 					continue;
@@ -376,8 +384,11 @@ public class StudySpaceListActivity extends ListActivity {
 					continue;
 				}
 				i++;
+				
+				
 			}
 
+			
 			//this.list_items = filtered;
 
 			this.list_items = SpaceInfo.sortByRank(filtered);
@@ -409,6 +420,33 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 			Collections.sort(arr);
 			System.out.println("Results havs already been sorted!");
+			if(arr.isEmpty()){
+				
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						getContext());
+				// set title
+				alertDialogBuilder.setTitle("No Results Found!");
+	 
+				// set dialog message
+				alertDialogBuilder
+					.setMessage("No rooms available with the selected criteria")
+					.setCancelable(false)
+					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							
+							dialog.cancel();
+						}
+					  });
+
+	 
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+	 
+					// show it
+					alertDialog.show();
+
+				}
+			
 			return arr;
 		}
 
