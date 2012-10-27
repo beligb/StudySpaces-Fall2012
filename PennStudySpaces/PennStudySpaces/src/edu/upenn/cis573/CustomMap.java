@@ -150,7 +150,6 @@ public class CustomMap extends MapActivity {
 		 */
 
 		OverlayItem overlayitem = new OverlayItem(p, "", "");
-
 		pinsRed.addOverlay(overlayitem);
 
 		mapOverlays = mapView.getOverlays();
@@ -284,15 +283,15 @@ public class CustomMap extends MapActivity {
 			 super.draw(canvas, mapView, shadow);                   
 			 
 	         //---translate the GeoPoint to screen pixels---
-	         Point screenPts = new Point();
-	         for(int i = 0; i<mOverlays.size(); i++){
-	        	 mapView.getProjection().toPixels(mOverlays.get(i).getPoint(), screenPts);
+//	         Point screenPts = new Point();
+//	         for(int i = 0; i<mOverlays.size(); i++){
+//	        	 mapView.getProjection().toPixels(mOverlays.get(i).getPoint(), screenPts);
 
 	         //---add the marker---
-	        	 Bitmap bmp = ((BitmapDrawable)marker).getBitmap();
+//	        	 Bitmap bmp = ((BitmapDrawable)marker).getBitmap();
 	         //Positions the image
-	         canvas.drawBitmap(bmp, screenPts.x-10, screenPts.y-34, null);  
-	         }
+//	         canvas.drawBitmap(bmp, screenPts.x-10, screenPts.y-34, null);  
+//	         }
 		}
 	}
 
