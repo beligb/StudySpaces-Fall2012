@@ -568,16 +568,18 @@ public class SearchActivity extends Activity {
 		
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			
-			putDataInSearchOptionsObject();
-			//Returns to List activity
-			Intent i = new Intent();
-			//Put your searchOption class here
-			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
-			setResult(RESULT_OK, i);
-			
-			
-			//ends this activity
-			finish();
+//			putDataInSearchOptionsObject();
+//			//Returns to List activity
+//			Intent i = new Intent();
+//			//Put your searchOption class here
+//			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
+//			setResult(RESULT_OK, i);
+//			//ends this activity
+//			finish();
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 		}
 		return super.onKeyDown(keyCode, event);
 	}    
