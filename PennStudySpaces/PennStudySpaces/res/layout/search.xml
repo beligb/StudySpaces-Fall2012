@@ -9,20 +9,25 @@
    	<TableRow
    		android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
+
+   		<Button
+   		    android:id="@+id/searchButton"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:layout_margin="5dp"
+   		    android:background="@drawable/btn"
+   		    android:onClick="onSearchButtonClick"
+   		    android:text="@string/search_button" />
+            
+        <Button
+            android:id="@+id/favoritesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn"
+            android:onClick="onFavsButtonClick"
+            android:text="@string/favorites_button" />
 
-        <Button
-        	android:id="@+id/searchButton"
-        	android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-        	android:onClick="onSearchButtonClick"
-         	android:text="@string/search_button" />
-            
-        <Button
-        	android:id="@+id/favoritesButton"
-        	android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-         	android:onClick="onFavsButtonClick"
-       		android:text="@string/favorites_button" />
     </TableRow>
 
     <TextView
@@ -32,13 +37,14 @@
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black" />
-
+
     <SeekBar
         android:id="@+id/numberOfPeopleSlider"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:max="19"
-        android:progress="0" />
+        android:progress="1" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -49,6 +55,16 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
+            
+             <Button
+                 android:id="@+id/pickStartTime"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:layout_marginBottom="5dp"
+                 android:layout_marginTop="5dp"
+                 android:background="@drawable/bigbutton"
+                 android:text="Select start time" />
 
             <TextView
                 android:id="@+id/startTimeDisplay"
@@ -58,16 +74,20 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/pickStartTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select start time" />
+           
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
+
+             <Button
+                 android:id="@+id/pickEndTime"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="10dp"
+                 android:background="@drawable/bigbutton"
+                 android:text="Select end time" />
 
             <TextView
                 android:id="@+id/endTimeDisplay"
@@ -77,16 +97,21 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/pickEndTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select end time" />
+           
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
+
+			  <Button
+			      android:id="@+id/pickDate"
+			      android:layout_width="wrap_content"
+			      android:layout_height="wrap_content"
+			      android:layout_margin="10dp"
+			      android:layout_marginTop="5dp"
+			      android:background="@drawable/bigbutton"
+			      android:text="Select date" />
 
             <TextView
                 android:id="@+id/dateDisplay"
@@ -96,11 +121,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/pickDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select date" />
+          
         </TableRow>
     </TableLayout>
 
