@@ -42,7 +42,7 @@
         android:id="@+id/numberOfPeopleSlider"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="2dp"
         android:max="19"
         android:progress="1" />
 
@@ -60,9 +60,9 @@
                  android:id="@+id/pickStartTime"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:layout_margin="10dp"
-                 android:layout_marginBottom="5dp"
-                 android:layout_marginTop="5dp"
+                 
+                 android:layout_marginBottom="2dp"
+                 android:layout_marginTop="2dp"
                  android:background="@drawable/bigbutton"
                  android:text="Select start time" />
 
@@ -85,7 +85,7 @@
                  android:id="@+id/pickEndTime"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:layout_margin="10dp"
+                 android:layout_marginTop="2dp"
                  android:background="@drawable/bigbutton"
                  android:text="Select end time" />
 
@@ -108,8 +108,8 @@
 			      android:id="@+id/pickDate"
 			      android:layout_width="wrap_content"
 			      android:layout_height="wrap_content"
-			      android:layout_margin="10dp"
-			      android:layout_marginTop="5dp"
+			    
+			      android:layout_marginTop="2dp"
 			      android:background="@drawable/bigbutton"
 			      android:text="Select date" />
 
