@@ -154,8 +154,8 @@ public class StudySpaceListActivity extends ListActivity {
 
 
 	}
-	
-	
+
+
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) { // click
@@ -204,16 +204,16 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private void getSpaces() {
 		try {
-			
+
 			ss_list.addAll(APIAccessor.getStudySpaces()); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
-			
+
 			Log.i("ARRAY", "" + ss_list.size());
 		} catch (Exception e) {
 			Log.e("BACKGROUND_PROC", "Something went wrong!");
 		}
-		
+
 		runOnUiThread(returnRes);
 	}
 
@@ -229,8 +229,8 @@ public class StudySpaceListActivity extends ListActivity {
 			ss_adapter.allToFav();
 		}
 	}
-	
-   
+
+
 
 	public void onFilterClick(View view){
 		//Start up the search options screen
@@ -239,23 +239,18 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
 	}
 
-	
+
 	@Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
-    	Intent i = new Intent(this, SearchActivity.class);
-		startActivityForResult(i,
-				StudySpaceListActivity.ACTIVITY_SearchActivity);
-        return true;
-    }
-    return super.onKeyDown(keyCode, event);
-    
-    }
-	
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
+			Intent i = new Intent(this, SearchActivity.class);
+			startActivityForResult(i,
+					StudySpaceListActivity.ACTIVITY_SearchActivity);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 
-	
-
-	
 	private class StudySpaceListAdapter extends ArrayAdapter<StudySpace> {
 
 		private ArrayList<StudySpace> list_items;
@@ -346,7 +341,7 @@ public class StudySpaceListActivity extends ListActivity {
 		public void filterSpaces(){
 
 			ArrayList<StudySpace> filtered = (ArrayList<StudySpace>) orig_items.clone();
-			
+
 
 			int i = 0;
 			while(i<filtered.size()){
@@ -370,7 +365,7 @@ public class StudySpaceListActivity extends ListActivity {
 					filtered.remove(i);
 					continue;
 				}
-				
+
 				if(searchOptions.getWhiteboard() && !filtered.get(i).hasWhiteboard()){
 					filtered.remove(i);
 					continue;
@@ -384,11 +379,11 @@ public class StudySpaceListActivity extends ListActivity {
 					continue;
 				}
 				i++;
-				
-				
+
+
 			}
 
-			
+
 			//this.list_items = filtered;
 
 			this.list_items = SpaceInfo.sortByRank(filtered);
@@ -421,32 +416,32 @@ public class StudySpaceListActivity extends ListActivity {
 			Collections.sort(arr);
 			System.out.println("Results havs already been sorted!");
 			if(arr.isEmpty()){
-				
+
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						getContext());
 				// set title
 				alertDialogBuilder.setTitle("No Results Found!");
-	 
+
 				// set dialog message
 				alertDialogBuilder
-					.setMessage("No rooms available with the selected criteria")
-					.setCancelable(false)
-					.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							
-							dialog.cancel();
-						}
-					  });
+				.setMessage("No rooms available with the selected criteria")
+				.setCancelable(false)
+				.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
 
-	 
-					// create alert dialog
-					AlertDialog alertDialog = alertDialogBuilder.create();
-	 
-					// show it
-					alertDialog.show();
+						dialog.cancel();
+					}
+				});
 
-				}
-			
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+			}
+
 			return arr;
 		}
 

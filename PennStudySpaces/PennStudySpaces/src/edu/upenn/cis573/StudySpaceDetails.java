@@ -107,6 +107,7 @@ public class StudySpaceDetails extends FragmentActivity {
 	public void onMapClick(View v){
 		Intent i = new Intent(this, CustomMap.class);
 		i.putExtra("STUDYSPACE", o);
+		i.putExtra("PREFERENCES", p);
 		startActivity(i);
 	}
 	
