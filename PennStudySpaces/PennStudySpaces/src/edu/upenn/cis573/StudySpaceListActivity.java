@@ -390,16 +390,27 @@ public class StudySpaceListActivity extends ListActivity {
 			this.list_items = filterByPeople(list_items);
 			this.list_items = filterByDate(list_items);
 			this.list_items = sortByDistance(list_items);
+			if(SearchActivity.isFNButtonClicked()){
+				System.out.println("Remove Array Method called");
+				this.list_items = findNearest(list_items);
+				SearchActivity.setFNButtonClicked(false);
+			}
 			this.before_search = (ArrayList<StudySpace>) this.list_items.clone();
 
-			//debug output
-			//System.out.println("STUDYLISTLISTLISTLISTLISTLISTLISTLISTLIST");
-			//for(StudySpace temp: this.list_items){
-			//System.out.println(temp.getBuildingName());
-			//}
-			//System.out.println("The current place is: latitude:" + SearchActivity.latitude + "Longitude: " + SearchActivity.longitude);
-
 			notifyDataSetChanged();
+		}
+		
+		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr){
+			
+			ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
+			StudySpace nSpace = arr.get(0);
+			double nDistance = nSpace.getDistance();
+			int index = 1;
+			while(arr.get(index).getDistance() == nDistance){
+				nArr.add(arr.get(index));
+				++ index;
+			}
+			return nArr;
 		}
 
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
@@ -415,6 +426,8 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 			Collections.sort(arr);
 			System.out.println("Results havs already been sorted!");
+		
+			
 			if(arr.isEmpty()){
 
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(

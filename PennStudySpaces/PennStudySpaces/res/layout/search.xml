@@ -18,17 +18,26 @@
    		    android:background="@drawable/btn"
    		    android:onClick="onSearchButtonClick"
    		    android:text="@string/search_button" />
-            
-        <Button
-            android:id="@+id/favoritesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/btn"
-            android:onClick="onFavsButtonClick"
-            android:text="@string/favorites_button" />
+
+   		<Button
+   		    android:id="@+id/findNowButton"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:layout_margin = "5dp"
+   		    android:background = "@drawable/btn"
+   		    android:onClick = "onFindNowButtonClick"
+   		    android:text="Find Now!" />
 
     </TableRow>
+
+   	<Button
+   	    android:id="@+id/favoritesButton"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_margin="5dp"
+   	    android:background="@drawable/btn"
+   	    android:onClick="onFavsButtonClick"
+   	    android:text="@string/favorites_button" />
 
     <TextView
         android:id="@+id/numberOfPeopleTextView"

@@ -53,6 +53,7 @@ public class SearchActivity extends Activity {
 	private TextView mDateDisplay;
 	private Button mPickDate;
 	private SharedPreferences favorites;
+	private static boolean isFNBClicked = false;
 
 	static final int START_TIME_DIALOG_ID = 0;
 	static final int END_TIME_DIALOG_ID = 1;
@@ -582,7 +583,22 @@ public class SearchActivity extends Activity {
 			startActivity(intent);
 		}
 		return super.onKeyDown(keyCode, event);
-	}    
+	}
+	
+	// add this method to search the nearest place
+	public void onFindNowButtonClick(View view){
+		isFNBClicked = true;
+		this.onSearchButtonClick(view);
+		System.out.println("onFindNowButton is clicked!");
+	}
+	
+	public static boolean isFNButtonClicked(){
+		return isFNBClicked;
+	}
+	
+	public static void setFNButtonClicked(boolean isClicked){
+		isFNBClicked = isClicked;
+	}
 
 	//Updates search options then delivers intent
 	public void onSearchButtonClick(View view) {
