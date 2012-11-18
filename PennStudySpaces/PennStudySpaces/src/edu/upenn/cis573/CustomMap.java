@@ -258,7 +258,7 @@ public class CustomMap extends MapActivity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(CustomMap.this);
 					builder.setTitle("Location Information");
 					builder.setMessage(o.getBuildingName() + ": " + o.getSpaceName() + 
-							"\n" + add + "Distance: " + o.getDistance() + " m");
+							"\n" + add + "Distance: " + Math.round(o.getDistance()) + " m");
 					builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							dialog.cancel();
