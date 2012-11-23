@@ -250,6 +250,15 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
+	// detail of the nearest study space
+	public void onFNButtonSelected(ArrayList<StudySpace> arr){
+		Intent i = new Intent(this, StudySpaceDetails.class);
+		i.putExtra("STUDYSPACE", (StudySpace) arr.get(0));
+		i.putExtra("PREFERENCES", preferences);
+		startActivityForResult(i,
+				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
+	}
 
 	private class StudySpaceListAdapter extends ArrayAdapter<StudySpace> {
 
@@ -402,15 +411,21 @@ public class StudySpaceListActivity extends ListActivity {
 		
 		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr){
 			
-			ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
-			StudySpace nSpace = arr.get(0);
-			double nDistance = nSpace.getDistance();
-			int index = 1;
-			while(arr.get(index).getDistance() == nDistance){
-				nArr.add(arr.get(index));
-				++ index;
+			if(arr.size() > 1){
+				ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
+				StudySpace nSpace = arr.get(0);
+				double nDistance = nSpace.getDistance();
+				int index = 1;
+				while(arr.get(index).getDistance() == nDistance){
+					nArr.add(arr.get(index));
+					++ index;
+				}
+				onFNButtonSelected(nArr);
+				return nArr;
+			}else{
+				return arr;
 			}
-			return nArr;
+			
 		}
 
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
