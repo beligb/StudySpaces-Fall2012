@@ -1,6 +1,7 @@
 package edu.upenn.cis573;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import edu.upenn.cis573.R;
 
@@ -106,7 +107,9 @@ public class StudySpaceDetails extends FragmentActivity {
 
 	public void onMapClick(View v){
 		Intent i = new Intent(this, CustomMap.class);
-		i.putExtra("STUDYSPACE", o);
+		ArrayList<StudySpace> olist = new ArrayList<StudySpace>();
+		olist.add(o);
+		i.putExtra("STUDYSPACELIST", olist);
 		i.putExtra("PREFERENCES", p);
 		startActivity(i);
 	}
