@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_margin">-70dp</dimen>
+    <dimen name="top_button_popup_margin">5dp</dimen>
+</resources>
