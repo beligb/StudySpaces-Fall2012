@@ -2,200 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bgrepeat"
+    android:background="@color/lightgrey"
     android:orientation="vertical"
     android:padding="5dip" >
 
-   	<TableRow
-   		android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-   		<Button
-   		    android:id="@+id/searchButton"
-   		    android:layout_width="wrap_content"
-   		    android:layout_height="wrap_content"
-   		    android:layout_margin="5dp"
-   		    android:background="@drawable/btn"
-   		    android:onClick="onSearchButtonClick"
-   		    android:text="@string/search_button" />
-
-   		<Button
-   		    android:id="@+id/findNowButton"
-   		    android:layout_width="wrap_content"
-   		    android:layout_height="wrap_content"
-   		    android:layout_margin = "5dp"
-   		    android:background = "@drawable/btn"
-   		    android:onClick = "onFindNowButtonClick"
-   		    android:text="Find Now!" />
-
-    </TableRow>
-
-   	<Button
-   	    android:id="@+id/favoritesButton"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content"
-   	    android:layout_margin="5dp"
-   	    android:background="@drawable/btn"
-   	    android:onClick="onFavsButtonClick"
-   	    android:text="@string/favorites_button" />
-
-    <TextView
-        android:id="@+id/numberOfPeopleTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black" />
-
-    <SeekBar
-        android:id="@+id/numberOfPeopleSlider"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:max="19"
-        android:progress="1" />
-
-    <TableLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
-
-        <!-- android:stretchColumns="1" -->
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-            
-             <Button
-                 android:id="@+id/pickStartTime"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 
-                 android:layout_marginBottom="2dp"
-                 android:layout_marginTop="2dp"
-                 android:background="@drawable/bigbutton"
-                 android:text="Select start time" />
-
-            <TextView
-                android:id="@+id/startTimeDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black" />
-
-           
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-             <Button
-                 android:id="@+id/pickEndTime"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="2dp"
-                 android:background="@drawable/bigbutton"
-                 android:text="Select end time" />
-
-            <TextView
-                android:id="@+id/endTimeDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black" />
-
-           
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-			  <Button
-			      android:id="@+id/pickDate"
-			      android:layout_width="wrap_content"
-			      android:layout_height="wrap_content"
-			    
-			      android:layout_marginTop="2dp"
-			      android:background="@drawable/bigbutton"
-			      android:text="Select date" />
-
-            <TextView
-                android:id="@+id/dateDisplay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black" />
-
-          
-        </TableRow>
-    </TableLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <CheckBox
-                android:id="@+id/privateCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/private_check_box"
-                android:textColor="@color/black" />
-
-            <CheckBox
-                android:id="@+id/whiteboardCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/whiteboard_check_box"
-                android:textColor="@color/black" />
-
-            <CheckBox
-                android:id="@+id/computerCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/computer_check_box"
-                android:textColor="@color/black" />
-
-            <CheckBox
-                android:id="@+id/projectorCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/projector_check_box"
-                android:textColor="@color/black" />
-        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -203,27 +20,134 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <CheckBox
-                    android:id="@+id/engibox"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:typeface="serif" />
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="10dp"
-                    android:antialias="true"
-                    android:src="@drawable/engiicon" />
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left"
+                    android:text="Search"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:layout_marginTop="5dp"
-                    android:text = "ngineering"
-                    />
+                    android:textSize="30dp" />
+
+                <Button
+                    android:id="@+id/favoritesButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn"
+                    android:onClick="onFavsButtonClick"
+                    android:text="@string/favorites_button" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Room for (no of people):"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:paddingBottom="5dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/numberOfPeopleTextView"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black" />
+
+                <SeekBar
+                    android:id="@+id/numberOfPeopleSlider"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:max="19"
+                    android:progress="1" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Meeting date:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:paddingBottom="5dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/dateDisplay"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black" 
+                    android:layout_gravity="center_vertical"/>
+
+                <Button
+                    android:id="@+id/pickDate"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bigbutton"
+                    android:text="Change" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Meeting time:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:paddingBottom="5dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Start:"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" 
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/startTimeDisplay"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical" />
+
+                <Button
+                    android:id="@+id/pickStartTime"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bigbutton"
+                    android:text="Change" />
             </LinearLayout>
 
             <LinearLayout
@@ -231,27 +155,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <CheckBox
-                    android:id="@+id/whartonbox"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="75dp"
                     android:layout_height="wrap_content"
-                    android:typeface="serif" />
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="10dp"
-                    android:antialias="true"
-                    android:src="@drawable/whartonicon" />
-                <TextView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="End :"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:layout_marginTop="5dp"
-                    android:text = "harton"
-                    />
+                    android:textSize="20dp" 
+                    android:layout_gravity="center_vertical"/>
+
+                <TextView
+                    android:id="@+id/endTimeDisplay"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black" 
+                    android:layout_gravity="center_vertical"/>
+
+                <Button
+                    android:id="@+id/pickEndTime"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/bigbutton"
+                    android:text="Change" />
             </LinearLayout>
 
             <LinearLayout
@@ -259,56 +188,188 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
-                <CheckBox
-                    android:id="@+id/libbox"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:typeface="serif" />
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
 
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="10dp"
-                    android:antialias="true"
-                    android:src="@drawable/libicon" />
-                <TextView 
-                    android:layout_width="wrap_content"
+                    <CheckBox
+                        android:id="@+id/privateCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/private_check_box"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/whiteboardCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/whiteboard_check_box"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/computerCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/computer_check_box"
+                        android:textColor="@color/black" />
+
+                    <CheckBox
+                        android:id="@+id/projectorCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/projector_check_box"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:layout_marginTop="5dp"
-                    android:text = "ibrary"
-                    />
+                    android:layout_weight="1.5"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <CheckBox
+                            android:id="@+id/engibox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:typeface="serif" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginRight="6dip"
+                            android:layout_marginTop="10dp"
+                            android:antialias="true"
+                            android:src="@drawable/engiicon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="ngineering"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <CheckBox
+                            android:id="@+id/whartonbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:typeface="serif" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginRight="6dip"
+                            android:layout_marginTop="10dp"
+                            android:antialias="true"
+                            android:src="@drawable/whartonicon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="harton"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <CheckBox
+                            android:id="@+id/libbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:typeface="serif" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginRight="6dip"
+                            android:layout_marginTop="10dp"
+                            android:antialias="true"
+                            android:src="@drawable/libicon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="ibrary"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <CheckBox
+                            android:id="@+id/otherbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:typeface="serif" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginRight="6dip"
+                            android:layout_marginTop="10dp"
+                            android:antialias="true"
+                            android:src="@drawable/othericon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="thers"
+                            android:textColor="@color/black"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:orientation="horizontal" 
+                android:padding="10dp"
+                android:gravity="center">
 
-                <CheckBox
-                    android:id="@+id/otherbox"
+                <Button
+                    android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:typeface="serif" />
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginRight="6dip"
-                    android:layout_marginTop="10dp"
-                    android:antialias="true"
-                    android:src="@drawable/othericon" />
-                <TextView 
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn"
+                    android:onClick="onSearchButtonClick"
+                    android:text="@string/search_button" />
+
+                <Button
+                    android:id="@+id/findNowButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"
-                    android:layout_marginTop="5dp"
-                    android:text = "thers"
-                    />
-            </LinearLayout>
+                    android:layout_margin="5dp"
+                    android:background="@drawable/btn"
+                    android:onClick="onFindNowButtonClick"
+                    android:text="Find Now!" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
