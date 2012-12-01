@@ -44,9 +44,7 @@ public class CustomMap extends MapActivity {
 	GeoPoint p;
 	GeoPoint q;
 	GeoPoint avg;
-	List<Overlay> mapOverlays;
 	Drawable drawableRed, drawableBlue;
-	PinOverlay pinsBlue;
 	Preferences pref;
 	private ArrayList<StudySpace> olist;
 	
@@ -81,7 +79,6 @@ public class CustomMap extends MapActivity {
 
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
-			pinsBlue = new PinOverlay(drawableBlue, null);
 
 
 			double avgLong = 0;
@@ -126,10 +123,9 @@ public class CustomMap extends MapActivity {
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
 
 				OverlayItem overlayitem = new OverlayItem(q, "", "");
-				pinsBlue.addOverlay(overlayitem);
-
-				mapOverlays = mapView.getOverlays();
-				mapOverlays.add(pinsBlue);
+				PinOverlay pinsBlue = new PinOverlay(drawableBlue);
+				pinsBlue.addOverlay(overlayitem, null);
+				mapView.getOverlays().add(pinsBlue);
 			}
 
 			/*
@@ -137,21 +133,19 @@ public class CustomMap extends MapActivity {
 			 * listOfOverlays = mapView.getOverlays(); listOfOverlays.clear();
 			 * listOfOverlays.add(mapOverlay);
 			 */
+			PinOverlay pinsRed = new PinOverlay(drawableRed);
 			for (StudySpace o: olist) {
-				PinOverlay pinsRed = new PinOverlay(drawableRed, o);
-	
 				double longitude = o.getSpaceLongitude();
 				double latitude = o.getSpaceLatitude();
 	
 				p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
 				OverlayItem overlayitem = new OverlayItem(p, "", "");
-				pinsRed.addOverlay(overlayitem);
+				pinsRed.addOverlay(overlayitem, o);
 	
-				mapOverlays = mapView.getOverlays();
-				mapOverlays.add(pinsRed);
 				avgLong += longitude;
 				avgLat += latitude;
 			}
+			mapView.getOverlays().add(pinsRed);
 
 			avgLong /= olist.size() + 1;
 			avgLat /= olist.size() + 1;
@@ -190,15 +184,15 @@ public class CustomMap extends MapActivity {
 	public class PinOverlay extends ItemizedOverlay<OverlayItem>{
 
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-		private StudySpace space;
+		private ArrayList<StudySpace> mSpaces = new ArrayList<StudySpace>();
 		
-		public PinOverlay(Drawable defaultMarker, StudySpace studySpace) {
+		public PinOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));
-			space = studySpace;
 		}
 
-		public void addOverlay(OverlayItem overlay) {
+		public void addOverlay(OverlayItem overlay, StudySpace space) {
 			mOverlays.add(overlay);
+			mSpaces.add(space);
 			populate();
 		}
 
@@ -216,66 +210,44 @@ public class CustomMap extends MapActivity {
 		@Override
 		protected boolean onTap(int index) {
 			//called when an item is tapped
-
-			return true;
-		}
-
-		@Override
-		public boolean onTap (final GeoPoint p, final MapView mapV) {
+			OverlayItem item = mOverlays.get(index);
+			StudySpace space = mSpaces.get(index);
 			if (space == null)
 				return true;
-			boolean tapped = super.onTap(p, mapView);
-			if (tapped){            
-				//do what you want to do when you hit an item    
-				//GeoPoint p = mOverlays.get(index).getPoint();
+			Geocoder geoCoder = new Geocoder(
+					getBaseContext(), Locale.getDefault());
+			try {
+				List<Address> addresses = geoCoder.getFromLocation(
+						space.getSpaceLatitude(), space.getSpaceLongitude(), 1); 
 
-				//boolean tapped = super.onTap(p, mapV);
-				/* if(!tapped){            
-			        //you can use this to check for other taps on the custom elements you are drawing
-			    	LayoutInflater inflater = (LayoutInflater)mapV.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			    	View popUp = inflater.inflate(R.layout.map_popup, mapV, false);
-			    	MapView.LayoutParams mapParams = new MapView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 
-		                    ViewGroup.LayoutParams.WRAP_CONTENT, p, 0, 0, MapView.LayoutParams.BOTTOM_CENTER);
-			    	mapV.addView(popUp, mapParams);
-			    	mapV.invalidate();
-			    }*/
-
-				Geocoder geoCoder = new Geocoder(
-						getBaseContext(), Locale.getDefault());
-				try {
-					List<Address> addresses = geoCoder.getFromLocation(
-							p.getLatitudeE6()  / 1E6, 
-							p.getLongitudeE6() / 1E6, 1);
-
-					String add = "";
-					if (addresses.size() > 0) 
-					{
-						for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
-								i++)
-							add += addresses.get(0).getAddressLine(i) + "\n";
-					}
-	
-					AlertDialog.Builder builder = new AlertDialog.Builder(CustomMap.this);
-					builder.setTitle("Location Information");
-					builder.setMessage(space.getBuildingName() + ": " + space.getSpaceName() + 
-							"\n" + add + "Distance: " + Math.round(space.getDistance()) + " m");
-					builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.cancel();
-						}
-					});
-					builder.setNegativeButton("Info", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							finish();			
-						}
-					});
-					AlertDialog alert = builder.create();
-					alert.show();
-
+				String add = "";
+				if (addresses.size() > 0) 
+				{
+					for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
+							i++)
+						add += addresses.get(0).getAddressLine(i) + "\n";
 				}
-				catch (IOException e) {                
-					e.printStackTrace();
-				}   
+
+				AlertDialog.Builder builder = new AlertDialog.Builder(CustomMap.this);
+				builder.setTitle("Location Information");
+				builder.setMessage(space.getBuildingName() + ": " + space.getSpaceName() + 
+						"\n" + add + "Distance: " + Math.round(space.getDistance()) + " m");
+				builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				builder.setNegativeButton("Return", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						finish();			
+					}
+				});
+				AlertDialog alert = builder.create();
+				alert.show();
+
+			}
+			catch (IOException e) {                
+				e.printStackTrace();
 			}   
 			return true;
 		}

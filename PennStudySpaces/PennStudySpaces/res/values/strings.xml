@@ -24,4 +24,5 @@
     <string name="add_text">Notify friends</string>
     <string name="favorites_button">Favorites</string>
     <string name="mapviewbtn">MapView</string>
+    <string name="mapview_button">MapView</string>
 </resources>
