@@ -7,6 +7,9 @@
     <color name="yellow">#FBF6B2</color>
     <color name="lightgreen">#3EBD58</color>
     <color name="red">#E64545</color>
-    <color name="lightgrey">#EEF</color>
+    <color name="lightgrey">#DBDBDD</color>
+    <color name = "darkblue">#020068</color>
+    <color name = "dullblue">#447799</color>
+    <color name = "brown">#7B4103</color>
     
 </resources>

@@ -12,16 +12,15 @@
         android:antialias="true"
         android:scaleType="fitCenter"
         android:src="@drawable/upenn_logo" />
-
-    <TextView
-        android:layout_width="fill_parent"
+    
+    <ImageView 
+         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/top_margin"
         android:gravity="center"
-        android:text="Study Spaces"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black"
-        android:textColorLink="@color/darkgrey"
-        android:textSize="30dp" />
+        android:src="@drawable/studyspaces"
+        />
+
+    
 
 </LinearLayout>

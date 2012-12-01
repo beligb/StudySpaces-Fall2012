@@ -14,41 +14,56 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
 
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    
+                    android:antialias="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search1" />
+                
+                <ImageView
+                    android:layout_width="95dp"
+                    android:layout_height="match_parent"
+                   
+                    android:antialias="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/search" />
+                
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="left"
-                    android:text="Search"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent" />
 
                 <Button
                     android:id="@+id/favoritesButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                 
                     android:layout_margin="5dp"
-                    android:background="@drawable/btn"
+                    android:background="@drawable/favoritesbutton"
                     android:onClick="onFavsButtonClick"
-                    android:text="@string/favorites_button" />
+             />
+
             </LinearLayout>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:gravity="left"
+                android:paddingBottom="5dp"
                 android:text="Room for (no of people):"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
+                android:textColor="@color/brown"
                 android:textSize="25dp"
-                android:paddingBottom="5dp" />
+                />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -68,6 +83,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
                     android:max="19"
                     android:progress="1" />
             </LinearLayout>
@@ -75,12 +91,14 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:gravity="left"
+                android:paddingBottom="5dp"
                 android:text="Meeting date:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
+                android:textColor="@color/brown"
                 android:textSize="25dp"
-                android:paddingBottom="5dp" />
+                 />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -91,10 +109,10 @@
                     android:id="@+id/dateDisplay"
                     android:layout_width="230dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" 
-                    android:layout_gravity="center_vertical"/>
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/pickDate"
@@ -102,19 +120,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/bigbutton"
-                    android:text="Change" />
+                    android:background="@drawable/edit"
+                    
+                    />
             </LinearLayout>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:paddingBottom="5dp"
                 android:text="Meeting time:"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/black"
+                android:textColor="@color/brown"
                 android:textSize="25dp"
-                android:paddingBottom="5dp" />
+                 />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -124,21 +144,21 @@
                 <TextView
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:gravity="left"
                     android:text="Start:"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
-                    android:textSize="20dp" 
-                    android:layout_gravity="center_vertical"/>
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/startTimeDisplay"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/pickStartTime"
@@ -146,8 +166,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/bigbutton"
-                    android:text="Change" />
+                    android:background="@drawable/edit"
+                     />
             </LinearLayout>
 
             <LinearLayout
@@ -158,29 +178,29 @@
                 <TextView
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:gravity="left"
                     android:text="End :"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
-                    android:textSize="20dp" 
-                    android:layout_gravity="center_vertical"/>
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/endTimeDisplay"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" 
-                    android:layout_gravity="center_vertical"/>
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/pickEndTime"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/bigbutton"
-                    android:text="Change" />
+                    android:background="@drawable/edit"
+                       />
             </LinearLayout>
 
             <LinearLayout
@@ -347,27 +367,27 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" 
-                android:padding="10dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp" >
 
                 <Button
                     android:id="@+id/searchButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/btn"
+                    android:background="@drawable/s2"
                     android:onClick="onSearchButtonClick"
-                    android:text="@string/search_button" />
+                     />
 
                 <Button
                     android:id="@+id/findNowButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/btn"
+                    android:background="@drawable/findnow"
                     android:onClick="onFindNowButtonClick"
-                    android:text="Find Now!" />
+                     />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
