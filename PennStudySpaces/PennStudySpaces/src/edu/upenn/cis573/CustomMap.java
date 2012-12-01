@@ -46,9 +46,9 @@ public class CustomMap extends MapActivity {
 	GeoPoint avg;
 	List<Overlay> mapOverlays;
 	Drawable drawableRed, drawableBlue;
-	PinOverlay pinsRed, pinsBlue;
-	StudySpace o;
+	PinOverlay pinsBlue;
 	Preferences pref;
+	private ArrayList<StudySpace> olist;
 	
 	Boolean isInternetPresent = false;
 
@@ -60,8 +60,8 @@ public class CustomMap extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Intent i = super.getIntent();
-		o = (StudySpace) i.getSerializableExtra("STUDYSPACE");
 		pref = (Preferences) i.getSerializableExtra("PREFERENCES");
+		olist = (ArrayList<StudySpace>) i.getSerializableExtra("STUDYSPACELIST");
 
 		cd = new ConnectionDetector(getApplicationContext());
 
@@ -81,17 +81,11 @@ public class CustomMap extends MapActivity {
 
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
-			pinsBlue = new PinOverlay(drawableBlue);
-			pinsRed = new PinOverlay(drawableRed);
+			pinsBlue = new PinOverlay(drawableBlue, null);
 
-			mc = mapView.getController();
 
-			double longitude = o.getSpaceLongitude();
-			double latitude = o.getSpaceLatitude();
-			double avgLong = longitude;
-			double avgLat = latitude;
-
-			p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+			double avgLong = 0;
+			double avgLat = 0;
 
 			LocationManager locationManager = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
@@ -127,9 +121,7 @@ public class CustomMap extends MapActivity {
 				double gpsLong = location.getLongitude();
 
 				avgLat += gpsLat;
-				avgLat /= 2.0;
 				avgLong += gpsLong;
-				avgLong /= 2.0;
 
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
 
@@ -138,11 +130,6 @@ public class CustomMap extends MapActivity {
 
 				mapOverlays = mapView.getOverlays();
 				mapOverlays.add(pinsBlue);
-
-				//my test code
-
-				float results[] = new float[3];
-				Location.distanceBetween(latitude, longitude, gpsLat, gpsLong, results);
 			}
 
 			/*
@@ -150,15 +137,27 @@ public class CustomMap extends MapActivity {
 			 * listOfOverlays = mapView.getOverlays(); listOfOverlays.clear();
 			 * listOfOverlays.add(mapOverlay);
 			 */
+			for (StudySpace o: olist) {
+				PinOverlay pinsRed = new PinOverlay(drawableRed, o);
+	
+				double longitude = o.getSpaceLongitude();
+				double latitude = o.getSpaceLatitude();
+	
+				p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+				OverlayItem overlayitem = new OverlayItem(p, "", "");
+				pinsRed.addOverlay(overlayitem);
+	
+				mapOverlays = mapView.getOverlays();
+				mapOverlays.add(pinsRed);
+				avgLong += longitude;
+				avgLat += latitude;
+			}
 
-			OverlayItem overlayitem = new OverlayItem(p, "", "");
-			pinsRed.addOverlay(overlayitem);
-
-			mapOverlays = mapView.getOverlays();
-			mapOverlays.add(pinsRed);
-
+			avgLong /= olist.size() + 1;
+			avgLat /= olist.size() + 1;
 			avg = new GeoPoint((int) (avgLat * 1E6), (int) (avgLong * 1E6));
 
+			mc = mapView.getController();
 			mc.animateTo(avg);
 			mc.setZoom(17);
 		} else {
@@ -191,11 +190,11 @@ public class CustomMap extends MapActivity {
 	public class PinOverlay extends ItemizedOverlay<OverlayItem>{
 
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
-		private Drawable marker;
-
-		public PinOverlay(Drawable defaultMarker) {
+		private StudySpace space;
+		
+		public PinOverlay(Drawable defaultMarker, StudySpace studySpace) {
 			super(boundCenterBottom(defaultMarker));
-			marker = defaultMarker;
+			space = studySpace;
 		}
 
 		public void addOverlay(OverlayItem overlay) {
@@ -223,7 +222,8 @@ public class CustomMap extends MapActivity {
 
 		@Override
 		public boolean onTap (final GeoPoint p, final MapView mapV) {
-
+			if (space == null)
+				return true;
 			boolean tapped = super.onTap(p, mapView);
 			if (tapped){            
 				//do what you want to do when you hit an item    
@@ -257,8 +257,8 @@ public class CustomMap extends MapActivity {
 	
 					AlertDialog.Builder builder = new AlertDialog.Builder(CustomMap.this);
 					builder.setTitle("Location Information");
-					builder.setMessage(o.getBuildingName() + ": " + o.getSpaceName() + 
-							"\n" + add + "Distance: " + Math.round(o.getDistance()) + " m");
+					builder.setMessage(space.getBuildingName() + ": " + space.getSpaceName() + 
+							"\n" + add + "Distance: " + Math.round(space.getDistance()) + " m");
 					builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							dialog.cancel();
@@ -280,35 +280,6 @@ public class CustomMap extends MapActivity {
 			return true;
 		}
 
-
-
-
-		@Override
-		public void draw(Canvas canvas, MapView mapView, boolean shadow){
-			/*if(!shadow) 
-		    // if you have a custom image you may not want the shadow to be drawn
-		        super.draw(canvas,mapV,shadow);
-		    if(selected != null) { 
-		    // selected just means that something was clicked
-		    // it isn't defined in this example
-		    Projection projection = mapV.getProjection();
-		    Point drawPoint = projection.toPixels(selected.getPoint(), null);
-		        //get coordinates so you can do your drawing code afterward
-		    }
-			 */
-			super.draw(canvas, mapView, shadow);                   
-
-			//---translate the GeoPoint to screen pixels---
-			//	         Point screenPts = new Point();
-			//	         for(int i = 0; i<mOverlays.size(); i++){
-			//	        	 mapView.getProjection().toPixels(mOverlays.get(i).getPoint(), screenPts);
-
-			//---add the marker---
-			//	        	 Bitmap bmp = ((BitmapDrawable)marker).getBitmap();
-			//Positions the image
-			//	         canvas.drawBitmap(bmp, screenPts.x-10, screenPts.y-34, null);  
-			//	         }
-		}
 	}
 
 

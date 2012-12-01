@@ -218,6 +218,7 @@ public class StudySpaceListActivity extends ListActivity {
 	}
 
 	public void onFavClick(View v){
+		Log.d("fav", "FavClick");
 		ImageView image = (ImageView) this.findViewById(R.id.favorite_button);
 		if(favSelected) {
 			favSelected = false;
@@ -239,6 +240,13 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
 	}
 
+	public void onMapViewClick(View view){
+		//Start up the search options screen
+		Log.d("MapView", "Clicked");
+		Intent i = new Intent(this, CustomMap.class);
+		i.putExtra("STUDYSPACELIST", this.ss_adapter.list_items);
+		startActivity(i);
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -395,16 +403,23 @@ public class StudySpaceListActivity extends ListActivity {
 
 			//this.list_items = filtered;
 
+//			System.out.println("orig items size = " + orig_items.size());
+//			System.out.println("filtered items size = " + filtered.size());
 			this.list_items = SpaceInfo.sortByRank(filtered);
+//			System.out.println("list_items sortByRank size = " + list_items.size());
 			this.list_items = filterByPeople(list_items);
-			this.list_items = filterByDate(list_items);
+//			System.out.println("list_items filterByPeople size = " + list_items.size());
+//			this.list_items = filterByDate(list_items);
+//			System.out.println("list_items filterByDate size = " + list_items.size());
 			this.list_items = sortByDistance(list_items);
+//			System.out.println("list_items sortByDistance size = " + list_items.size());
 			if(SearchActivity.isFNButtonClicked()){
 				System.out.println("Remove Array Method called");
 				this.list_items = findNearest(list_items);
 				SearchActivity.setFNButtonClicked(false);
 			}
 			this.before_search = (ArrayList<StudySpace>) this.list_items.clone();
+			System.out.println("before search size = " + before_search.size());
 
 			notifyDataSetChanged();
 		}
