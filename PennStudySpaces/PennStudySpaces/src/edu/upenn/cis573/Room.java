@@ -42,9 +42,7 @@ public class Room implements Serializable{
 		int day1 = d1.getDate();
 		int day2 = d2.getDate();
 		String m1 = "";
-		String m2 = "";
 		String da1 = "";
-		String da2 = "";
 		if(year1 == year2) {
 			if(month1 < 10) {
 				m1 = "0" + month1;
@@ -53,10 +51,8 @@ public class Room implements Serializable{
 				m1 = "" + month1;
 			}
 			if(month2 < 10) {
-				m2 = "0" + month2;
 			}
 			else {
-				m2 = "" + month2;
 			}
 			if(day1 < 10) {
 				da1 = "0" + day1;
@@ -65,10 +61,8 @@ public class Room implements Serializable{
 				da1 = "" + day1;
 			}
 			if(day2 < 10) {
-				da2 = "0" + day2;
 			}
 			else {
-				da2 = "" + day2;
 			}
 			String date = year1 + "-" + m1 + "-" + da1;
 			int h1 = d1.getHours();

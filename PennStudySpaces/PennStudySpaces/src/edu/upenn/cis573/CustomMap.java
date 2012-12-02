@@ -10,7 +10,6 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
 //import edu.upenn.cis573.R;
@@ -20,10 +19,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
@@ -32,9 +27,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class CustomMap extends MapActivity {
 
@@ -54,6 +47,7 @@ public class CustomMap extends MapActivity {
 	ConnectionDetector cd;
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,9 +74,8 @@ public class CustomMap extends MapActivity {
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
 
-
-			double avgLong = 0;
-			double avgLat = 0;
+//			double avgLong = 0;
+//			double avgLat = 0;
 
 			LocationManager locationManager = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
@@ -117,8 +110,8 @@ public class CustomMap extends MapActivity {
 				double gpsLat = location.getLatitude();
 				double gpsLong = location.getLongitude();
 
-				avgLat += gpsLat;
-				avgLong += gpsLong;
+//				avgLat += gpsLat;
+//				avgLong += gpsLong;
 
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
 
@@ -142,17 +135,17 @@ public class CustomMap extends MapActivity {
 				OverlayItem overlayitem = new OverlayItem(p, "", "");
 				pinsRed.addOverlay(overlayitem, o);
 	
-				avgLong += longitude;
-				avgLat += latitude;
+//				avgLong += longitude;
+//				avgLat += latitude;
 			}
 			mapView.getOverlays().add(pinsRed);
 
-			avgLong /= olist.size() + 1;
-			avgLat /= olist.size() + 1;
-			avg = new GeoPoint((int) (avgLat * 1E6), (int) (avgLong * 1E6));
+//			avgLong /= olist.size() + 1;
+//			avgLat /= olist.size() + 1;
+//			avg = new GeoPoint((int) (avgLat * 1E6), (int) (avgLong * 1E6));
 
 			mc = mapView.getController();
-			mc.animateTo(avg);
+			mc.animateTo(pinsRed.getCenter());
 			mc.setZoom(17);
 		} else {
 			// Internet connection is not present
@@ -209,8 +202,6 @@ public class CustomMap extends MapActivity {
 
 		@Override
 		protected boolean onTap(int index) {
-			//called when an item is tapped
-			OverlayItem item = mOverlays.get(index);
 			final StudySpace space = mSpaces.get(index);
 			final Preferences preference = pref;
 			

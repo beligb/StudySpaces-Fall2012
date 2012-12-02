@@ -8,6 +8,8 @@ import android.os.Parcelable;
 
 public class SearchOptions implements Serializable, Parcelable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private int numberOfPeople = 0;
 	
 	private int startHour;

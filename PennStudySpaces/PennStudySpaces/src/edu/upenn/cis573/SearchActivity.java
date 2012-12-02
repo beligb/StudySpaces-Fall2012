@@ -6,8 +6,6 @@ import edu.upenn.cis573.R;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +24,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.Criteria;
 import android.location.LocationManager;
 
@@ -69,8 +66,6 @@ public class SearchActivity extends Activity {
 	//revise the program
 	protected LocationManager locationManager;
 	private String provider;
-	private LocationListener locationListener;
-
 	public static double latitude = 0;
 	public static double longitude = 0;
 
@@ -78,8 +73,6 @@ public class SearchActivity extends Activity {
 
 	// Connection detector class
 	ConnectionDetector cd;
-	private ProgressDialog ss_ProgressDialog = null;
-
 	/** Called when the activity is first created. */
 
 	protected void showCurrentLocation() {
@@ -479,12 +472,12 @@ public class SearchActivity extends Activity {
 		}
 	};
 
-	private DatePicker.OnDateChangedListener mNullDateChangedListener =
-			new DatePicker.OnDateChangedListener() {
-		public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-			// Do nothing.
-		}
-	}; 
+//	private DatePicker.OnDateChangedListener mNullDateChangedListener =
+//			new DatePicker.OnDateChangedListener() {
+//		public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//			// Do nothing.
+//		}
+//	}; 
 
 	private Button.OnClickListener mStartTimeOKListener = 
 			new OnClickListener() {

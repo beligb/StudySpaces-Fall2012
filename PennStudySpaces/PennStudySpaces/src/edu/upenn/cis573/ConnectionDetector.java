@@ -39,7 +39,8 @@ public class ConnectionDetector {
  * @param status - success/failure (used to set icon)
  * */
 public void showAlertDialog(Context context, String title, String message, Boolean status) {
-    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+	AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    AlertDialog alertDialog = builder.create();
 
     // Setting Dialog Title
     alertDialog.setTitle(title);
@@ -51,7 +52,7 @@ public void showAlertDialog(Context context, String title, String message, Boole
     //alertDialog.setIcon((status) ? R.drawable.success : R.drawable.fail);
 
     // Setting OK Button
-    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
         }
     });

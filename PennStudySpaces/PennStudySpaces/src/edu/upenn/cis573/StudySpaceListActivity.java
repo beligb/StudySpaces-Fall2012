@@ -1,14 +1,15 @@
 package edu.upenn.cis573;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Collections;
 
 import edu.upenn.cis573.R;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -39,7 +40,6 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
 	private ArrayList<StudySpace> ss_list = null; // List containing available
-	private AlertDialog alert = null;
 	// rooms
 	private StudySpaceListAdapter ss_adapter; // Adapter to format list items
 	private Runnable viewAvailableSpaces; // runnable to get available spaces
@@ -355,6 +355,7 @@ public class StudySpaceListActivity extends ListActivity {
 			return list_items.get(position);
 		}
 
+		@SuppressWarnings("unchecked")
 		public void filterSpaces(){
 
 			ArrayList<StudySpace> filtered = (ArrayList<StudySpace>) orig_items.clone();
@@ -488,6 +489,7 @@ public class StudySpaceListActivity extends ListActivity {
 			return arr;
 		}
 
+		@SuppressWarnings("unchecked")
 		public void searchNames(String query){
 			query = query.toLowerCase();
 			this.list_items = (ArrayList<StudySpace>) this.before_search.clone();
