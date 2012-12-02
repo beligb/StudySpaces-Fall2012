@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -78,8 +79,14 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 
 		viewAvailableSpaces = new Runnable() {
+			private volatile Looper mMyLooper;
 			public void run() {
+				Looper.prepare();
 				getSpaces(); // retrieves list of study spaces
+				mMyLooper = Looper.myLooper();
+				//Looper.loop();
+				mMyLooper.quit();
+				
 			}
 		};
 		Thread thread = new Thread(null, viewAvailableSpaces, "ThreadName"); // change
@@ -206,13 +213,14 @@ public class StudySpaceListActivity extends ListActivity {
 		try {
 
 			System.out.println("Calling the getSpace method!");
-			//APIAccessor aa = APIAccessor.getAPIAccessor();
-			ss_list.addAll(APIAccessor.getStudySpaces()); // uncomment this
+			APIAccessor aa = APIAccessor.getAPIAccessor();
+			ArrayList<StudySpace> test = aa.getStudySpaces();
+			ss_list.addAll(test); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
-
 			Log.i("ARRAY", "" + ss_list.size());
 		} catch (Exception e) {
+			
 			Log.e("BACKGROUND_PROC", "Something went wrong!");
 		}
 

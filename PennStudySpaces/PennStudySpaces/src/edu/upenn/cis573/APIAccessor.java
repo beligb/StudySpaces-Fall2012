@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import org.json.*;
 
 import android.app.*;
+import android.content.Context;
+import android.os.Bundle;
 
 public class APIAccessor extends Activity{
 	
@@ -20,25 +22,38 @@ public class APIAccessor extends Activity{
 	}
 	
 	private APIAccessor(){
-		
+		super();
 	}
 	
-	public static ArrayList<StudySpace> getStudySpaces() throws Exception {
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+	}
+	
+	public ArrayList<StudySpace> getStudySpaces() throws Exception {
 		
 		
 		System.out.println("Call the APIAccessor Method!");
-	//	File file = new File(this.getCacheDir(),"studyCache.txt");
+		try{
+			Context context = getApplicationContext();
+			context.getCacheDir();
+		}catch(Exception ex){
+			System.out.println("Cannot get the cache directory");
+		}
+		File file = new File(this.getCacheDir(),"studyCache.txt");
 		
 		BufferedReader reader = null;
 		String line = null;
 		
 		//first look at the cache,if not exists, then download from internet
 		
-		/*if(file.exists()){
+		if(file.exists()){
+			System.out.println("File Exsitss!");
 			FileReader fr = new FileReader(file);
 			reader = new BufferedReader(fr);
 			line = reader.readLine();
-		}else{*/
+		}else{
+			System.out.println("Downloading the file!");
 			String _url = "http://www.pennstudyspaces.com/api?showall=1&format=json";
 			
 			reader = new BufferedReader(new InputStreamReader(new URL(_url).openStream()));
@@ -46,15 +61,15 @@ public class APIAccessor extends Activity{
 			//save the result
 		
 			line = reader.readLine();
-		/*	try{
+			try{
 				FileWriter fw = new FileWriter(file);
 				BufferedWriter bw = new BufferedWriter(fw);
 				bw.write(line);
 				bw.close();
 			}catch(Exception ex){
 				System.out.println("Cannot write to the cache");
-			}*/
-	//	}
+			}
+		}
 		
 		
 		JSONObject json_obj = new JSONObject(line);
