@@ -5,15 +5,15 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/anchal/android-sdk-macosx/platforms/android-16/android.jar">
+	<classpathentry combineaccessrules="false" kind="src" path="/edu.upenn.cis573.SplashScreen"/>
+	<classpathentry kind="lib" path="libs/robotium-solo-3.6.jar"/>
+	<classpathentry kind="lib" path="D:/Program Files/Android/android-sdk/platforms/android-16/android.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/anchal/android-sdk-macosx/docs/reference"/>
+			<attribute name="javadoc_location" value="file:/D:/Program Files/Android/android-sdk/docs/reference"/>
 		</attributes>
 		<accessrules>
 			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/edu.upenn.cis573.SplashScreen"/>
-	<classpathentry kind="lib" path="libs/robotium-solo-3.6.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
