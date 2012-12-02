@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/lightgrey"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="5dip" >
 
@@ -21,35 +21,28 @@
                 android:orientation="horizontal" >
 
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    
-                    android:antialias="true"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/search1" />
+                
                 
                 <ImageView
-                    android:layout_width="95dp"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
                    
                     android:antialias="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/search" />
+                    android:src="@drawable/searchnew" />
                 
                 <TextView
-                    android:layout_width="120dp"
+                    android:layout_width="90dp"
                     android:layout_height="match_parent" />
-
+
                 <Button
                     android:id="@+id/favoritesButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                 
                     android:layout_margin="5dp"
                     android:background="@drawable/favoritesbutton"
-                    android:onClick="onFavsButtonClick"
-             />
+                    android:onClick="onFavsButtonClick" 
+                    />
 
             </LinearLayout>
 
@@ -113,16 +106,16 @@
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black" />
-
+
                 <Button
                     android:id="@+id/pickDate"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/edit"
-                    
-                    />
+                    android:background="@drawable/fbutton"
+                    android:text="@string/Edit" />
+
             </LinearLayout>
 
             <TextView
@@ -159,15 +152,16 @@
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black" />
-
+
                 <Button
                     android:id="@+id/pickStartTime"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/edit"
-                     />
+                    android:background="@drawable/fbutton"
+                    android:text="@string/Edit" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -193,14 +187,15 @@
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black" />
-
+
                 <Button
                     android:id="@+id/pickEndTime"
                     android:layout_width="75dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:background="@drawable/edit"
-                       />
+                    android:background="@drawable/fbutton"
+                    android:text="@string/Edit" />
+
             </LinearLayout>
 
             <LinearLayout

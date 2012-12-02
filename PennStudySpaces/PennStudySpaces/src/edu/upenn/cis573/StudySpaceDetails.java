@@ -3,7 +3,7 @@ package edu.upenn.cis573;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import edu.upenn.cis573.R;
+//import edu.upenn.cis573.R;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

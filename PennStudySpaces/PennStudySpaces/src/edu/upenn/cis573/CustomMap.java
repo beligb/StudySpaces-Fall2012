@@ -13,7 +13,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-import edu.upenn.cis573.R;
+//import edu.upenn.cis573.R;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;

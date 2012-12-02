@@ -1,9 +1,10 @@
 package edu.upenn.cis573.test;
 
 import org.junit.Before;
-import edu.upenn.cis573.StudySpaceListActivity;
 
 import android.test.ActivityInstrumentationTestCase2;
+
+import edu.upenn.cis573.StudySpaceListActivity;
 
 public class StudySpaceListActivityTest extends
 		ActivityInstrumentationTestCase2<StudySpaceListActivity> {
