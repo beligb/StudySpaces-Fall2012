@@ -36,6 +36,9 @@ public class TabDetails extends Fragment {
 		Intent i = getActivity().getIntent();
 		o = (StudySpace) i.getSerializableExtra("STUDYSPACE");
 		p = (Preferences) i.getSerializableExtra("PREFERENCES");
+		if(p == null) {
+			p = new Preferences();
+		}
 		
 		TextView tt = (TextView) getView().findViewById(R.id.spacename);
 		tt.setText(o.getBuildingName());

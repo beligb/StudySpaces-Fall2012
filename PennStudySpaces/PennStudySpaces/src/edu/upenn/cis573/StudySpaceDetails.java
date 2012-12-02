@@ -41,6 +41,9 @@ public class StudySpaceDetails extends FragmentActivity {
 		Intent i = getIntent();
 		o = (StudySpace) i.getSerializableExtra("STUDYSPACE");
 		p = (Preferences) i.getSerializableExtra("PREFERENCES");
+		if(p == null) {
+			p = new Preferences();
+		}
 
 		tabfoursquare = new TabFoursquare();
 		tabdetails = new TabDetails();

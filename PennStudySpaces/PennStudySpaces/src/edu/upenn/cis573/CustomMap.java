@@ -211,7 +211,9 @@ public class CustomMap extends MapActivity {
 		protected boolean onTap(int index) {
 			//called when an item is tapped
 			OverlayItem item = mOverlays.get(index);
-			StudySpace space = mSpaces.get(index);
+			final StudySpace space = mSpaces.get(index);
+			final Preferences preference = pref;
+			
 			if (space == null)
 				return true;
 			Geocoder geoCoder = new Geocoder(
@@ -237,9 +239,12 @@ public class CustomMap extends MapActivity {
 						dialog.cancel();
 					}
 				});
-				builder.setNegativeButton("Return", new DialogInterface.OnClickListener() {
+				builder.setNegativeButton("Info", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						finish();			
+						Intent i = new Intent(getApplicationContext(), StudySpaceDetails.class);
+						i.putExtra("STUDYSPACE", space);
+						i.putExtra("PREFERENCES", preference);
+						startActivity(i);		
 					}
 				});
 				AlertDialog alert = builder.create();
