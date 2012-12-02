@@ -4,11 +4,14 @@ import java.util.Calendar;
 
 import edu.upenn.cis573.R;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +26,7 @@ public class TabDetails extends Fragment {
 	private Preferences p;
 	private View fav;
 	private View unfav;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -39,13 +42,13 @@ public class TabDetails extends Fragment {
 		if(p == null) {
 			p = new Preferences();
 		}
-		
+
 		TextView tt = (TextView) getView().findViewById(R.id.spacename);
 		tt.setText(o.getBuildingName());
-		
+
 		TextView rt = (TextView) getView().findViewById(R.id.roomtype);
 		rt.setText(o.getSpaceName());
-		
+
 		TextView rn = (TextView) getView().findViewById(R.id.roomnumbers);
 		/*Room[] rooms = o.getRooms();
 		String room_string="";
@@ -53,28 +56,28 @@ public class TabDetails extends Fragment {
 				room_string += rooms[j].getRoomName()+" ";
 		}*/
 		rn.setText(o.getRoomNames());
-		
+
 		TextView mo = (TextView) getView().findViewById(R.id.maxoccupancy);
 		mo.setText("Maximum occupancy: "+o.getMaximumOccupancy());
-		
+
 		TextView pi = (TextView) getView().findViewById(R.id.privacy);
 		ImageView private_icon = (ImageView) getView().findViewById(R.id.private_icon);
 		if(o.getPrivacy().equals("S")){
 			pi.setText("This study space is a common Space");
 			if(private_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_no_private", "drawable", getActivity().getPackageName() );
-			 		   private_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_no_private", "drawable", getActivity().getPackageName() );
+				private_icon.setImageResource(resID);
 			}
 		}else{
 			pi.setText("Private space");
 			if(private_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_private", "drawable", getActivity().getPackageName() );
-			 		   private_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_private", "drawable", getActivity().getPackageName() );
+				private_icon.setImageResource(resID);
 			}
 		}
-		
+
 		TextView res = (TextView) getView().findViewById(R.id.reservetype);
 		View calLayout = getView().findViewById(R.id.addCal);
 		View resLayout = getView().findViewById(R.id.reserve);
@@ -91,61 +94,61 @@ public class TabDetails extends Fragment {
 		ImageView wb_icon = (ImageView) getView().findViewById(R.id.whiteboard_icon);
 		if(o.hasWhiteboard()){
 			if(wb_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_whiteboard", "drawable", getActivity().getPackageName() );
-			 		   wb_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_whiteboard", "drawable", getActivity().getPackageName() );
+				wb_icon.setImageResource(resID);
 			}
 			wb.setText("This study space has a whiteboard.");
 		}else{
 			wb.setText("This study space does not have a whiteboard.");
 			if(wb_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_no_whiteboard", "drawable", getActivity().getPackageName() );
-			 		   wb_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_no_whiteboard", "drawable", getActivity().getPackageName() );
+				wb_icon.setImageResource(resID);
 			}
 		}
-		
+
 		TextView com = (TextView) getView().findViewById(R.id.computer);
 		ImageView com_icon = (ImageView) getView().findViewById(R.id.computer_icon);
 		if(o.hasComputer()){
 			com.setText("This study space has a computer.");
 			if(com_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_computer", "drawable", getActivity().getPackageName() );
-			 		   com_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_computer", "drawable", getActivity().getPackageName() );
+				com_icon.setImageResource(resID);
 			}
 		}else{
 			com.setText("This study space does not have computers.");
 			if(com_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_no_computer", "drawable", getActivity().getPackageName() );
-			 		   com_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_no_computer", "drawable", getActivity().getPackageName() );
+				com_icon.setImageResource(resID);
 			}
 		}
-		
+
 		TextView proj = (TextView) getView().findViewById(R.id.projector);
 		ImageView proj_icon = (ImageView) getView().findViewById(R.id.projector_icon);
 		if(o.has_big_screen()){
 			proj.setText("This study space has a big screen.");
 			if(proj_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_projector", "drawable", getActivity().getPackageName() );
-			 		   proj_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_projector", "drawable", getActivity().getPackageName() );
+				proj_icon.setImageResource(resID);
 			}
 		}else{
 			proj.setText("This study space does not have a big screen.");
 			if(proj_icon!=null){
-			 	   Resources resource = getResources();
-			 		   int resID = resource.getIdentifier("icon_no_projector", "drawable", getActivity().getPackageName() );
-			 		   proj_icon.setImageResource(resID);
+				Resources resource = getResources();
+				int resID = resource.getIdentifier("icon_no_projector", "drawable", getActivity().getPackageName() );
+				proj_icon.setImageResource(resID);
 			}
 		}
-		
-		
-		
-       fav = getView().findViewById(R.id.favorite);
-   		unfav = getView().findViewById(R.id.unfavorite);
-       //favorites
+
+
+
+		fav = getView().findViewById(R.id.favorite);
+		unfav = getView().findViewById(R.id.unfavorite);
+		//favorites
 		if(p.isFavorite(o.getBuildingName()+o.getSpaceName())){
 			unfav.setVisibility(View.VISIBLE);
 			fav.setVisibility(View.GONE);
@@ -153,7 +156,7 @@ public class TabDetails extends Fragment {
 			unfav.setVisibility(View.GONE);
 			fav.setVisibility(View.VISIBLE);
 		}
-		
+
 		View an = (View) getView().findViewById(R.id.availablenow);
 		if(an != null){
 			boolean availableNow = false;
@@ -162,7 +165,7 @@ public class TabDetails extends Fragment {
 					if(r.availableNow())
 						availableNow = true;
 				} catch (Exception e) {
-						availableNow = false;	//Calendar crashes
+					availableNow = false;	//Calendar crashes
 				}
 			}
 			if(availableNow)
@@ -171,16 +174,16 @@ public class TabDetails extends Fragment {
 				an.setVisibility(View.GONE);
 		}
 	}
-	
+
 	public void onFavClick(View v){
-			unfav.setVisibility(View.VISIBLE);
-			fav.setVisibility(View.GONE);
+		unfav.setVisibility(View.VISIBLE);
+		fav.setVisibility(View.GONE);
 	}
 	public void onRemoveFavClick(View v){
-			fav.setVisibility(View.VISIBLE);
-			unfav.setVisibility(View.GONE);
+		fav.setVisibility(View.VISIBLE);
+		unfav.setVisibility(View.GONE);
 	}
-	
+
 	public Intent getReserveIntent(View v){
 		Intent k = null;
 		if(o.getBuildingType().equals(StudySpace.WHARTON)){
@@ -192,7 +195,7 @@ public class TabDetails extends Fragment {
 		}
 		return k;
 	}
-	
+
 	public Intent getCalIntent(View v){
 		Calendar cal = Calendar.getInstance();              
 		Intent intent = new Intent(Intent.ACTION_EDIT);
@@ -208,47 +211,133 @@ public class TabDetails extends Fragment {
 	public Intent getTextIntent(View v){
 		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 		try {
-			
-			// Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-			 //For now
-		     sendIntent.putExtra("sms_body", "PennStudySpaces Reservation confirmed. Details - "+o.getBuildingName()+" - "+o.getRooms()[0].getRoomName()+"\nTime: ");
-		     sendIntent.setType("vnd.android-dir/mms-sms");
+			sendIntent.putExtra("sms_body", "PennStudySpaces Reservation confirmed. Details - "+
+					o.getBuildingName() + " - " + o.getRooms()[0].getRoomName() + "\nTime: ");
+			sendIntent.setType("vnd.android-dir/mms-sms");
 		} catch (Exception e) {
 			Toast.makeText(v.getContext(),
-					"SMS faild, please try again later!",
+					"SMS failed, please try again later!",
 					Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 		return sendIntent;
 	}
-	
+
 	public void onReserveClick(View v){
 		Intent k = getReserveIntent(v);
+		if(k!=null) {
+			startActivity(k);
+		}
+
+		final Intent calIntent = getCalIntent(v);
+		final Intent sendIntent = getTextIntent(v);
+
+		CheckBox text = (CheckBox) getView().findViewById(R.id.resTextCheckBox);
+		if(text!=null && text.isChecked()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Pick a sharing option:");
+			builder.setPositiveButton("Text", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					startActivity(sendIntent);
+					dialog.cancel();
+				}
+			});
+			builder.setNeutralButton("Email", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					// http://stackoverflow.com/questions/2197741/how-to-send-email-from-my-android-application
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("message/rfc822");
+					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+					i.putExtra(Intent.EXTRA_SUBJECT, "");
+					i.putExtra(Intent.EXTRA_TEXT   , "");
+					try {
+					    startActivity(Intent.createChooser(i, "Send mail..."));
+						dialog.cancel();
+					} catch (android.content.ActivityNotFoundException ex) {
+					    Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+					}		
+				}
+			});
+			builder.setNegativeButton("Both", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					startActivity(sendIntent);
+					dialog.cancel();
+						
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("message/rfc822");
+					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"@"});
+					i.putExtra(Intent.EXTRA_SUBJECT, "");
+					i.putExtra(Intent.EXTRA_TEXT   , "");
+					try {
+					    startActivity(Intent.createChooser(i, "Send mail..."));
+						dialog.cancel();
+					} catch (android.content.ActivityNotFoundException ex) {
+					    Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
 		
-		Intent calIntent = getCalIntent(v);
-		
-		Intent sendIntent = getTextIntent(v);
-			
-			     CheckBox text = (CheckBox) getView().findViewById(R.id.resTextCheckBox);
-					if(text!=null && text.isChecked())
-								startActivity(sendIntent);
-				CheckBox calBox = (CheckBox) getView().findViewById(R.id.calCheckBox);
-					if(calBox !=null && calBox.isChecked())
-										startActivity(calIntent);
-			     if(k!=null)
-						startActivity(k);
-			     
+		CheckBox calBox = (CheckBox) getView().findViewById(R.id.calCheckBox);
+		if(calBox !=null && calBox.isChecked()) {
+			startActivity(calIntent);
+		}
+
 	}
 	public void onCalClick(View v){
-		
-		Intent calIntent = getCalIntent(v);
-		
-		Intent sendIntent = getTextIntent(v);
+
+		final Intent calIntent = getCalIntent(v);
+		final Intent sendIntent = getTextIntent(v);
+		startActivity(calIntent);
 		
 		CheckBox text = (CheckBox) getView().findViewById(R.id.calTextCheckBox);
-		if(text!=null && text.isChecked())
+		if(text!=null && text.isChecked()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Pick a sharing option:");
+			builder.setPositiveButton("Text", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
 					startActivity(sendIntent);
-			     startActivity(calIntent);
-			     
+					dialog.cancel();
+				}
+			});
+			builder.setNeutralButton("Email", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					// http://stackoverflow.com/questions/2197741/how-to-send-email-from-my-android-application
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("message/rfc822");
+					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"@"});
+					i.putExtra(Intent.EXTRA_SUBJECT, "");
+					i.putExtra(Intent.EXTRA_TEXT   , "");
+					try {
+					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    dialog.cancel();
+					} catch (android.content.ActivityNotFoundException ex) {
+					    Toast.makeText(getActivity(), "Please check that your email client is setup.", Toast.LENGTH_SHORT).show();
+					}		
+				}
+			});
+			builder.setNegativeButton("Both", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					startActivity(sendIntent);
+					dialog.cancel();
+					
+					Intent i = new Intent(Intent.ACTION_SEND);
+					i.setType("message/rfc822");
+					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
+					i.putExtra(Intent.EXTRA_SUBJECT, "");
+					i.putExtra(Intent.EXTRA_TEXT   , "");
+					try {
+					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    dialog.cancel();
+					} catch (android.content.ActivityNotFoundException ex) {
+					    Toast.makeText(getActivity(), "Please check that your email client is setup.", Toast.LENGTH_SHORT).show();
+					}
+				}
+			});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
 	}
 }
