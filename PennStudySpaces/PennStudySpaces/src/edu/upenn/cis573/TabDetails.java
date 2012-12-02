@@ -1,6 +1,7 @@
 package edu.upenn.cis573;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import edu.upenn.cis573.R;
 
@@ -25,6 +26,7 @@ public class TabDetails extends Fragment {
 	private Preferences p;
 	private View fav;
 	private View unfav;
+	private Date begin;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -202,6 +204,7 @@ public class TabDetails extends Fragment {
 		intent.putExtra("title", "PennStudySpaces Reservation confirmed. ");
 		intent.putExtra("description", "Supported by PennStudySpaces");
 		intent.putExtra("eventLocation", o.getBuildingName()+" - "+o.getRooms()[0].getRoomName());
+		begin = cal.getTime();
 		intent.putExtra("beginTime", cal.getTimeInMillis());
 		intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
 		return intent;
@@ -211,7 +214,7 @@ public class TabDetails extends Fragment {
 		Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 		try {
 			sendIntent.putExtra("sms_body", "PennStudySpaces Reservation confirmed. Details - "+
-					o.getBuildingName() + " - " + o.getRooms()[0].getRoomName() + "\nTime: ");
+					o.getBuildingName() + " - " + o.getRooms()[0].getRoomName() + "\nTime: " + begin);
 			sendIntent.setType("vnd.android-dir/mms-sms");
 		} catch (Exception e) {
 			Toast.makeText(v.getContext(),
@@ -220,6 +223,17 @@ public class TabDetails extends Fragment {
 			e.printStackTrace();
 		}
 		return sendIntent;
+	}
+	
+	public Intent getEmailIntent(){
+		// http://stackoverflow.com/questions/2197741/how-to-send-email-from-my-android-application
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"@"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "Penn Study Space Reservation Invitation");
+		i.putExtra(Intent.EXTRA_TEXT   , "Building Name: " +
+					o.getBuildingName() + "\nRoom Name: " + o.getRooms()[0].getRoomName() + "\nStart Time: " + begin);
+		return i;
 	}
 
 	public void onReserveClick(View v){
@@ -243,14 +257,8 @@ public class TabDetails extends Fragment {
 			});
 			builder.setNeutralButton("Email", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					// http://stackoverflow.com/questions/2197741/how-to-send-email-from-my-android-application
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
-					i.putExtra(Intent.EXTRA_SUBJECT, "");
-					i.putExtra(Intent.EXTRA_TEXT   , "");
 					try {
-					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    startActivity(Intent.createChooser(getEmailIntent(), "Send mail..."));
 						dialog.cancel();
 					} catch (android.content.ActivityNotFoundException ex) {
 					    Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
@@ -262,13 +270,8 @@ public class TabDetails extends Fragment {
 					startActivity(sendIntent);
 					dialog.cancel();
 						
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"@"});
-					i.putExtra(Intent.EXTRA_SUBJECT, "");
-					i.putExtra(Intent.EXTRA_TEXT   , "");
 					try {
-					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    startActivity(Intent.createChooser(getEmailIntent(), "Send mail..."));
 						dialog.cancel();
 					} catch (android.content.ActivityNotFoundException ex) {
 					    Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
@@ -303,14 +306,8 @@ public class TabDetails extends Fragment {
 			});
 			builder.setNeutralButton("Email", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					// http://stackoverflow.com/questions/2197741/how-to-send-email-from-my-android-application
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"@"});
-					i.putExtra(Intent.EXTRA_SUBJECT, "");
-					i.putExtra(Intent.EXTRA_TEXT   , "");
 					try {
-					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    startActivity(Intent.createChooser(getEmailIntent(), "Send mail..."));
 					    dialog.cancel();
 					} catch (android.content.ActivityNotFoundException ex) {
 					    Toast.makeText(getActivity(), "Please check that your email client is setup.", Toast.LENGTH_SHORT).show();
@@ -322,13 +319,8 @@ public class TabDetails extends Fragment {
 					startActivity(sendIntent);
 					dialog.cancel();
 					
-					Intent i = new Intent(Intent.ACTION_SEND);
-					i.setType("message/rfc822");
-					i.putExtra(Intent.EXTRA_EMAIL  , new String[]{""});
-					i.putExtra(Intent.EXTRA_SUBJECT, "");
-					i.putExtra(Intent.EXTRA_TEXT   , "");
 					try {
-					    startActivity(Intent.createChooser(i, "Send mail..."));
+					    startActivity(Intent.createChooser(getEmailIntent(), "Send mail..."));
 					    dialog.cancel();
 					} catch (android.content.ActivityNotFoundException ex) {
 					    Toast.makeText(getActivity(), "Please check that your email client is setup.", Toast.LENGTH_SHORT).show();
