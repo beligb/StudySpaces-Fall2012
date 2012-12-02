@@ -205,6 +205,8 @@ public class StudySpaceListActivity extends ListActivity {
 	private void getSpaces() {
 		try {
 
+			System.out.println("Calling the getSpace method!");
+			//APIAccessor aa = APIAccessor.getAPIAccessor();
 			ss_list.addAll(APIAccessor.getStudySpaces()); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
