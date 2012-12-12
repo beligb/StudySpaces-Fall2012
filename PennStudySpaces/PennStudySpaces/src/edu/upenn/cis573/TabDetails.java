@@ -2,6 +2,7 @@ package edu.upenn.cis573;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import edu.upenn.cis573.R;
 
@@ -51,11 +52,7 @@ public class TabDetails extends Fragment {
 		rt.setText(o.getSpaceName());
 
 		TextView rn = (TextView) getView().findViewById(R.id.roomnumbers);
-		/*Room[] rooms = o.getRooms();
-		String room_string="";
-		for (int j =0; j<rooms.length;j++){
-				room_string += rooms[j].getRoomName()+" ";
-		}*/
+
 		rn.setText(o.getRoomNames());
 
 		TextView mo = (TextView) getView().findViewById(R.id.maxoccupancy);
@@ -198,7 +195,7 @@ public class TabDetails extends Fragment {
 	}
 
 	public Intent getCalIntent(View v){
-		Calendar cal = Calendar.getInstance();              
+		Calendar cal = Calendar.getInstance(Locale.US);              
 		Intent intent = new Intent(Intent.ACTION_EDIT);
 		intent.setType("vnd.android.cursor.item/event");
 		intent.putExtra("title", "PennStudySpaces Reservation confirmed. ");

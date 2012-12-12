@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.json.*;
 import android.app.*;
 
-public class APIAccessor extends Activity{
+public class APIAccessor extends Activity {
 
 	private static APIAccessor aa = null;
 	
@@ -16,7 +16,7 @@ public class APIAccessor extends Activity{
 		}
 		return aa;
 	}
-
+	
 	public static ArrayList<StudySpace> getStudySpaces() throws Exception {
 
 		System.out.println("Call the APIAccessor Method!");
