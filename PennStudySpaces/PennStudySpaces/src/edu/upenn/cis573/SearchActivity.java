@@ -93,9 +93,7 @@ public class SearchActivity extends Activity {
 		Location location = locationManager.getLastKnownLocation(provider);
 
 		if(location == null){
-			System.out.println("CURRENT LOCATION NOT AVAILAVBLE");
-			
-			
+			System.out.println("CURRENT LOCATION NOT AVAILABLE");
 			
 			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			if(location != null){
