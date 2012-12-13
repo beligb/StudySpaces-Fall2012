@@ -426,23 +426,21 @@ public class StudySpaceListActivity extends ListActivity {
 			notifyDataSetChanged();
 		}
 		
-		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr){
-			
-			if(arr.size() > 1){
+		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr) {
+			if(arr.size() > 1) {
 				ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
 				StudySpace nSpace = arr.get(0);
 				double nDistance = nSpace.getDistance();
-				int index = 1;
+				int index = 0;
 				while(arr.get(index).getDistance() == nDistance){
 					nArr.add(arr.get(index));
 					++ index;
 				}
 				onFNButtonSelected(nArr);
 				return nArr;
-			}else{
+			} else {
 				return arr;
 			}
-			
 		}
 
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
