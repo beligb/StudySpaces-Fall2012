@@ -8,21 +8,18 @@ import android.app.*;
 import android.content.Context;
 import android.os.Bundle;
 
+/**
+ * Generates a list of all available study spaces from
+ * the Penn Study Spaces database
+ *
+ */
 public class APIAccessor extends Activity {
 
 	private static APIAccessor aa = null;
 	
-	public static APIAccessor getAPIAccessor(){
-		if(aa == null){
-			aa = new APIAccessor();
-		}
-		return aa;
-	}
-	
-	private APIAccessor(){
-		super();
-	}
-	
+	/**
+	 * Constructor for class
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -110,7 +107,6 @@ public class APIAccessor extends Activity {
 				study_spaces.add(temp);
 				System.out.println(temp.getBuildingName());
 			}
-
 		}
 		return study_spaces;
 	}

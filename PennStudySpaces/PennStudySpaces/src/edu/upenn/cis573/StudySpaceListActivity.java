@@ -8,7 +8,6 @@ import java.util.Collections;
 
 import edu.upenn.cis573.R;
 
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -36,6 +35,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.location.*;
 
+/**
+ * Generates and displays the list of Study Spaces that is returned once the user
+ * runs the search.
+ *
+ */
 public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
@@ -45,14 +49,16 @@ public class StudySpaceListActivity extends ListActivity {
 	private Runnable viewAvailableSpaces; // runnable to get available spaces
 	public static final int ACTIVITY_ViewSpaceDetails = 1;
 	public static final int ACTIVITY_SearchActivity = 2;
-	private SearchOptions searchOptions; //create a default searchoption later
+	private SearchOptions searchOptions; //create a default search option later
 	private boolean favSelected;
 	private Preferences preferences;
 
 	private SharedPreferences favorites;
 	static final String FAV_PREFERENCES = "favoritePreferences";
 
-	/** Called when the activity is first created. */
+	/** 
+	 * Called when the activity is first created. 
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -60,18 +66,14 @@ public class StudySpaceListActivity extends ListActivity {
 
 		favorites = getSharedPreferences(FAV_PREFERENCES, 0);
 
-
 		ss_list = new ArrayList<StudySpace>(); // List to store StudySpaces
 
 		this.ss_adapter = new StudySpaceListAdapter(this, R.layout.sslistitem,
 				ss_list);
-		this.setListAdapter(this.ss_adapter); // Adapter to read list and
-		// display
-
+		this.setListAdapter(this.ss_adapter); // Adapter to read list and display
 		Map<String, ?> items = favorites.getAll();
 		preferences = new Preferences(); 		//Change this when bundle is implemented.
-		for(String s: items.keySet()){
-			//boolean fav = favorites.getBoolean(s, false);
+		for(String s: items.keySet()) {
 			if(Boolean.parseBoolean(items.get(s).toString())){
 				preferences.addFavorites(s);
 			}
@@ -88,10 +90,8 @@ public class StudySpaceListActivity extends ListActivity {
 				
 			}
 		};
-		Thread thread = new Thread(null, viewAvailableSpaces, "ThreadName"); // change
-		// name?
+		Thread thread = new Thread(null, viewAvailableSpaces, "ThreadName"); // change name?
 		thread.start();
-
 
 		// flag for Internet connection status
 		Boolean isInternetPresent = false;
@@ -116,38 +116,7 @@ public class StudySpaceListActivity extends ListActivity {
 		Intent i = new Intent(this, SearchActivity.class);
 		startActivityForResult(i,
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
-		/*
-		engiBox.setChecked(true);
-		engiBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-					ss_adapter.filterSpaces();
-			}
-		});
-		whartonBox.setChecked(true);
-		whartonBox
-				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-							ss_adapter.filterSpaces();
-					}
-				});
-		libBox.setChecked(true);
-		libBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-					ss_adapter.filterSpaces();
-			}
-		});
-		otherBox.setChecked(true);
-		otherBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-					ss_adapter.filterSpaces();
-			}
-		});
 
-		 */
 		final TextView search = (EditText)findViewById(R.id.search);
 		search.addTextChangedListener(new TextWatcher(){
 			public void afterTextChanged(Editable s) {
@@ -157,17 +126,14 @@ public class StudySpaceListActivity extends ListActivity {
 			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 			public void onTextChanged(CharSequence s, int start, int before, int count){}
 		}); 
-
-
 	}
 
-
-
+	/**
+	 * Sets up the action to occur when the user clicks on either the "Favorites"
+	 * tab or one of the study spaces displayed in the list.
+	 */
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) { // click
-		// String item = ((StudySpace)
-		// getListAdapter().getItem(position)).getSpaceName();
-		// Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
+	protected void onListItemClick(ListView l, View v, int position, long id) { 
 		Intent i = new Intent(this, StudySpaceDetails.class);
 		i.putExtra("STUDYSPACE", (StudySpace)getListAdapter().getItem(position));
 		i.putExtra("PREFERENCES", preferences);
@@ -175,6 +141,10 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
 	}
 
+	/**
+	 * Sets up activity to occur once user the class receives an intent from
+	 * the user's click on "Favorites" or one of the study spaces. 
+	 */
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
@@ -199,6 +169,9 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	}
 
+	/**
+	 * Allows StudySpaceListActivity to be run/filtered by threads
+	 */
 	private Runnable returnRes = new Runnable() {
 		public void run() {
 			ss_ProgressDialog.dismiss();
@@ -208,13 +181,14 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	};
 
+	/**
+	 * Gets spaces for both the list of search results and for
+	 * the Favorites section.
+	 */
 	private void getSpaces() {
 		try {
 
 			System.out.println("Calling the getSpace method!");
-			APIAccessor aa = APIAccessor.getAPIAccessor();
-			ArrayList<StudySpace> test = aa.getStudySpaces();
-			ss_list.addAll(test); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
 			Log.i("ARRAY", "" + ss_list.size());
@@ -226,7 +200,10 @@ public class StudySpaceListActivity extends ListActivity {
 		runOnUiThread(returnRes);
 	}
 
-	public void onFavClick(View v){
+	/**
+	 * Defines behavior of method after user clicks on "Favorites"
+	 */
+	public void onFavClick(View v) {
 		Log.d("fav", "FavClick");
 		ImageView image = (ImageView) this.findViewById(R.id.favorite_button);
 		if(favSelected) {
@@ -240,8 +217,10 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	}
 
-
-
+	/**
+	 * Takes user back to original search screen when user clicks
+	 * on "Filter" tab.
+	 */
 	public void onFilterClick(View view){
 		//Start up the search options screen
 		Intent i = new Intent(this, SearchActivity.class);
@@ -249,6 +228,9 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
 	}
 
+	/**
+	 * Takes user to MapView when use clicks on "MapView" tab.
+	 */
 	public void onMapViewClick(View view){
 		//Start up the search options screen
 		Log.d("MapView", "Clicked");
@@ -257,6 +239,10 @@ public class StudySpaceListActivity extends ListActivity {
 		startActivity(i);
 	}
 
+	/**
+	 * Defines behavior of back button on device - takes user to 
+	 * original search screen.
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK) ) {
@@ -268,7 +254,11 @@ public class StudySpaceListActivity extends ListActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	// detail of the nearest study space
+	/**
+	 * Grabs nearest study space when user clicks on "Find Now"
+	 * button.
+	 * @param arr An array of study spaces sorted by distance
+	 */
 	public void onFNButtonSelected(ArrayList<StudySpace> arr){
 		Intent i = new Intent(this, StudySpaceDetails.class);
 		i.putExtra("STUDYSPACE", (StudySpace) arr.get(0));
@@ -277,6 +267,11 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
 	}
 
+	/**
+	 * Actually filters and generates the list of study spaces that 
+	 * the user has requested.  
+	 *
+	 */
 	private class StudySpaceListAdapter extends ArrayAdapter<StudySpace> {
 
 		private ArrayList<StudySpace> list_items;
@@ -285,7 +280,12 @@ public class StudySpaceListActivity extends ListActivity {
 		private ArrayList<StudySpace> fav_orig_items;
 		private ArrayList<StudySpace> temp;	//Store list items for when favorites is displayed
 
-
+		/**
+		 * Constructor for class
+		 * @param context Context for activity
+		 * @param textViewResourceId TextView identifier
+		 * @param items ArrayList of study spaces
+		 */
 		public StudySpaceListAdapter(Context context, int textViewResourceId,
 				ArrayList<StudySpace> items) {
 			super(context, textViewResourceId, items);
@@ -294,6 +294,10 @@ public class StudySpaceListActivity extends ListActivity {
 			this.fav_orig_items = new ArrayList<StudySpace>();
 		}
 
+		/**
+		 * Generates the way a study space is displayed on the search result
+		 * list.
+		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
@@ -302,7 +306,6 @@ public class StudySpaceListActivity extends ListActivity {
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.sslistitem, null);
 			}
-			//int index = getRealPosition(position);
 
 			StudySpace o = list_items.get(position);
 			if (o != null) {
@@ -354,16 +357,26 @@ public class StudySpaceListActivity extends ListActivity {
 			return v;
 		}
 
+		/**
+		 * Gets the number of study spaces in search results
+		 */
 		@Override
 		public int getCount(){
 			return list_items.size();
 		}
 
+		/**
+		 * Returns a study space based on its position in the list
+		 */
 		@Override
 		public StudySpace getItem(int position){
 			return list_items.get(position);
 		}
 
+		/**
+		 * Filters the original list of study spaces (generated by the APIAccessor class)
+		 * based on user's selected filters
+		 */
 		@SuppressWarnings("unchecked")
 		public void filterSpaces(){
 
@@ -406,23 +419,11 @@ public class StudySpaceListActivity extends ListActivity {
 					continue;
 				}
 				i++;
-
-
 			}
 
-
-			//this.list_items = filtered;
-
-//			System.out.println("orig items size = " + orig_items.size());
-//			System.out.println("filtered items size = " + filtered.size());
 			this.list_items = SpaceInfo.sortByRank(filtered);
-//			System.out.println("list_items sortByRank size = " + list_items.size());
 			this.list_items = filterByPeople(list_items);
-//			System.out.println("list_items filterByPeople size = " + list_items.size());
-//			this.list_items = filterByDate(list_items);
-//			System.out.println("list_items filterByDate size = " + list_items.size());
 			this.list_items = sortByDistance(list_items);
-//			System.out.println("list_items sortByDistance size = " + list_items.size());
 			if(SearchActivity.isFNButtonClicked()){
 				System.out.println("Remove Array Method called");
 				this.list_items = findNearest(list_items);
@@ -434,15 +435,23 @@ public class StudySpaceListActivity extends ListActivity {
 			notifyDataSetChanged();
 		}
 		
+		/**
+		 * Returns the nearest study space that fits the user criteria
+		 * @param arr ArrayList of study spaces
+		 * @return Returns nearest study space - some buildings have multiple study spaces,
+		 * so if the nearest building has several study spaces, they are returned in an ArrayList
+		 */
 		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr) {
 			if(arr.size() > 1) {
 				ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
 				StudySpace nSpace = arr.get(0);
 				double nDistance = nSpace.getDistance();
 				int index = 0;
-				while(arr.get(index).getDistance() == nDistance){
-					nArr.add(arr.get(index));
-					++ index;
+				while(index < arr.size()) {
+					if (arr.get(index).getDistance() == nDistance){
+						nArr.add(arr.get(index));
+					}
+					index++;
 				}
 				onFNButtonSelected(nArr);
 				return nArr;
@@ -503,8 +512,9 @@ public class StudySpaceListActivity extends ListActivity {
 			if(!query.equals("")){
 				for(int i = list_items.size()-1; i>=0; i--){
 					StudySpace s = list_items.get(i);
-					if(s.getBuildingName().toLowerCase(Locale.US).indexOf(query)>=0 || s.getSpaceName().toLowerCase().indexOf(query)>=0 || s.getRoomNames().toLowerCase().indexOf(query)>=0){
-
+					if(s.getBuildingName().toLowerCase(Locale.US).indexOf(query)>=0 || 
+							s.getSpaceName().toLowerCase(Locale.US).indexOf(query)>=0 || 
+							s.getRoomNames().toLowerCase(Locale.US).indexOf(query)>=0){
 					}else{
 						list_items.remove(i);
 					}
@@ -535,11 +545,7 @@ public class StudySpaceListActivity extends ListActivity {
 	public ArrayList<StudySpace> filterByDate(ArrayList<StudySpace> arr){
 		Date d1 = searchOptions.getStartDate();
 		Date d2 = searchOptions.getEndDate();
-		//d1 = new Date(112, 3, 7, 15, 0);
-		//d2 = new Date(112, 3, 9, 23, 0);
-		//d2.setHours(d2.getHours()+1);
-		//Log.e("date1", d1.toString());
-		//Log.e("date2", d2.toString());
+
 		for(int i = arr.size()-1; i>=0; i--){
 			boolean flag = false;
 			for(Room r: arr.get(i).getRooms()){
