@@ -19,7 +19,6 @@ public class APIAccessor extends Activity {
 		return aa;
 	}
 	
-<<<<<<< HEAD
 	private APIAccessor(){
 		super();
 	}
@@ -71,19 +70,6 @@ public class APIAccessor extends Activity {
 		}
 		
 		
-=======
-	public static ArrayList<StudySpace> getStudySpaces() throws Exception {
-
-		System.out.println("Call the APIAccessor Method!");
-
-		BufferedReader reader = null;
-		String line = null;
-
-		String _url = "http://www.pennstudyspaces.com/api?showall=1&format=json";
-		reader = new BufferedReader(new InputStreamReader(new URL(_url).openStream()));		
-		line = reader.readLine();
-
->>>>>>> ed101a1e8410946dd947de64a4d0d3d010d72639
 		JSONObject json_obj = new JSONObject(line);
 
 		JSONArray buildings_arr = json_obj.getJSONArray("buildings");
