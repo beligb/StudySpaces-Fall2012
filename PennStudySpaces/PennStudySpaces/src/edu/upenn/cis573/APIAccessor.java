@@ -15,7 +15,7 @@ import android.os.Bundle;
  */
 public class APIAccessor extends Activity {
 
-	private static APIAccessor aa = null;
+	 static APIAccessor aa = null;
 	
 	/**
 	 * Constructor for class

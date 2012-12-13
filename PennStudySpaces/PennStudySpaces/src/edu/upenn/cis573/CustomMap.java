@@ -5,17 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-<<<<<<< HEAD
-import edu.upenn.cis573.R;
-=======
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.OverlayItem;
-
->>>>>>> a2e6fdcd269ea43b7c33502e23b40d34f6aadc06
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

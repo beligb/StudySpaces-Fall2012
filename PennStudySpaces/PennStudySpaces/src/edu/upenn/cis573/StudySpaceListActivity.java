@@ -33,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
@@ -143,15 +142,6 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 		});
 
-		getListView().setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View v) {
-				//TODO Create a dialog and show the selection
-				return true;
-			}
-		});
-
 	}
 
 	@Override
@@ -208,7 +198,7 @@ public class StudySpaceListActivity extends ListActivity {
 
 			System.out.println("Calling the getSpace method!");
 			// APIAccessor aa = APIAccessor.getAPIAccessor();
-			ss_list.addAll(APIAccessor.getStudySpaces()); // uncomment this
+			ss_list.addAll(APIAccessor.aa.getStudySpaces()); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
 
@@ -352,6 +342,15 @@ public class StudySpaceListActivity extends ListActivity {
 				else
 					proj.setVisibility(View.VISIBLE);
 			}
+
+			v.setOnLongClickListener(new OnLongClickListener() {
+
+				@Override
+				public boolean onLongClick(View v) {
+					// TODO Create a dialog and show the selection
+					return true;
+				}
+			});
 			return v;
 		}
 
@@ -611,9 +610,9 @@ public class StudySpaceListActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:
-			startActivity(new Intent(this, Meme.class));
-			break;
+//		case R.id.meme:
+//			startActivity(new Intent(this, Meme.class));
+//			break;
 		case R.id.about:
 			startActivity(new Intent(this, About.class));
 			break;
