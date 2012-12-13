@@ -172,6 +172,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
                     android:textSize="20dp" />
+
 			<TextView
                     android:id="@+id/endTimeDisplay"
                     android:layout_width="wrap_content"
@@ -374,6 +375,15 @@
                     android:background="@drawable/findnow"
                     android:onClick="onFindNowButtonClick"
                      />
+
+                <Button
+                    android:id="@+id/helpButton"
+                    android:layout_width="33dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/iconhelp"
+                    android:onClick="onHelpButtonClick"
+                     />
+
             </LinearLayout>
 </LinearLayout>
 </ScrollView>

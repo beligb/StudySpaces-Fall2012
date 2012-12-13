@@ -647,6 +647,12 @@ public class SearchActivity extends Activity {
 		}
 	}    
 
+	//action to perform help button click
+	public void onHelpButtonClick(View view){
+		System.out.println("Click the help button!");
+		Intent intent = new Intent(this, Help.class);
+		startActivity(intent);
+	}
 	private void putDataInSearchOptionsObject() {
 		mSearchOptions.setNumberOfPeople( mNumberOfPeopleSlider.getProgress() );
 		mSearchOptions.setPrivate( mPrivateCheckBox.isChecked() );
@@ -682,7 +688,7 @@ public class SearchActivity extends Activity {
 		updateEndTimeText();
 		updateDateText();	
 	}
-
+	
 	private void captureViewElements() {
 
 		// General:
