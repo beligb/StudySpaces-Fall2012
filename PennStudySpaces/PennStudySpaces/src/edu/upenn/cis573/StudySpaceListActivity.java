@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
@@ -610,9 +611,6 @@ public class StudySpaceListActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-//		case R.id.meme:
-//			startActivity(new Intent(this, Meme.class));
-//			break;
 		case R.id.about:
 			startActivity(new Intent(this, About.class));
 			break;

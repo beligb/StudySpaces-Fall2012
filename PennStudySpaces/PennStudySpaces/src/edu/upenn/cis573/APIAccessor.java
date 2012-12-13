@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import org.json.*;
 import android.app.*;
-import android.content.Context;
-import android.os.Bundle;
 
 /**
  * Generates a list of all available study spaces from
@@ -20,15 +18,27 @@ public class APIAccessor extends Activity {
 	/**
 	 * Constructor for class
 	 */
+<<<<<<< HEAD
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+=======
+	public static APIAccessor getAPIAccessor() {
+		if(aa == null){
+			aa = new APIAccessor();
+		}
+		return aa;
+>>>>>>> e8e7662fff5f6a77d351024842f61ee0f9d9c074
 	}
 	
-	public ArrayList<StudySpace> getStudySpaces() throws Exception {
-		
-		
+	/**
+	 * Populates a list with all the study spaces from Penn Study Spaces
+	 * @return ArrayList<StudySpace>
+	 * @throws Exception
+	 */
+	public static ArrayList<StudySpace> getStudySpaces() throws Exception {
 		System.out.println("Call the APIAccessor Method!");
+<<<<<<< HEAD
 		try{
 			Context context = getApplicationContext();
 			context.getCacheDir();
@@ -67,6 +77,15 @@ public class APIAccessor extends Activity {
 		}
 		
 		
+=======
+		BufferedReader reader = null;
+		String line = null;
+
+		String _url = "http://www.pennstudyspaces.com/api?showall=1&format=json";
+		reader = new BufferedReader(new InputStreamReader(new URL(_url).openStream()));		
+		line = reader.readLine();
+
+>>>>>>> e8e7662fff5f6a77d351024842f61ee0f9d9c074
 		JSONObject json_obj = new JSONObject(line);
 
 		JSONArray buildings_arr = json_obj.getJSONArray("buildings");
