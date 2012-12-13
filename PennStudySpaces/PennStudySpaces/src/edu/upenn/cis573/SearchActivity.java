@@ -29,8 +29,6 @@ import android.location.LocationManager;
 
 public class SearchActivity extends Activity {
 
-	private Button mFavoritesButton;
-	private Button mSearchButton;
 	private TextView mNumberOfPeopleTextView;
 	private SeekBar mNumberOfPeopleSlider;
 	private CheckBox mPrivateCheckBox;
@@ -49,7 +47,6 @@ public class SearchActivity extends Activity {
 	private Button mPickEndTime;
 	private TextView mDateDisplay;
 	private Button mPickDate;
-	private SharedPreferences favorites;
 	private static boolean isFNBClicked = false;
 
 	static final int START_TIME_DIALOG_ID = 0;
@@ -68,7 +65,9 @@ public class SearchActivity extends Activity {
 	private String provider;
 	public static double latitude = 0;
 	public static double longitude = 0;
-
+	private Button mFavoritesButton;
+	private Button mSearchButton;
+	
 	Boolean isInternetPresent = false;
 
 	// Connection detector class
@@ -94,9 +93,7 @@ public class SearchActivity extends Activity {
 		Location location = locationManager.getLastKnownLocation(provider);
 
 		if(location == null){
-			System.out.println("CURRENT LOCATION NOT AVAILAVBLE");
-			
-			
+			System.out.println("CURRENT LOCATION NOT AVAILABLE");
 			
 			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			if(location != null){
@@ -114,7 +111,7 @@ public class SearchActivity extends Activity {
 			longitude = location.getLongitude();
 
 			//   onLocationChanged(location);
-			System.out.println("CURRENT LOCATION ISISISISISISISIS");
+			System.out.print("CURRENT LOCATION ISISISISISISISIS");
 			System.out.println(message);
 		} 
 
@@ -130,7 +127,7 @@ public class SearchActivity extends Activity {
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		search = getSharedPreferences(SEARCH_PREFERENCES, 0);
-		favorites = getSharedPreferences(StudySpaceListActivity.FAV_PREFERENCES, 0);
+		getSharedPreferences(StudySpaceListActivity.FAV_PREFERENCES, 0);
 
 		/*
         Log.d("", "Trying to load Bundle.");
@@ -602,7 +599,7 @@ public class SearchActivity extends Activity {
 		isInternetPresent = cd.isConnectingToInternet();
 
 
-		if (isInternetPresent){
+		if (isInternetPresent) {
 			putDataInSearchOptionsObject();
 			//Returns to List activity
 			Intent i = new Intent();
@@ -723,9 +720,6 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:     
-			startActivity(new Intent(this, Meme.class));
-			break;
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 public class StudySpaceDetails extends FragmentActivity {
 
 	private TabDetails tabdetails;
-	private TabFoursquare tabfoursquare;
 	private StudySpace o;
 	private Preferences p;
 
@@ -44,8 +43,6 @@ public class StudySpaceDetails extends FragmentActivity {
 		if(p == null) {
 			p = new Preferences();
 		}
-
-		tabfoursquare = new TabFoursquare();
 		tabdetails = new TabDetails();
 
 		cd = new ConnectionDetector(getApplicationContext());
@@ -84,8 +81,6 @@ public class StudySpaceDetails extends FragmentActivity {
 
 		ImageView image = (ImageView) findViewById(R.id.button_details);
 		image.setImageResource(R.color.lightblue);
-		image = (ImageView) findViewById(R.id.button_foursquare);
-		image.setImageResource(R.color.darkgrey);
 
 		// Create new fragment and transaction
 		// Fragment newFragment = new TabDetails();
@@ -95,17 +90,6 @@ public class StudySpaceDetails extends FragmentActivity {
 
 		// Commit the transaction
 		transaction.commit();
-	}
-
-	public void onFourSquareClick(View v) {
-
-		ImageView image = (ImageView) findViewById(R.id.button_details);
-		image.setImageResource(R.color.darkgrey); 
-		image = (ImageView) findViewById(R.id.button_foursquare);
-		image.setImageResource(R.color.lightblue);
-
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction(); 
-		transaction.replace(R.id.fragment_container,tabfoursquare); transaction.commit();
 	}
 
 	public void onMapClick(View v){
@@ -158,10 +142,6 @@ public class StudySpaceDetails extends FragmentActivity {
 		tabdetails.onReserveClick(v);
 	}
 
-	public void onFoursquareClick(View v){
-		tabfoursquare.onFoursquareClick(v);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -171,9 +151,6 @@ public class StudySpaceDetails extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:     
-			startActivity(new Intent(this, Meme.class));
-			break;
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;

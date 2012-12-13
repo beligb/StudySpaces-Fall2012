@@ -9,7 +9,6 @@ import java.util.Collections;
 import edu.upenn.cis573.R;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -435,23 +434,21 @@ public class StudySpaceListActivity extends ListActivity {
 			notifyDataSetChanged();
 		}
 		
-		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr){
-			
-			if(arr.size() > 1){
+		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr) {
+			if(arr.size() > 1) {
 				ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
 				StudySpace nSpace = arr.get(0);
 				double nDistance = nSpace.getDistance();
-				int index = 1;
+				int index = 0;
 				while(arr.get(index).getDistance() == nDistance){
 					nArr.add(arr.get(index));
 					++ index;
 				}
 				onFNButtonSelected(nArr);
 				return nArr;
-			}else{
+			} else {
 				return arr;
 			}
-			
 		}
 
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
@@ -501,12 +498,12 @@ public class StudySpaceListActivity extends ListActivity {
 
 		@SuppressWarnings("unchecked")
 		public void searchNames(String query){
-			query = query.toLowerCase();
+			query = query.toLowerCase(Locale.US);
 			this.list_items = (ArrayList<StudySpace>) this.before_search.clone();
 			if(!query.equals("")){
 				for(int i = list_items.size()-1; i>=0; i--){
 					StudySpace s = list_items.get(i);
-					if(s.getBuildingName().toLowerCase().indexOf(query)>=0 || s.getSpaceName().toLowerCase().indexOf(query)>=0 || s.getRoomNames().toLowerCase().indexOf(query)>=0){
+					if(s.getBuildingName().toLowerCase(Locale.US).indexOf(query)>=0 || s.getSpaceName().toLowerCase().indexOf(query)>=0 || s.getRoomNames().toLowerCase().indexOf(query)>=0){
 
 					}else{
 						list_items.remove(i);
@@ -579,9 +576,6 @@ public class StudySpaceListActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:     
-			startActivity(new Intent(this, Meme.class));
-			break;
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;
