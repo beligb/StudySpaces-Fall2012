@@ -6,10 +6,8 @@ import java.util.Date;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SearchOptions implements Serializable, Parcelable {
+public class SearchOptions implements Parcelable {
 	
-	private static final long serialVersionUID = 1L;
-
 	private int numberOfPeople = 0;
 	
 	private int startHour;
@@ -25,6 +23,8 @@ public class SearchOptions implements Serializable, Parcelable {
 	private boolean hasComputer = false;
 	private boolean hasProjector = false;
 	private boolean favSelected = false;
+	//added
+	private boolean isReservable = false;
 	
 	private boolean engiBox;
 	private boolean wharBox;
@@ -83,6 +83,11 @@ public class SearchOptions implements Serializable, Parcelable {
 		othBox = _bool;
 	}
 	
+	//added
+	public void setReservable(boolean _bool){
+		isReservable = _bool;
+	}
+	
 	public int getNumberOfPeople() {
 		return numberOfPeople;
 	}
@@ -133,6 +138,10 @@ public class SearchOptions implements Serializable, Parcelable {
 	}
 	public boolean getOth(){
 		return othBox;
+	}
+	
+	public boolean getReservable(){
+		return isReservable;
 	}
 	
 	
@@ -187,7 +196,9 @@ public class SearchOptions implements Serializable, Parcelable {
 		out.writeInt(year);
 		out.writeInt(month);
 		out.writeInt(day);
-		boolean[] booleanArray = {isPrivate, hasWhiteboard, hasComputer, hasProjector, engiBox, wharBox, libBox, othBox, favSelected};
+		//to add is reservable
+		boolean[] booleanArray = {isPrivate, 
+				hasWhiteboard, hasComputer, hasProjector,isReservable, engiBox, wharBox, libBox, othBox, favSelected};
 		out.writeBooleanArray(booleanArray);
     }
 
@@ -212,17 +223,21 @@ public class SearchOptions implements Serializable, Parcelable {
         year = in.readInt();
         month = in.readInt();
         day = in.readInt();
-        boolean[] booleanArray = {false, false, false, false, false, false, false, false, false};
+        //added false
+        boolean[] booleanArray = {false, false, false, false, false, false, false, false, false,false};
         in.readBooleanArray(booleanArray);
         isPrivate = booleanArray[0];
         hasWhiteboard = booleanArray[1];
         hasComputer = booleanArray[2];
         hasProjector = booleanArray[3];
-        engiBox = booleanArray[4];
-        wharBox = booleanArray[5];
-        libBox = booleanArray[6];
-        othBox = booleanArray[7];
-        favSelected = booleanArray[8];
+        isReservable = booleanArray[4];
+        engiBox = booleanArray[5];
+        wharBox = booleanArray[6];
+        libBox = booleanArray[7];
+        othBox = booleanArray[8];
+        favSelected = booleanArray[9];
+        //added
+        
     }
 	public SearchOptions() {
 		// TODO Auto-generated constructor stub

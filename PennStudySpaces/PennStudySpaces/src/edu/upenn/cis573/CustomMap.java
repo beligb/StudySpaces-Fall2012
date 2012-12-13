@@ -5,15 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapController;
-import com.google.android.maps.MapView;
-import com.google.android.maps.OverlayItem;
-
-//import edu.upenn.cis573.R;
-
+import edu.upenn.cis573.R;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -28,6 +20,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.OverlayItem;
 
 public class CustomMap extends MapActivity {
 

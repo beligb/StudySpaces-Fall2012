@@ -35,6 +35,7 @@ public class SearchActivity extends Activity {
 	private CheckBox mWhiteboardCheckBox;
 	private CheckBox mComputerCheckBox;
 	private CheckBox mProjectorCheckBox;
+	private CheckBox mReservableCheckBox;
 
 	private CheckBox mEngiBox;
 	private CheckBox mWharBox;
@@ -220,6 +221,8 @@ public class SearchActivity extends Activity {
 		editor.putBoolean("others", mSearchOptions.getOth());
 		editor.putInt("numberOfPeople", mSearchOptions.getNumberOfPeople());
 		editor.putBoolean("whiteboard", mSearchOptions.getWhiteboard());
+		//added
+		editor.putBoolean("reservable", mSearchOptions.getReservable());
 		editor.commit();
 	}
 
@@ -297,6 +300,8 @@ public class SearchActivity extends Activity {
 		mWhiteboardCheckBox.setChecked(search.getBoolean("whiteboard", false));
 		mComputerCheckBox.setChecked(search.getBoolean("computer", false));
 		mProjectorCheckBox.setChecked(search.getBoolean("projector", false));
+		mReservableCheckBox.setChecked(search.getBoolean("reservable", false));
+	
 	}
 
 
@@ -605,7 +610,7 @@ public class SearchActivity extends Activity {
 			Intent i = new Intent();
 			//Put your searchOption class here
 			mSearchOptions.setFavSelected(false);
-			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
+			i.putExtra("SEARCH_OPTIONS", mSearchOptions);
 
 			//on search trigger test
 			this.showCurrentLocation();
@@ -653,6 +658,7 @@ public class SearchActivity extends Activity {
 		mSearchOptions.setWhiteboard( mWhiteboardCheckBox.isChecked() );
 		mSearchOptions.setComputer( mComputerCheckBox.isChecked() );
 		mSearchOptions.setProjector( mProjectorCheckBox.isChecked() );
+		mSearchOptions.setReservable(mReservableCheckBox.isChecked());
 
 		mSearchOptions.setEngi(mEngiBox.isChecked());
 		mSearchOptions.setWhar(mWharBox.isChecked());
@@ -694,6 +700,7 @@ public class SearchActivity extends Activity {
 		mWhiteboardCheckBox = (CheckBox)findViewById(R.id.whiteboardCheckBox);
 		mComputerCheckBox = (CheckBox)findViewById(R.id.computerCheckBox);
 		mProjectorCheckBox = (CheckBox)findViewById(R.id.projectorCheckBox);
+		mReservableCheckBox = (CheckBox)findViewById(R.id.reservableCheckBox);
 
 		mEngiBox = (CheckBox) findViewById(R.id.engibox);
 		mWharBox =(CheckBox) findViewById(R.id.whartonbox);
