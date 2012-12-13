@@ -1,14 +1,7 @@
 package edu.upenn.cis573;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class StudySpace implements Serializable, Comparable<StudySpace> {
 
@@ -34,7 +27,6 @@ public class StudySpace implements Serializable, Comparable<StudySpace> {
 	private boolean has_big_screen;
 	private String comments;
 	private Room[] rooms;
-	private String[] foursquare;
 	
 	private double distance;
 

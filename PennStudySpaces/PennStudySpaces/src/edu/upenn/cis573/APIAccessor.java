@@ -6,21 +6,32 @@ import java.util.ArrayList;
 import org.json.*;
 import android.app.*;
 
+/**
+ * Generates a list of all available study spaces from
+ * the Penn Study Spaces database
+ *
+ */
 public class APIAccessor extends Activity {
 
 	private static APIAccessor aa = null;
 	
-	public static APIAccessor getAPIAccessor(){
+	/**
+	 * Constructor for class
+	 */
+	public static APIAccessor getAPIAccessor() {
 		if(aa == null){
 			aa = new APIAccessor();
 		}
 		return aa;
 	}
 	
+	/**
+	 * Populates a list with all the study spaces from Penn Study Spaces
+	 * @return ArrayList<StudySpace>
+	 * @throws Exception
+	 */
 	public static ArrayList<StudySpace> getStudySpaces() throws Exception {
-
 		System.out.println("Call the APIAccessor Method!");
-
 		BufferedReader reader = null;
 		String line = null;
 
@@ -68,7 +79,6 @@ public class APIAccessor extends Activity {
 				study_spaces.add(temp);
 				System.out.println(temp.getBuildingName());
 			}
-
 		}
 		return study_spaces;
 	}
