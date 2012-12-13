@@ -460,6 +460,11 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 		}
 
+		/**
+		 * Sorts study spaces by distance, with the nearest one as the first element
+		 * @param arr ArrayList of study spaces
+		 * @return Returns sorted ArrayList of study spaces 
+		 */
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr){
 			double currentLatitude = SearchActivity.latitude;
 			double currentLongitude = SearchActivity.longitude;
@@ -505,6 +510,11 @@ public class StudySpaceListActivity extends ListActivity {
 			return arr;
 		}
 
+		/**
+		 * Dictates action when user types the name of the study space they want
+		 * into the search bar (the view automatically removes all options that
+		 * do not match the user's input as he/she is typing).
+		 */
 		@SuppressWarnings("unchecked")
 		public void searchNames(String query){
 			query = query.toLowerCase(Locale.US);
@@ -523,16 +533,28 @@ public class StudySpaceListActivity extends ListActivity {
 			notifyDataSetChanged();
 		}
 
-		//switch to favorites
+		/**
+		 * Generates Favorites view
+		 */
 		public void allToFav(){
 			this.temp = this.list_items;	//remember list items
 			this.list_items = fav_orig_items;
 			notifyDataSetChanged();
 		}
+		
+		/**
+		 * Switches view back from Favorites view to original search
+		 * results.
+		 */
 		public void favToAll(){
 			this.list_items = this.temp;	//restore list items
 			notifyDataSetChanged();
 		}
+		
+		/**
+		 * Updates Favorites by removing a study space
+		 * @param p
+		 */
 		public void updateFavorites(Preferences p){
 			this.fav_orig_items = SpaceInfo.sortByRank(this.orig_items);
 			for(int i = fav_orig_items.size()-1; i>=0; i--){
@@ -542,6 +564,11 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	}
 
+	/** 
+	 * Mark study spaces that are available during the user's specified times.
+	 * @param arr ArrayList of study spaces to filter
+	 * @return ArrayList of study spaces
+	 */
 	public ArrayList<StudySpace> filterByDate(ArrayList<StudySpace> arr){
 		Date d1 = searchOptions.getStartDate();
 		Date d2 = searchOptions.getEndDate();
@@ -565,6 +592,11 @@ public class StudySpaceListActivity extends ListActivity {
 		return arr;
 	}
 
+	/**
+	 * Filter study spaces by their maximum occupancy.
+	 * @param arr ArrayList of study spaces to filter
+	 * @return Filtered ArrayList of study spaces
+	 */
 	public ArrayList<StudySpace> filterByPeople(ArrayList<StudySpace> arr){
 		for(int i = arr.size()-1; i>=0; i--){
 			if(arr.get(i).getMaximumOccupancy()<searchOptions.getNumberOfPeople())
@@ -573,12 +605,21 @@ public class StudySpaceListActivity extends ListActivity {
 		return arr;
 	}
 
+	/**
+	 * Sets up menu that is displayed after a user selects a 
+	 * study space to see its details.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
+	
+	/**
+	 * Describes actions that should occur when user clicks on 
+	 * an option in the menu.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
