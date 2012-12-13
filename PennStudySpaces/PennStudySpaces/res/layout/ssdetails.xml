@@ -39,29 +39,6 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:background="@color/darkgrey"
-            android:orientation="vertical"
-            android:onClick="onFourSquareClick" >
-
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="3dp"
-                android:id="@+id/button_foursquare"
-                android:background="@color/darkgrey" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="37dp"
-                android:gravity="center"
-                android:text="@string/details"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
             android:layout_marginLeft="1dp"
             android:layout_weight="1"
             android:background="@color/darkgrey"

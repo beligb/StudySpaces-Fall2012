@@ -239,12 +239,9 @@ public class SearchOptions implements Parcelable {
         //added
         
     }
+    
 	public SearchOptions() {
 		// TODO Auto-generated constructor stub
 	}
-    
 
-    
-    
-	
 }

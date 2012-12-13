@@ -112,7 +112,7 @@ public class SearchActivity extends Activity {
 			longitude = location.getLongitude();
 
 			//   onLocationChanged(location);
-			System.out.println("CURRENT LOCATION ISISISISISISISIS");
+			System.out.print("CURRENT LOCATION ISISISISISISISIS");
 			System.out.println(message);
 		} 
 
@@ -604,7 +604,7 @@ public class SearchActivity extends Activity {
 		isInternetPresent = cd.isConnectingToInternet();
 
 
-		if (isInternetPresent){
+		if (isInternetPresent) {
 			putDataInSearchOptionsObject();
 			//Returns to List activity
 			Intent i = new Intent();
@@ -652,6 +652,12 @@ public class SearchActivity extends Activity {
 		}
 	}    
 
+	//action to perform help button click
+	public void onHelpButtonClick(View view){
+		System.out.println("Click the help button!");
+		Intent intent = new Intent(this, Help.class);
+		startActivity(intent);
+	}
 	private void putDataInSearchOptionsObject() {
 		mSearchOptions.setNumberOfPeople( mNumberOfPeopleSlider.getProgress() );
 		mSearchOptions.setPrivate( mPrivateCheckBox.isChecked() );
@@ -688,7 +694,7 @@ public class SearchActivity extends Activity {
 		updateEndTimeText();
 		updateDateText();	
 	}
-
+	
 	private void captureViewElements() {
 
 		// General:
@@ -727,9 +733,6 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:     
-			startActivity(new Intent(this, Meme.class));
-			break;
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;

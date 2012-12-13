@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
 public class StudySpaceListActivity extends ListActivity {
 
 	private ProgressDialog ss_ProgressDialog = null; // Dialog when loading
@@ -142,15 +143,11 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 		});
 
-		
 		getListView().setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
 			public boolean onLongClick(View v) {
 				//TODO Create a dialog and show the selection
-				
-				
-				
 				return true;
 			}
 		});
