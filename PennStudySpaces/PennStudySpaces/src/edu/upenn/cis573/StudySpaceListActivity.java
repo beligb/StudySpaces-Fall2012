@@ -142,6 +142,7 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 		});
 
+		
 		getListView().setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
