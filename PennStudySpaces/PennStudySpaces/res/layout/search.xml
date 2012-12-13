@@ -228,6 +228,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/projector_check_box"
                         android:textColor="@color/black" />
+                    
+                     <CheckBox
+                        android:id="@+id/reservableCheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reservable_check_box"
+                        android:textColor="@color/black" />
+                    
+                    
                 </LinearLayout>
 				<LinearLayout
                     android:layout_width="wrap_content"
