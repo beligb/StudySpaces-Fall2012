@@ -111,7 +111,7 @@ public class SearchActivity extends Activity {
 			longitude = location.getLongitude();
 
 			//   onLocationChanged(location);
-			System.out.println("CURRENT LOCATION ISISISISISISISIS");
+			System.out.print("CURRENT LOCATION ISISISISISISISIS");
 			System.out.println(message);
 		} 
 
@@ -599,7 +599,7 @@ public class SearchActivity extends Activity {
 		isInternetPresent = cd.isConnectingToInternet();
 
 
-		if (isInternetPresent){
+		if (isInternetPresent) {
 			putDataInSearchOptionsObject();
 			//Returns to List activity
 			Intent i = new Intent();
@@ -720,9 +720,6 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.meme:     
-			startActivity(new Intent(this, Meme.class));
-			break;
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;

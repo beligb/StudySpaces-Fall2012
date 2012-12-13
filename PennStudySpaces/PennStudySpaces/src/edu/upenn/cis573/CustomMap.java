@@ -14,6 +14,7 @@ import com.google.android.maps.OverlayItem;
 
 //import edu.upenn.cis573.R;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,9 +27,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class CustomMap extends MapActivity {
 
 	LinearLayout linearLayout;

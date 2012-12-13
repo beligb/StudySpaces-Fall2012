@@ -224,12 +224,9 @@ public class SearchOptions implements Serializable, Parcelable {
         othBox = booleanArray[7];
         favSelected = booleanArray[8];
     }
+    
 	public SearchOptions() {
 		// TODO Auto-generated constructor stub
 	}
-    
 
-    
-    
-	
 }
