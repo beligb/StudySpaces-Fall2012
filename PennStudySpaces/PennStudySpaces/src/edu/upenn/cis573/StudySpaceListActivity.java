@@ -432,9 +432,11 @@ public class StudySpaceListActivity extends ListActivity {
 				StudySpace nSpace = arr.get(0);
 				double nDistance = nSpace.getDistance();
 				int index = 0;
-				while(arr.get(index).getDistance() == nDistance){
-					nArr.add(arr.get(index));
-					++ index;
+				while(index < arr.size()) {
+					if (arr.get(index).getDistance() == nDistance){
+						nArr.add(arr.get(index));
+					}
+					index++;
 				}
 				onFNButtonSelected(nArr);
 				return nArr;
