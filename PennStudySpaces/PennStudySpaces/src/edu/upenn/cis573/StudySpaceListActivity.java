@@ -1,6 +1,7 @@
 package edu.upenn.cis573;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
@@ -334,21 +335,28 @@ public class StudySpaceListActivity extends ListActivity {
 					alertDialogBuilder.setTitle("Reservation");
 					alertDialogBuilder
 							.setMessage(
-									"Would you lke to make a reservation?")
+									"Would you like to make a reservation?")
 							.setCancelable(false)
 							.setPositiveButton("Reserve",
 									new DialogInterface.OnClickListener() {
 										public void onClick(DialogInterface dialog,
 												int id) {
-
-
 											 Intent k = null;
-								if(o.getBuildingType().equals(StudySpace.WHARTON)){
-									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://spike.wharton.upenn.edu/Calendar/gsr.cfm?"));}
-								else if(o.getBuildingType().equals(StudySpace.ENGINEERING)){
+								if(o.getBuildingType().equals(StudySpace.WHARTON)) {
+									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://spike.wharton.upenn.edu/Calendar/gsr.cfm?"));
+								} else if(o.getBuildingType().equals(StudySpace.ENGINEERING)) {
 									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weblogin.pennkey.upenn.edu/login/?factors=UPENN.EDU&cosign-seas-www_userpages-1&https://www.seas.upenn.edu/about-seas/room-reservation/form.php"));
-								}else if(o.getBuildingType().equals(StudySpace.LIBRARIES)){
+								} else if(o.getBuildingType().equals(StudySpace.LIBRARIES)) {
 									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weblogin.library.upenn.edu/cgi-bin/login?authz=grabit&app=http://bookit.library.upenn.edu/cgi-bin/rooms/rooms"));
+								} else {
+									Calendar cal = Calendar.getInstance(Locale.US);              
+									k = new Intent(Intent.ACTION_EDIT);
+									k.setType("vnd.android.cursor.item/event");
+									k.putExtra("title", "PennStudySpaces Reservation confirmed. ");
+									k.putExtra("description", "Supported by PennStudySpaces");
+									k.putExtra("eventLocation", o.getBuildingName()+" - "+o.getRooms()[0].getRoomName());
+									k.putExtra("beginTime", cal.getTimeInMillis());
+									k.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
 								}
 								startActivity(k);
 								
