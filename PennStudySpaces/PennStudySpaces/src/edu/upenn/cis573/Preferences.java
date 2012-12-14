@@ -3,11 +3,11 @@ package edu.upenn.cis573;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Preferences implements Serializable{
-
-	/**
-	 * 
-	 */
+/**
+ * Preferences class creates and maintains the Favorites
+ * list for a user.
+ */
+public class Preferences implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Boolean> favorites;
 	

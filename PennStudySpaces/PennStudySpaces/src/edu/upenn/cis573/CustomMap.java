@@ -26,6 +26,10 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
+/**
+ * Generates the map to display location of various study spaces
+ *
+ */
 public class CustomMap extends MapActivity {
 
 	LinearLayout linearLayout;
@@ -43,7 +47,9 @@ public class CustomMap extends MapActivity {
 	// Connection detector class
 	ConnectionDetector cd;
 
-
+	/**
+	 * Generates initial map with pointers for study spaces
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -137,6 +143,12 @@ public class CustomMap extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		return false;
 	}
+	
+	/**
+	 * Creates the PinOverlay used to display individual pointers for study
+	 * spaces.
+	 *
+	 */	
 	public class PinOverlay extends ItemizedOverlay<OverlayItem>{
 
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -163,6 +175,10 @@ public class CustomMap extends MapActivity {
 			return mOverlays.size();
 		}
 
+		/**
+		 * Generates the dialog used to tell user more details about a study
+		 * space when he/she taps the pointer
+		 */
 		@Override
 		protected boolean onTap(int index) {
 			final StudySpace space = mSpaces.get(index);
