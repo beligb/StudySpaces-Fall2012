@@ -111,7 +111,6 @@ public class SearchActivity extends Activity {
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
 
-			//   onLocationChanged(location);
 			System.out.print("CURRENT LOCATION ISISISISISISISIS");
 			System.out.println(message);
 		} 
@@ -129,19 +128,6 @@ public class SearchActivity extends Activity {
 
 		search = getSharedPreferences(SEARCH_PREFERENCES, 0);
 		getSharedPreferences(StudySpaceListActivity.FAV_PREFERENCES, 0);
-
-		/*
-        Log.d("", "Trying to load Bundle.");
-
-        if (savedInstanceState != null && savedInstanceState.containsKey("SEARCH_OPTIONS")) {
-        	mSearchOptions = savedInstanceState.getParcelable("SEARCH_OPTIONS");
-        	getDataOutOfSearchOptionsObject();
-        	Log.d("", "Loaded Bundle.");
-        } else {
-        	mSearchOptions = new SearchOptions();
-        	resetTimeAndDateData();
-        }
-		 */
 
 		captureViewElements();
 		mSearchOptions = new SearchOptions();
@@ -226,35 +212,6 @@ public class SearchActivity extends Activity {
 		editor.commit();
 	}
 
-
-	/*
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    	super.onSaveInstanceState(outState);
-    	// Save UI state changes to the savedInstanceState.
-    	// This bundle will be passed to onCreate if the process is killed and restarted.
-    	outState.putParcelable("SEARCH_OPTIONS", mSearchOptions);
-    	Log.d("", "Saving Bundle.");
-    }
-	 */
-
-	/*
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-      super.onRestoreInstanceState(savedInstanceState);
-      // Restore UI state from the savedInstanceState.
-      // This bundle has also been passed to onCreate.
-      if (savedInstanceState != null && savedInstanceState.containsKey("SEARCH_OPTIONS")) {
-      	  mSearchOptions = savedInstanceState.getParcelable("SEARCH_OPTIONS");
-      	  getDataOutOfSearchOptionsObject();
-      	  Log.d("", "Loaded Bundle.");
-      } else {
-      	  mSearchOptions = new SearchOptions();
-      	  resetTimeAndDateData();
-      }
-    }
-	 */
-
 	private void setUpNumberOfPeopleSlider() { 	
 		mNumberOfPeopleSlider.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			public void onStopTrackingTouch(SeekBar seekBar) {
@@ -273,35 +230,18 @@ public class SearchActivity extends Activity {
 	}
 
 	private void setUpCheckBoxes() {
-
 		mEngiBox.setChecked(search.getBoolean("engineering", true));
 		mWharBox.setChecked(search.getBoolean("wharton", true));
 		mLibBox.setChecked(search.getBoolean("library", true));
 		mOthBox.setChecked(search.getBoolean("others", true));
-
-		/*
-        // Do something when the check box is checked or unchecked:
-        final CheckBox projectorCheckBox = (CheckBox)findViewById(R.id.projectorCheckBox);
-        projectorCheckBox.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    Toast.makeText(SearchActivity.this, "Projector selected!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SearchActivity.this, "Projector not selected!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-		 */
 	}
 
-	private void setUpPrivate(){
-
+	private void setUpPrivate() {
 		mPrivateCheckBox.setChecked(search.getBoolean("private", false));
 		mWhiteboardCheckBox.setChecked(search.getBoolean("whiteboard", false));
 		mComputerCheckBox.setChecked(search.getBoolean("computer", false));
 		mProjectorCheckBox.setChecked(search.getBoolean("projector", false));
 		mReservableCheckBox.setChecked(search.getBoolean("reservable", false));
-	
 	}
 
 
@@ -387,7 +327,6 @@ public class SearchActivity extends Activity {
 		// update the date variable for use elsewhere in code
 		mSearchOptions.setStartHour(hourOfDay);
 		mSearchOptions.setStartMinute(fixedMinute);
-		//date.setMinutes(nextMinute);  
 
 		// display the time in the text field
 		updateStartTimeText();
@@ -409,7 +348,6 @@ public class SearchActivity extends Activity {
 		// update the date variable for use elsewhere in code
 		mSearchOptions.setEndHour(hourOfDay);
 		mSearchOptions.setEndMinute(fixedMinute);
-		//date.setMinutes(nextMinute);  
 
 		// display the time in the text field
 		updateEndTimeText();
@@ -420,20 +358,10 @@ public class SearchActivity extends Activity {
 		// do calculation of next time   
 		int fixedYear = fixYear(year);
 
-		// remove ontimechangedlistener to prevent stackoverflow/infinite loop
-		//datePicker.setOnDateChangedListener(mNullDateChangedListener);
-
-		// set year
-		//datePicker.setCurrentYear(fixedYear);
-
-		// hook up ontimechangedlistener again
-		//datePicker.setOnDateChangedListener(mDateChangedListener);
-
 		// update the date variable for use elsewhere in code
 		mSearchOptions.setYear(fixedYear);
 		mSearchOptions.setMonth(monthOfYear);
 		mSearchOptions.setDay(dayOfMonth);
-		//date.setMinutes(nextMinute);  
 
 		// display the time in the text field
 		updateDateText();
@@ -473,14 +401,7 @@ public class SearchActivity extends Activity {
 			updateDateDisplay(view, year, monthOfYear, dayOfMonth);
 		}
 	};
-
-//	private DatePicker.OnDateChangedListener mNullDateChangedListener =
-//			new DatePicker.OnDateChangedListener() {
-//		public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//			// Do nothing.
-//		}
-//	}; 
-
+	
 	private Button.OnClickListener mStartTimeOKListener = 
 			new OnClickListener() {
 		public void onClick(View view) {
@@ -559,19 +480,8 @@ public class SearchActivity extends Activity {
 
 	//Clicking back button. Does not update mSearchOptions.
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		
-		
+	public boolean onKeyDown(int keyCode, KeyEvent event) {		
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			
-//			putDataInSearchOptionsObject();
-//			//Returns to List activity
-//			Intent i = new Intent();
-//			//Put your searchOption class here
-//			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
-//			setResult(RESULT_OK, i);
-//			//ends this activity
-//			finish();
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -658,6 +568,7 @@ public class SearchActivity extends Activity {
 		Intent intent = new Intent(this, Help.class);
 		startActivity(intent);
 	}
+	
 	private void putDataInSearchOptionsObject() {
 		mSearchOptions.setNumberOfPeople( mNumberOfPeopleSlider.getProgress() );
 		mSearchOptions.setPrivate( mPrivateCheckBox.isChecked() );

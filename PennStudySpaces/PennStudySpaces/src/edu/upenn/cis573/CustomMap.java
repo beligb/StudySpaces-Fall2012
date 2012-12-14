@@ -59,11 +59,6 @@ public class CustomMap extends MapActivity {
 
 		// check for Internet status
 		if (isInternetPresent) {
-			// Internet Connection is Present
-			// make HTTP requests
-			//            showAlertDialog(SplashScreen.this, "Internet Connection",
-			//                    "You have internet connection", true);
-
 			setContentView(R.layout.mapview);
 			mapView = (MapView) findViewById(R.id.mapview);
 			mapView.setBuiltInZoomControls(true);
@@ -71,18 +66,10 @@ public class CustomMap extends MapActivity {
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
 
-//			double avgLong = 0;
-//			double avgLat = 0;
-
 			LocationManager locationManager = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
 
 			Criteria _criteria = new Criteria();
-			// _criteria.setAccuracy(Criteria.ACCURACY_LOW);
-//			PendingIntent _pIntent = PendingIntent.getBroadcast(
-//					getApplicationContext(), 0, getIntent(), 0);
-//			locationManager.requestSingleUpdate(_criteria, _pIntent);
-
 			String _bestProvider = locationManager.getBestProvider(_criteria, true);
 			Location location = locationManager.getLastKnownLocation(_bestProvider);
 
@@ -106,10 +93,6 @@ public class CustomMap extends MapActivity {
 			if (location != null) {
 				double gpsLat = location.getLatitude();
 				double gpsLong = location.getLongitude();
-
-//				avgLat += gpsLat;
-//				avgLong += gpsLong;
-
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
 
 				OverlayItem overlayitem = new OverlayItem(q, "", "");
@@ -118,11 +101,6 @@ public class CustomMap extends MapActivity {
 				mapView.getOverlays().add(pinsBlue);
 			}
 
-			/*
-			 * MapOverlay mapOverlay = new MapOverlay(); List<Overlay>
-			 * listOfOverlays = mapView.getOverlays(); listOfOverlays.clear();
-			 * listOfOverlays.add(mapOverlay);
-			 */
 			PinOverlay pinsRed = new PinOverlay(drawableRed);
 			for (StudySpace o: olist) {
 				double longitude = o.getSpaceLongitude();
@@ -131,16 +109,8 @@ public class CustomMap extends MapActivity {
 				p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
 				OverlayItem overlayitem = new OverlayItem(p, "", "");
 				pinsRed.addOverlay(overlayitem, o);
-	
-//				avgLong += longitude;
-//				avgLat += latitude;
 			}
 			mapView.getOverlays().add(pinsRed);
-
-//			avgLong /= olist.size() + 1;
-//			avgLat /= olist.size() + 1;
-//			avg = new GeoPoint((int) (avgLat * 1E6), (int) (avgLong * 1E6));
-
 			mc = mapView.getController();
 			mc.animateTo(pinsRed.getCenter());
 			mc.setZoom(17);
@@ -152,20 +122,6 @@ public class CustomMap extends MapActivity {
 		}
 
 	}
-	/*
-	 * class MapOverlay extends Overlay {
-	 * 
-	 * @Override public boolean draw(Canvas canvas, MapView mapView, boolean
-	 * shadow, long when) { super.draw(canvas, mapView, shadow);
-	 * 
-	 * //---translate the GeoPoint to screen pixels--- Point screenPts = new
-	 * Point(); mapView.getProjection().toPixels(p, screenPts);
-	 * 
-	 * //---add the marker--- Bitmap bmp = BitmapFactory.decodeResource(
-	 * getResources(), R.drawable.pushpin); //Positions the image
-	 * canvas.drawBitmap(bmp, screenPts.x-10, screenPts.y-34, null); return
-	 * true; } }
-	 */
 
 	@Override
 	protected boolean isRouteDisplayed() {
