@@ -33,7 +33,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -541,9 +540,8 @@ public class StudySpaceListActivity extends ListActivity {
 					StudySpace s = list_items.get(i);
 					if (s.getBuildingName().toLowerCase(Locale.US)
 							.indexOf(query) >= 0
-							|| s.getSpaceName().toLowerCase().indexOf(query) >= 0
-							|| s.getRoomNames().toLowerCase().indexOf(query) >= 0) {
-
+							|| s.getSpaceName().toLowerCase(Locale.US).indexOf(query) >= 0
+							|| s.getRoomNames().toLowerCase(Locale.US).indexOf(query) >= 0) {
 					} else {
 						list_items.remove(i);
 					}

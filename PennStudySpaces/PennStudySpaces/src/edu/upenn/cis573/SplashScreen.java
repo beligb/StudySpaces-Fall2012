@@ -25,13 +25,9 @@ public class SplashScreen extends Activity {
 
 		cd = new ConnectionDetector(getApplicationContext());
 
-		// get Internet status
 		isInternetPresent = cd.isConnectingToInternet();
 
-		// check for Internet status
 		if (!isInternetPresent) {
-			// Internet connection is not present
-			// Ask user to connect to Internet
 			cd.showAlertDialog(SplashScreen.this, "No Internet Connection",
 					"You don't have internet connection.", false);
 

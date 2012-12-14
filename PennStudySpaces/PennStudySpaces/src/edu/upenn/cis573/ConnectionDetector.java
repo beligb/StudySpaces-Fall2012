@@ -41,11 +41,7 @@ public class ConnectionDetector {
 	public void showAlertDialog(Context context, String title, String message, Boolean status) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		AlertDialog alertDialog = builder.create();
-
-		// Setting Dialog Title
 		alertDialog.setTitle(title);
-
-		// Setting Dialog Message
 		alertDialog.setMessage(message);
 
 		// Setting OK Button
@@ -53,8 +49,6 @@ public class ConnectionDetector {
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		});
-
-		// Showing Alert Message
 		alertDialog.show();
 	}
 }

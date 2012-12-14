@@ -8,18 +8,11 @@ import java.io.Serializable;
 
 public class Room implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int ID;
 	private String roomName;
 	private String availabilities;
-	//private JSONObject avails;
-	/*private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	private DateFormat df1 = new SimpleDateFormat("HH");
-	private DateFormat df2 = new SimpleDateFormat("mm");*/
-	
+
 	public Room(int id, String name, JSONObject avail) {
 		ID = id;
 		roomName = name;

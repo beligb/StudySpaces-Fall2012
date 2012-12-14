@@ -13,7 +13,6 @@ public class SpaceInfo {
 
 		{
 			put("Jon M. Huntsman HallGSR", 1);
-			//put("", 2);
 		}};
 
 		//Descriptions.
