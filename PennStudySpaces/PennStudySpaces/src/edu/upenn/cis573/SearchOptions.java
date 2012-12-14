@@ -6,8 +6,9 @@ import java.util.Date;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SearchOptions implements Parcelable {
+public class SearchOptions implements Parcelable, Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int numberOfPeople = 0;
 	
 	private int startHour;

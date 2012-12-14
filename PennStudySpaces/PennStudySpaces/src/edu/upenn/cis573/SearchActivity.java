@@ -610,7 +610,7 @@ public class SearchActivity extends Activity {
 			Intent i = new Intent();
 			//Put your searchOption class here
 			mSearchOptions.setFavSelected(false);
-			i.putExtra("SEARCH_OPTIONS", mSearchOptions);
+			i.putExtra("SEARCH_OPTIONS", (Serializable)mSearchOptions);
 
 			//on search trigger test
 			this.showCurrentLocation();

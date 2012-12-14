@@ -548,23 +548,24 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 
 		public ArrayList<StudySpace> findNearest(ArrayList<StudySpace> arr) {
-
-			if (arr.size() > 1) {
+			if(arr.size() > 1) {
 				ArrayList<StudySpace> nArr = new ArrayList<StudySpace>();
 				StudySpace nSpace = arr.get(0);
 				double nDistance = nSpace.getDistance();
-				int index = 1;
-				while (arr.get(index).getDistance() == nDistance) {
-					nArr.add(arr.get(index));
-					++index;
+				int index = 0;
+				while(index < arr.size()) {
+					if (arr.get(index).getDistance() == nDistance){
+						nArr.add(arr.get(index));
+					}
+					index++;
 				}
 				onFNButtonSelected(nArr);
 				return nArr;
 			} else {
 				return arr;
 			}
-
 		}
+
 
 		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr) {
 			double currentLatitude = SearchActivity.latitude;
