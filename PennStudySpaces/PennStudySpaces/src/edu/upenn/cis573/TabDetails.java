@@ -182,7 +182,7 @@ public class TabDetails extends Fragment {
 		unfav.setVisibility(View.GONE);
 	}
 
-	public Intent getReserveIntent(View v){
+	public Intent getReserveIntent(){
 		Intent k = null;
 		if(o.getBuildingType().equals(StudySpace.WHARTON)){
 			k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://spike.wharton.upenn.edu/Calendar/gsr.cfm?"));}
@@ -234,7 +234,7 @@ public class TabDetails extends Fragment {
 	}
 
 	public void onReserveClick(View v){
-		Intent k = getReserveIntent(v);
+		Intent k = getReserveIntent();
 		if(k!=null) {
 			startActivity(k);
 		}
