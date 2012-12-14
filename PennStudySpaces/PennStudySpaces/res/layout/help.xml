@@ -34,7 +34,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="The filter page allows you to filter study spaces based on your requirements.&#10;&#10;You can select from a variety of utilities and also filter across Penn&apos;s schools.&#10;&#10;You also have the opportunity to specify the minimum number of people in your group."
+            android:text="The filter page allows you to filter study spaces based on your requirements.&#10;&#10;You can select from a variety of utilities and also filter across Penn&apos;s schools.&#10;&#10;The star on the top left corner will let you go directely to your favorite places. The find now button could bring you to the closest study space matching your selection criteria.&#10;&#10;You also have the opportunity to specify the minimum number of people in your group, and only view the reservable rooms.&#10;&#10; For more details, just clikc the ? at the bottom left corner, it will bring you to the help screen! &#10;&#10; Enjoy Your Study!"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
