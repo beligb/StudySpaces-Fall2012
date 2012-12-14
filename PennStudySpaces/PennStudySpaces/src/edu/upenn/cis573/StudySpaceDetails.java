@@ -96,8 +96,7 @@ public class StudySpaceDetails extends FragmentActivity {
 		Intent i = new Intent(this, CustomMap.class);
 		ArrayList<StudySpace> olist = new ArrayList<StudySpace>();
 		olist.add(o);
-		i.putExtra("STUDYSPACELIST", olist);
-		i.putExtra("PREFERENCES", p);
+		i.putExtra("STUDYSPACE", o);
 		startActivity(i);
 	}
 	

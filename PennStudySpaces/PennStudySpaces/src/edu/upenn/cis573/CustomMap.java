@@ -36,7 +36,7 @@ public class CustomMap extends MapActivity {
 	GeoPoint avg;
 	Drawable drawableRed, drawableBlue;
 	Preferences pref;
-	private ArrayList<StudySpace> olist;
+	private StudySpace space;
 	
 	Boolean isInternetPresent = false;
 
@@ -50,7 +50,7 @@ public class CustomMap extends MapActivity {
 		super.onCreate(savedInstanceState);
 		Intent i = super.getIntent();
 		pref = (Preferences) i.getSerializableExtra("PREFERENCES");
-		olist = (ArrayList<StudySpace>) i.getSerializableExtra("STUDYSPACELIST");
+		space = (StudySpace) i.getSerializableExtra("STUDYSPACE");
 
 		cd = new ConnectionDetector(getApplicationContext());
 
@@ -66,6 +66,19 @@ public class CustomMap extends MapActivity {
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
 
+			PinOverlay pinsRed = new PinOverlay(drawableRed);
+			double longitude = space.getSpaceLongitude();
+			double latitude = space.getSpaceLatitude();
+
+			p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+			OverlayItem overlayitem = new OverlayItem(p, "", "");
+			pinsRed.addOverlay(overlayitem, space);
+			mapView.getOverlays().add(pinsRed);
+
+			int clat = p.getLatitudeE6();
+			int clon = p.getLongitudeE6();
+			int cnt = 1;
+			
 			LocationManager locationManager = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
 
@@ -94,25 +107,22 @@ public class CustomMap extends MapActivity {
 				double gpsLat = location.getLatitude();
 				double gpsLong = location.getLongitude();
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
+				clat += q.getLatitudeE6();
+				clon += q.getLongitudeE6();
+				cnt++;
 
-				OverlayItem overlayitem = new OverlayItem(q, "", "");
+				OverlayItem overlayitem1 = new OverlayItem(q, "", "");
 				PinOverlay pinsBlue = new PinOverlay(drawableBlue);
-				pinsBlue.addOverlay(overlayitem, null);
+				pinsBlue.addOverlay(overlayitem1, null);
 				mapView.getOverlays().add(pinsBlue);
 			}
 
-			PinOverlay pinsRed = new PinOverlay(drawableRed);
-			for (StudySpace o: olist) {
-				double longitude = o.getSpaceLongitude();
-				double latitude = o.getSpaceLatitude();
-	
-				p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
-				OverlayItem overlayitem = new OverlayItem(p, "", "");
-				pinsRed.addOverlay(overlayitem, o);
-			}
-			mapView.getOverlays().add(pinsRed);
+
+			clat /= cnt;
+			clon /= cnt;
+			GeoPoint center = new GeoPoint(clat, clon);
 			mc = mapView.getController();
-			mc.animateTo(pinsRed.getCenter());
+			mc.animateTo(center);
 			mc.setZoom(17);
 		} else {
 			// Internet connection is not present
@@ -156,7 +166,6 @@ public class CustomMap extends MapActivity {
 		@Override
 		protected boolean onTap(int index) {
 			final StudySpace space = mSpaces.get(index);
-			final Preferences preference = pref;
 			
 			if (space == null)
 				return true;
@@ -185,10 +194,7 @@ public class CustomMap extends MapActivity {
 				});
 				builder.setNegativeButton("Info", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						Intent i = new Intent(getApplicationContext(), StudySpaceDetails.class);
-						i.putExtra("STUDYSPACE", space);
-						i.putExtra("PREFERENCES", preference);
-						startActivity(i);		
+						finish();		
 					}
 				});
 				AlertDialog alert = builder.create();

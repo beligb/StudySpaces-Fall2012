@@ -73,6 +73,10 @@ public class CustomBuildingMap extends MapActivity {
 
 			drawableBlue = this.getResources().getDrawable(R.drawable.pushpin_blue);
 			drawableRed = this.getResources().getDrawable(R.drawable.pushpin_red);
+			
+			int clat = 0;
+			int clon = 0;
+			int cnt = 0;
 
 			LocationManager locationManager = (LocationManager) this
 					.getSystemService(Context.LOCATION_SERVICE);
@@ -104,6 +108,9 @@ public class CustomBuildingMap extends MapActivity {
 				double gpsLong = location.getLongitude();
 
 				q = new GeoPoint((int) (gpsLat * 1E6), (int) (gpsLong * 1E6));
+				clat += q.getLatitudeE6();
+				clon += q.getLongitudeE6();
+				++cnt;
 
 				OverlayItem overlayitem = new OverlayItem(q, "", "");
 				PinOverlay pinsBlue = new PinOverlay(drawableBlue);
@@ -130,6 +137,9 @@ public class CustomBuildingMap extends MapActivity {
 				double longitude = rooms.get(0).getSpaceLongitude();
 				double latitude = rooms.get(0).getSpaceLatitude();
 				p = new GeoPoint((int) (latitude * 1E6), (int) (longitude * 1E6));
+				clat += p.getLatitudeE6();
+				clon += p.getLongitudeE6();
+				++cnt;
 				OverlayItem overlayitem = new OverlayItem(p, "", "");
 				pinsRed.addOverlay(overlayitem, new Building(rooms));
 	
@@ -138,8 +148,11 @@ public class CustomBuildingMap extends MapActivity {
 			}
 			mapView.getOverlays().add(pinsRed);
 
+			clat /= cnt;
+			clon /= cnt;
+			GeoPoint center = new GeoPoint(clat, clon);
 			mc = mapView.getController();
-			mc.animateTo(pinsRed.getCenter());
+			mc.animateTo(center);
 			mc.setZoom(17);
 		} else {
 			// Internet connection is not present
