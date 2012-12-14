@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgrepeat"
+        android:background="@color/white"
         android:minHeight="500dp"
         android:orientation="vertical" >
 
@@ -34,7 +34,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="The filter page allows you to filter study spaces based on your requirements.&#10;&#10;You can select from a variety of utilities and also filter across Penn&apos;s schools.&#10;&#10;The star on the top left corner will let you go directely to your favorite places. The find now button could bring you to the closest study space matching your selection criteria.&#10;&#10;You also have the opportunity to specify the minimum number of people in your group, and only view the reservable rooms.&#10;&#10; For more details, just clikc the ? at the bottom left corner, it will bring you to the help screen! &#10;&#10; Enjoy Your Study!"
+            android:text="The filter page allows you to filter study spaces based on your requirements.&#10;&#10;You can select from a variety of utilities and also filter across Penn&apos;s schools.&#10;&#10;The star on the top left corner will let you go directely to your favorite places. The find now button could bring you to the closest study space matching your selection criteria.&#10;&#10;You also have the opportunity to specify the minimum number of people in your group, and only view the reservable rooms.&#10;&#10;For more details, just click the ? at the bottom left corner, it will bring you to the help screen!&#10;&#10;Enjoy Your Study!"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -43,7 +43,7 @@
             android:layout_height="350dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/searchscreen" />
+            android:src="@drawable/search_screen" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="The main screen displays all available spaces based on the filter parameters as described above.&#10;&#10;Jon M. Huntsman Hall GSR is always listed as the first study space while the other study spaces are sorted in random order.&#10;&#10;The label on the left indicates whether the study space belongs to Engineering, Library, Wharton or Others.&#10;&#10;The icons on the right shows whether the study space is private, has whiteboards, computers or projectors.&#10;&#10;There is also a favorites tab that displays any spaces you have selected as favorites."
+            android:text="The main screen displays all available spaces based on the filter parameters as described above.&#10;&#10;By default, all the studyspaces are ranked by their distance from your current place.&#10;&#10;The label on the left indicates whether the study space belongs to Engineering, Library, Wharton or Others.&#10;&#10;The icons on the right shows whether the study space is private, has whiteboards, computers or projectors.&#10;&#10;If you long press the study space on the list, you could choose to reserve that study space from the pop up dialouge. &#10;&#10;There is also a favorites tab that displays any spaces you have selected as favorites.&#10;&#10;Last but not least, through the MapView, you could see all the study spaces in the list on map. Aha! So Fun!"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -69,7 +69,7 @@
             android:layout_height="350dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/mainscreen" />
+            android:src="@drawable/main_scene" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
             android:layout_height="350dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:src="@drawable/studyspaceinfotop" />
+            android:src="@drawable/space_detail" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,49 +104,9 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="You also have the option of adding to calendar and notifying your friends via text messages for each of the spaces, and for those spaces that are reservable, you have a link to the appropriate reservation page."
+            android:text="You also have the option of adding to calendar and notifying your friends via text messages or email for each of the spaces."
             android:textColor="@color/black"
             android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/studyspaceinfobottom" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="Study Space Details"
-            android:textColor="@color/lightblue"
-            android:textSize="24sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Each space also has more information where you can see a picture, a description and tips from foursquare users who have visited that space."
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="350dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/studyspacedetailstop" />
-
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/studyspacedetailsbottom" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -165,7 +125,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:text="The map tab allows you to see the location of your selected space in relation to your current space. 
-            
             Tapping on an icon allows you to see the space&apos;s address."
             android:textColor="@color/black"
             android:textSize="16sp" />
