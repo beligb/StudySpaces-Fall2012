@@ -45,11 +45,13 @@ public class StudySpaceListActivity extends ListActivity {
 	private Runnable viewAvailableSpaces; // runnable to get available spaces
 	public static final int ACTIVITY_ViewSpaceDetails = 1;
 	public static final int ACTIVITY_SearchActivity = 2;
+	public static final int ACTIVITY_ViewRooms = 3;
 	private SearchOptions searchOptions; // create a default searchoption later
 	private boolean favSelected;
 	private Preferences preferences;
 
 	private SharedPreferences favorites;
+	private boolean mapViewClicked;
 	static final String FAV_PREFERENCES = "favoritePreferences";
 	
 
@@ -153,6 +155,18 @@ public class StudySpaceListActivity extends ListActivity {
 					.getSerializableExtra("PREFERENCES");
 			ss_adapter.updateFavorites(preferences);
 			break;
+		case ACTIVITY_ViewRooms:
+			Log.d("List", "ViewRooms");
+			@SuppressWarnings("unchecked")
+			ArrayList<StudySpace> nlist = (ArrayList<StudySpace>) intent
+					.getSerializableExtra("STUDYSPACELIST");
+			if (!nlist.isEmpty()) {
+				ss_adapter.setListItems(nlist);
+				this.mapViewClicked = true;
+			} else {
+				this.mapViewClicked = false;
+			}
+			break;
 		}
 	}
 
@@ -206,17 +220,26 @@ public class StudySpaceListActivity extends ListActivity {
 	public void onMapViewClick(View view) {
 		// Start up the search options screen
 		Log.d("MapView", "Clicked");
-		Intent i = new Intent(this, CustomMap.class);
+		Intent i = new Intent(this, CustomBuildingMap.class);
 		i.putExtra("STUDYSPACELIST", this.ss_adapter.list_items);
-		startActivity(i);
+		startActivityForResult(i,
+				StudySpaceListActivity.ACTIVITY_ViewRooms);
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			Intent i = new Intent(this, SearchActivity.class);
-			startActivityForResult(i,
-					StudySpaceListActivity.ACTIVITY_SearchActivity);
+			if (!mapViewClicked) {
+				Intent i = new Intent(this, SearchActivity.class);
+				startActivityForResult(i,
+						StudySpaceListActivity.ACTIVITY_SearchActivity);
+			} else {
+				ss_adapter.favToAll();
+				Intent i = new Intent(this, CustomBuildingMap.class);
+				i.putExtra("STUDYSPACELIST", this.ss_adapter.list_items);
+				startActivityForResult(i,
+						StudySpaceListActivity.ACTIVITY_ViewRooms);
+			}
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -554,6 +577,12 @@ public class StudySpaceListActivity extends ListActivity {
 		public void allToFav() {
 			this.temp = this.list_items; // remember list items
 			this.list_items = fav_orig_items;
+			notifyDataSetChanged();
+		}
+
+		public void setListItems(ArrayList<StudySpace> nlist) {
+			this.temp = this.list_items; // remember list items
+			this.list_items = nlist;
 			notifyDataSetChanged();
 		}
 

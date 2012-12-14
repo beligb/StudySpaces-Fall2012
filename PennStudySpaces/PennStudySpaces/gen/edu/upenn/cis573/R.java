@@ -100,11 +100,11 @@ public final class R {
         public static final int computerCheckBox=0x7f080010;
         public static final int computer_icon=0x7f080032;
         public static final int dateDisplay=0x7f080008;
-        public static final int dateOK=0x7f080001;
-        public static final int datePicker=0x7f080000;
+        public static final int dateOK=0x7f080002;
+        public static final int datePicker=0x7f080001;
         public static final int endTimeDisplay=0x7f08000c;
-        public static final int endTimeOK=0x7f080003;
-        public static final int endTimePicker=0x7f080002;
+        public static final int endTimeOK=0x7f080004;
+        public static final int endTimePicker=0x7f080003;
         public static final int engibox=0x7f080013;
         public static final int favorite=0x7f080038;
         public static final int favorite_button=0x7f08001f;
@@ -116,7 +116,7 @@ public final class R {
         public static final int icon=0x7f080021;
         public static final int libbox=0x7f080015;
         public static final int listitem=0x7f080020;
-        public static final int mapview=0x7f080004;
+        public static final int mapview=0x7f080000;
         public static final int maxoccupancy=0x7f08002d;
         public static final int meme=0x7f080040;
         public static final int nametext=0x7f080022;
@@ -156,17 +156,18 @@ public final class R {
     }
     public static final class layout {
         public static final int about=0x7f030000;
-        public static final int datepicker=0x7f030001;
-        public static final int endtimepicker=0x7f030002;
-        public static final int help=0x7f030003;
-        public static final int mapview=0x7f030004;
-        public static final int search=0x7f030005;
-        public static final int splash=0x7f030006;
-        public static final int ssdetails=0x7f030007;
-        public static final int sslist=0x7f030008;
-        public static final int sslistitem=0x7f030009;
-        public static final int starttimepicker=0x7f03000a;
-        public static final int tabdetails=0x7f03000b;
+        public static final int buildingmapview=0x7f030001;
+        public static final int datepicker=0x7f030002;
+        public static final int endtimepicker=0x7f030003;
+        public static final int help=0x7f030004;
+        public static final int mapview=0x7f030005;
+        public static final int search=0x7f030006;
+        public static final int splash=0x7f030007;
+        public static final int ssdetails=0x7f030008;
+        public static final int sslist=0x7f030009;
+        public static final int sslistitem=0x7f03000a;
+        public static final int starttimepicker=0x7f03000b;
+        public static final int tabdetails=0x7f03000c;
     }
     public static final class menu {
         public static final int menu=0x7f070000;
