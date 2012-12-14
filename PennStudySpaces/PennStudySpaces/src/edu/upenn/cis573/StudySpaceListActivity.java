@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -49,6 +51,7 @@ public class StudySpaceListActivity extends ListActivity {
 
 	private SharedPreferences favorites;
 	static final String FAV_PREFERENCES = "favoritePreferences";
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -145,18 +148,18 @@ public class StudySpaceListActivity extends ListActivity {
 
 	}
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) { // click
-		// String item = ((StudySpace)
-		// getListAdapter().getItem(position)).getSpaceName();
-		// Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
-		Intent i = new Intent(this, StudySpaceDetails.class);
-		i.putExtra("STUDYSPACE", (StudySpace) getListAdapter()
-				.getItem(position));
-		i.putExtra("PREFERENCES", preferences);
-		startActivityForResult(i,
-				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
-	}
+//	@Override
+//	protected void onListItemClick(ListView l, View v, int position, long id) { // click
+//		// String item = ((StudySpace)
+//		// getListAdapter().getItem(position)).getSpaceName();
+//		// Toast.makeText(this, item + " selected", Toast.LENGTH_SHORT).show();
+////		Intent i = new Intent(this, StudySpaceDetails.class);
+////		i.putExtra("STUDYSPACE", (StudySpace) getListAdapter()
+////				.getItem(position));
+////		i.putExtra("PREFERENCES", preferences);
+////		startActivityForResult(i,
+////				StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
+//	}
 
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
@@ -199,7 +202,7 @@ public class StudySpaceListActivity extends ListActivity {
 
 			System.out.println("Calling the getSpace method!");
 			// APIAccessor aa = APIAccessor.getAPIAccessor();
-			ss_list.addAll(APIAccessor.aa.getStudySpaces()); // uncomment this
+			ss_list.addAll(APIAccessor.getStudySpaces(this.getApplicationContext())); // uncomment this
 			ss_adapter.updateFavorites(preferences);
 			Thread.sleep(2000); // appears to load for 2 seconds
 
@@ -287,7 +290,7 @@ public class StudySpaceListActivity extends ListActivity {
 			}
 			// int index = getRealPosition(position);
 
-			StudySpace o = list_items.get(position);
+			final StudySpace o = list_items.get(position);
 			if (o != null) {
 
 				TextView tt = (TextView) v.findViewById(R.id.nametext);
@@ -344,11 +347,74 @@ public class StudySpaceListActivity extends ListActivity {
 					proj.setVisibility(View.VISIBLE);
 			}
 
+			v.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(getContext(), StudySpaceDetails.class);
+					i.putExtra("STUDYSPACE", o);
+					i.putExtra("PREFERENCES", preferences);
+					startActivityForResult(i,
+							StudySpaceListActivity.ACTIVITY_ViewSpaceDetails);
+					
+				}});
 			v.setOnLongClickListener(new OnLongClickListener() {
 
 				@Override
 				public boolean onLongClick(View v) {
-					// TODO Create a dialog and show the selection
+					//AlertDialog to ask ask user 
+					//onPositive -> {
+					//
+					// Intent 
+					
+					
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							getContext());
+					// set title
+					alertDialogBuilder.setTitle("Reservation");
+
+					// set dialog message
+					alertDialogBuilder
+							.setMessage(
+									"Would you lke to make a reservation?")
+							.setCancelable(false)
+							.setPositiveButton("Reserve",
+									new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog,
+												int id) {
+
+
+											 Intent k = null;
+								if(o.getBuildingType().equals(StudySpace.WHARTON)){
+									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://spike.wharton.upenn.edu/Calendar/gsr.cfm?"));}
+								else if(o.getBuildingType().equals(StudySpace.ENGINEERING)){
+									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weblogin.pennkey.upenn.edu/login/?factors=UPENN.EDU&cosign-seas-www_userpages-1&https://www.seas.upenn.edu/about-seas/room-reservation/form.php"));
+								}else if(o.getBuildingType().equals(StudySpace.LIBRARIES)){
+									k = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weblogin.library.upenn.edu/cgi-bin/login?authz=grabit&app=http://bookit.library.upenn.edu/cgi-bin/rooms/rooms"));
+								}
+								startActivity(k);
+								
+											
+										}
+									})
+									.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int id) {
+						dialog.cancel();
+					}
+					});
+
+					// create alert dialog
+					AlertDialog alertDialog = alertDialogBuilder.create();
+
+					// show it
+					alertDialog.show();
+					
+
+		
+					
+					
+					//
 					return true;
 				}
 			});
