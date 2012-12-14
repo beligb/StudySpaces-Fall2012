@@ -736,9 +736,6 @@ public class SearchActivity extends Activity {
 		case R.id.about:     
 			startActivity(new Intent(this, About.class));
 			break;
-		case R.id.help:     
-			startActivity(new Intent(this, Help.class));
-			break;
 		}
 		return true;
 	}

@@ -112,7 +112,6 @@ public final class R {
         public static final int findNowButton=0x7f080018;
         public static final int footer=0x7f08001a;
         public static final int fragment_container=0x7f08001d;
-        public static final int help=0x7f080041;
         public static final int helpButton=0x7f080019;
         public static final int icon=0x7f080021;
         public static final int libbox=0x7f080015;
