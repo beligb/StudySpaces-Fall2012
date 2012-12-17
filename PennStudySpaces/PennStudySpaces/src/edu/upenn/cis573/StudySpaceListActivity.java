@@ -414,7 +414,6 @@ public class StudySpaceListActivity extends ListActivity {
 
 			ArrayList<StudySpace> filtered = (ArrayList<StudySpace>) orig_items
 					.clone();
-
 			int i = 0;
 			while (i < filtered.size()) {
 				if (!searchOptions.getEngi()
@@ -471,6 +470,7 @@ public class StudySpaceListActivity extends ListActivity {
 				i++;
 
 			}
+			this.list_items = filtered;
 			this.list_items = filterByPeople(list_items);
 			this.list_items = sortByDistance(list_items);
 			if (SearchActivity.isFNButtonClicked()) {
@@ -590,7 +590,9 @@ public class StudySpaceListActivity extends ListActivity {
 			notifyDataSetChanged();
 		}
 
+		@SuppressWarnings("unchecked")
 		public void updateFavorites(Preferences p) {
+			this.fav_orig_items = (ArrayList<StudySpace>) this.orig_items.clone();
 			for (int i = fav_orig_items.size() - 1; i >= 0; i--) {
 				if (!p.isFavorite(fav_orig_items.get(i).getBuildingName()
 						+ fav_orig_items.get(i).getSpaceName()))

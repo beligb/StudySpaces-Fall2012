@@ -42,7 +42,7 @@ public class APIAccessor {
 			// internet
 
 			if (file.exists() && !isFirst) {
-				System.out.println("File Exsitss!");
+				System.out.println("File Exists!");
 				FileReader fr = new FileReader(file);
 				reader = new BufferedReader(fr);
 				line = reader.readLine();
@@ -79,7 +79,6 @@ public class APIAccessor {
 		}
 		
 		JSONObject json_obj = new JSONObject(line);
-		System.out.println(json_obj);
 		JSONArray buildings_arr = json_obj.getJSONArray("buildings");
 
 		ArrayList<StudySpace> study_spaces = new ArrayList<StudySpace>();
