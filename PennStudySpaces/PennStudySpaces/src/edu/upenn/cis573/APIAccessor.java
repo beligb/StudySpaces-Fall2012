@@ -79,7 +79,7 @@ public class APIAccessor {
 		}
 		
 		JSONObject json_obj = new JSONObject(line);
-
+		System.out.println(json_obj);
 		JSONArray buildings_arr = json_obj.getJSONArray("buildings");
 
 		ArrayList<StudySpace> study_spaces = new ArrayList<StudySpace>();
@@ -101,7 +101,7 @@ public class APIAccessor {
 							.getJSONObject(k).getJSONObject("availabilities"));
 					rooms[k] = temp;
 				}
-
+				
 				StudySpace temp = new StudySpace(roomkinds_arr.getJSONObject(j)
 						.getString("name"), buildings_arr.getJSONObject(i)
 						.getDouble("latitude"), buildings_arr.getJSONObject(i)

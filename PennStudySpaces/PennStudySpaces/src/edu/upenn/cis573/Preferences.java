@@ -11,20 +11,20 @@ public class Preferences implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private HashMap<String, Boolean> favorites;
 	
-	public Preferences(){
+	public Preferences() {
 		favorites = new HashMap<String, Boolean>();
 	}
 	
 	//Need to test if the array actually doubles in size
-	public void addFavorites(String name){
+	public void addFavorites(String name) {
 			favorites.put(name, true);
 	}
 	
-	public void removeFavorites(String name){
+	public void removeFavorites(String name) {
 		if(favorites.containsKey(name)) favorites.remove(name);
 	}
 	
-	public boolean isFavorite(String name){
+	public boolean isFavorite(String name) {
 		if(favorites.containsKey(name)) return true;
 		return false;
 	}

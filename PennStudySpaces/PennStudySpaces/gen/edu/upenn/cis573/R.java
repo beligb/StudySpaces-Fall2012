@@ -109,6 +109,7 @@ public final class R {
         public static final int favorite=0x7f080038;
         public static final int favorite_button=0x7f08001f;
         public static final int favoritesButton=0x7f080005;
+        public static final int filter=0x7f08001e;
         public static final int findNowButton=0x7f080018;
         public static final int footer=0x7f08001a;
         public static final int fragment_container=0x7f08001d;
@@ -141,7 +142,6 @@ public final class R {
         public static final int roomnumbers=0x7f08002c;
         public static final int roomtext=0x7f080023;
         public static final int roomtype=0x7f08002b;
-        public static final int search=0x7f08001e;
         public static final int searchButton=0x7f080017;
         public static final int spacename=0x7f08002a;
         public static final int startTimeDisplay=0x7f08000a;
@@ -183,7 +183,6 @@ public final class R {
         public static final int details=0x7f060009;
         public static final int favorites=0x7f06000c;
         public static final int favorites_button=0x7f060013;
-        public static final int filter=0x7f06000b;
         public static final int info=0x7f06000a;
         public static final int main_no_items=0x7f060001;
         public static final int map=0x7f060008;
@@ -193,6 +192,7 @@ public final class R {
         public static final int projector_check_box=0x7f060006;
         public static final int remove_favorites=0x7f06000e;
         public static final int reservable_check_box=0x7f060007;
+        public static final int search=0x7f06000b;
         public static final int search_button=0x7f060002;
         public static final int whiteboard_check_box=0x7f060004;
         public static final int your_favorite=0x7f06000f;

@@ -87,7 +87,7 @@ public class SearchActivity extends Activity {
 		if (!enabled) {
 			System.out.println("THE GPS IS NOT ENABLED");
 		} 
-		// Define the criteria how to select the locatioin provider -> use
+		// Define the criteria how to select the location provider -> use
 		// default
 		Criteria criteria = new Criteria();
 		provider = locationManager.getBestProvider(criteria, false);
@@ -482,10 +482,10 @@ public class SearchActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {		
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//			Intent intent = new Intent(Intent.ACTION_MAIN);
-//			intent.addCategory(Intent.CATEGORY_HOME);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			startActivity(intent);
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			return true;
 			
 		}
@@ -640,16 +640,6 @@ public class SearchActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.about:     
-			startActivity(new Intent(this, About.class));
-			break;
-		}
 		return true;
 	}
 

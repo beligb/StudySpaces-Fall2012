@@ -14,7 +14,7 @@
     <string name="info">Info</string>
     
     
-    <string name="filter">Filter</string>
+    <string name="search">Search</string>
     <string name="favorites">Favorites</string>
     <string name="add_favorites">Add to favorites</string>
     <string name="remove_favorites">Unfavorite</string>

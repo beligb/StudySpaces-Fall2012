@@ -147,14 +147,5 @@ public class StudySpaceDetails extends FragmentActivity {
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.about:     
-			startActivity(new Intent(this, About.class));
-			break;
-		}
-		return true;
-	}
 
 }

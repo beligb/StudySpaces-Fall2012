@@ -46,7 +46,6 @@ public class CustomBuildingMap extends MapActivity {
 	// Connection detector class
 	ConnectionDetector cd;
 
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +61,6 @@ public class CustomBuildingMap extends MapActivity {
 
 		// check for Internet status
 		if (isInternetPresent) {
-			// Internet Connection is Present
-			// make HTTP requests
-			//            showAlertDialog(SplashScreen.this, "Internet Connection",
-			//                    "You have internet connection", true);
-
 			setContentView(R.layout.buildingmapview);
 			mapView = (MapView) findViewById(R.id.mapview);
 			mapView.setBuiltInZoomControls(true);
@@ -118,11 +112,6 @@ public class CustomBuildingMap extends MapActivity {
 				mapView.getOverlays().add(pinsBlue);
 			}
 
-			/*
-			 * MapOverlay mapOverlay = new MapOverlay(); List<Overlay>
-			 * listOfOverlays = mapView.getOverlays(); listOfOverlays.clear();
-			 * listOfOverlays.add(mapOverlay);
-			 */
 			PinOverlay pinsRed = new PinOverlay(drawableRed);
 			Set<String> buildings = new HashSet<String>();
 			for (StudySpace o: olist)
@@ -162,20 +151,6 @@ public class CustomBuildingMap extends MapActivity {
 		}
 
 	}
-	/*
-	 * class MapOverlay extends Overlay {
-	 * 
-	 * @Override public boolean draw(Canvas canvas, MapView mapView, boolean
-	 * shadow, long when) { super.draw(canvas, mapView, shadow);
-	 * 
-	 * //---translate the GeoPoint to screen pixels--- Point screenPts = new
-	 * Point(); mapView.getProjection().toPixels(p, screenPts);
-	 * 
-	 * //---add the marker--- Bitmap bmp = BitmapFactory.decodeResource(
-	 * getResources(), R.drawable.pushpin); //Positions the image
-	 * canvas.drawBitmap(bmp, screenPts.x-10, screenPts.y-34, null); return
-	 * true; } }
-	 */
 
 	@Override
 	protected boolean isRouteDisplayed() {

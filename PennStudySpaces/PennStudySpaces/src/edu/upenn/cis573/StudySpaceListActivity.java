@@ -113,11 +113,11 @@ public class StudySpaceListActivity extends ListActivity {
 		Intent i = new Intent(this, SearchActivity.class);
 		startActivityForResult(i,
 				StudySpaceListActivity.ACTIVITY_SearchActivity);
-		final TextView search = (EditText) findViewById(R.id.search);
+		final TextView search = (EditText) findViewById(R.id.filter);
 		search.addTextChangedListener(new TextWatcher() {
 			public void afterTextChanged(Editable s) {
 				String query = search.getText().toString();
-				ss_adapter.searchNames(query);
+				ss_adapter.filterResults(query);
 			}
 
 			public void beforeTextChanged(CharSequence s, int start, int count,
@@ -179,7 +179,7 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	};
 
-	private void getSpaces() {
+	public void getSpaces() {
 		try {
 
 			System.out.println("Calling the getSpace method!");
@@ -210,7 +210,7 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 	}
 
-	public void onFilterClick(View view) {
+	public void onSearchClick(View view) {
 		// Start up the search options screen
 		Intent i = new Intent(this, SearchActivity.class);
 		startActivityForResult(i,
@@ -471,7 +471,6 @@ public class StudySpaceListActivity extends ListActivity {
 				i++;
 
 			}
-			this.list_items = SpaceInfo.sortByRank(filtered);
 			this.list_items = filterByPeople(list_items);
 			this.list_items = sortByDistance(list_items);
 			if (SearchActivity.isFNButtonClicked()) {
@@ -554,7 +553,7 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 
 		@SuppressWarnings("unchecked")
-		public void searchNames(String query) {
+		public void filterResults(String query) {
 			query = query.toLowerCase(Locale.US);
 			this.list_items = (ArrayList<StudySpace>) this.before_search
 					.clone();
@@ -592,7 +591,6 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 
 		public void updateFavorites(Preferences p) {
-			this.fav_orig_items = SpaceInfo.sortByRank(this.orig_items);
 			for (int i = fav_orig_items.size() - 1; i >= 0; i--) {
 				if (!p.isFavorite(fav_orig_items.get(i).getBuildingName()
 						+ fav_orig_items.get(i).getSpaceName()))
@@ -639,14 +637,8 @@ public class StudySpaceListActivity extends ListActivity {
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.about:
-			startActivity(new Intent(this, About.class));
-			break;
-		}
-		return true;
+	
+	public ArrayList<StudySpace> getList() {
+		return ss_list;
 	}
 }
