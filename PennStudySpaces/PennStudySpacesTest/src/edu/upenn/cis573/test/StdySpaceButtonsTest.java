@@ -1,9 +1,13 @@
 package edu.upenn.cis573.test;
 
+import java.util.List;
+
 import org.junit.Before;
 
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
+import android.widget.Button;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -50,17 +54,11 @@ public class StdySpaceButtonsTest extends
 	}
 
 	@SmallTest
-	public void testFavouritesButton() throws InterruptedException {
-
-		solo.clickOnCheckBox(5);
-		solo.clickOnCheckBox(6);
-		solo.clickOnCheckBox(7);
-
-		int i = solo.getButton(0).getId();
-		assertTrue("something went wrong " + i,
-				edu.upenn.cis573.R.id.favoritesButton == i);
+	public void testFavoritesButton() throws InterruptedException {
 		solo.clickOnButton(0);
-
+		solo.assertCurrentActivity("FavoritesButton not clicked .",
+				"SearchActivity");
+		
 	}
 
 	public void testSearchButton() throws InterruptedException {
