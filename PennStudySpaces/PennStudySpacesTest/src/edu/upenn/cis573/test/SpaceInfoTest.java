@@ -1,16 +1,16 @@
-package edu.upenn.cis573.test;
+/*package edu.upenn.cis573.test;
 
 import java.util.ArrayList;
 
 
 
 import edu.upenn.cis573.Room;
-import edu.upenn.cis573.SpaceInfo;
+//import edu.upenn.cis573.SpaceInfo;
 import edu.upenn.cis573.StudySpace;
 
 public class SpaceInfoTest extends junit.framework.TestCase {
 
-	SpaceInfo obj;
+//	SpaceInfo obj;
 
 	StudySpace a;
 	String name = "GSR";
@@ -32,7 +32,7 @@ public class SpaceInfoTest extends junit.framework.TestCase {
 		a = new StudySpace(name, lat, lon, num_rooms, b_name, max_occ, has_wh,
 				pri, has_comp, res_type, has_big_s, comm, r);
 
-		assertEquals(1, SpaceInfo.getRank(a));
+	//	assertEquals(1, SpaceInfo.getRank(a));
 
 	}
 
@@ -42,7 +42,7 @@ public class SpaceInfoTest extends junit.framework.TestCase {
 
 		assertEquals(
 				"The spacious and modern Group Study Rooms provide the perfect place for small group meetings, with multiple charging points and a computer connected to two monitors.\n\nThese rooms are conveniently located near two Au Bon Pain restaurants and multiple vending machines with food and drinks.\n\nReservable at any time of the day!",
-				SpaceInfo.getDescription(a));
+			//	SpaceInfo.getDescription(a));
 
 	}
 
@@ -74,9 +74,9 @@ public class SpaceInfoTest extends junit.framework.TestCase {
 		studySpaces.add(b);
 		studySpaces.add(a);
 
-		SpaceInfo.sortByRank(studySpaces);
+		//SpaceInfo.sortByRank(studySpaces);
 		assertEquals(1, studySpaces.indexOf(a));
 
 	}
 
-}
+}*/

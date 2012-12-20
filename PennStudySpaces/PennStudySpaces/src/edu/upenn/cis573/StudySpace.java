@@ -48,6 +48,7 @@ public class StudySpace implements Serializable, Comparable<StudySpace> {
 		comments = comm;
 		rooms = r;
 	}
+	
 	//sort the studyspace based on the distance
 	@Override
 	public int compareTo(StudySpace compareSpace){
@@ -132,6 +133,8 @@ public class StudySpace implements Serializable, Comparable<StudySpace> {
 	}
 
 	public String getGSRNames() {
+		
+		System.out.println("We got a GSRNAMES ----- What is it!-----");
 		ArrayList<Integer> F = new ArrayList<Integer>();
 		ArrayList<Integer> G = new ArrayList<Integer>();
 		ArrayList<Integer> sec = new ArrayList<Integer>();

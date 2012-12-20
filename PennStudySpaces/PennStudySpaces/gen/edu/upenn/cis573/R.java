@@ -155,19 +155,18 @@ public final class R {
         public static final int whiteboard_icon=0x7f080030;
     }
     public static final class layout {
-        public static final int about=0x7f030000;
-        public static final int buildingmapview=0x7f030001;
-        public static final int datepicker=0x7f030002;
-        public static final int endtimepicker=0x7f030003;
-        public static final int help=0x7f030004;
-        public static final int mapview=0x7f030005;
-        public static final int search=0x7f030006;
-        public static final int splash=0x7f030007;
-        public static final int ssdetails=0x7f030008;
-        public static final int sslist=0x7f030009;
-        public static final int sslistitem=0x7f03000a;
-        public static final int starttimepicker=0x7f03000b;
-        public static final int tabdetails=0x7f03000c;
+        public static final int buildingmapview=0x7f030000;
+        public static final int datepicker=0x7f030001;
+        public static final int endtimepicker=0x7f030002;
+        public static final int help=0x7f030003;
+        public static final int mapview=0x7f030004;
+        public static final int search=0x7f030005;
+        public static final int splash=0x7f030006;
+        public static final int ssdetails=0x7f030007;
+        public static final int sslist=0x7f030008;
+        public static final int sslistitem=0x7f030009;
+        public static final int starttimepicker=0x7f03000a;
+        public static final int tabdetails=0x7f03000b;
     }
     public static final class menu {
         public static final int menu=0x7f070000;

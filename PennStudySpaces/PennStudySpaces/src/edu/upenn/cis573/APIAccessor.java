@@ -21,7 +21,7 @@ import android.content.Context;
  */
 public class APIAccessor {
 
-	static boolean isFirst = true;
+	public static boolean isFirst = true;
 
 	/**
 	 * Populates a list with all the study spaces from Penn Study Spaces
@@ -99,6 +99,10 @@ public class APIAccessor {
 							.getJSONObject(k).getString("name"), t
 							.getJSONObject(k).getJSONObject("availabilities"));
 					rooms[k] = temp;
+					
+					if(k == 0){
+						System.out.println("The room name is " + temp.getRoomName());
+					}
 				}
 				
 				StudySpace temp = new StudySpace(roomkinds_arr.getJSONObject(j)
@@ -119,6 +123,8 @@ public class APIAccessor {
 
 				study_spaces.add(temp);
 				System.out.println(temp.getBuildingName());
+				System.out.println("The name of the Studyapce is -----");
+				System.out.println(temp.getSpaceName());
 			}
 		}
 		return study_spaces;

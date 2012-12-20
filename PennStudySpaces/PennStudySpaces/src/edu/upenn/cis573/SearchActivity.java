@@ -117,7 +117,16 @@ public class SearchActivity extends Activity {
 
 	}         
 
-
+	//set longitude method, this is used for build in test
+	public static void setLongitude(double lon){
+		longitude = lon;
+	}
+	//set latitude method, this is used for build in test
+	public static void setLatitude(double lat){
+		latitude = lat;
+	}
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

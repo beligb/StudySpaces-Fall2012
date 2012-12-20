@@ -505,53 +505,7 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 
 
-		public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr) {
-			double currentLatitude = SearchActivity.latitude;
-			double currentLongitude = SearchActivity.longitude;
-			for (StudySpace temp : arr) {
-				double spaceLatitude = temp.getSpaceLatitude();
-				double spaceLongitude = temp.getSpaceLongitude();
-				float results[] = new float[3];
-				Location.distanceBetween(currentLatitude, currentLongitude,
-						spaceLatitude, spaceLongitude, results);
-				double distance = results[0];
-				temp.setDistance(distance);
-			}
-			Collections.sort(arr);
-			System.out.println("Results havs already been sorted!");
-
-			if (arr.isEmpty()) {
-
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						getContext());
-				// set title
-				alertDialogBuilder.setTitle("No Results Found!");
-
-				// set dialog message
-				alertDialogBuilder
-						.setMessage(
-								"No rooms available with the selected criteria")
-						.setCancelable(false)
-						.setPositiveButton("Ok",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-
-										dialog.cancel();
-									}
-								});
-
-				// create alert dialog
-				AlertDialog alertDialog = alertDialogBuilder.create();
-
-				// show it
-				alertDialog.show();
-
-			}
-
-			return arr;
-		}
-
+		
 		@SuppressWarnings("unchecked")
 		public void filterResults(String query) {
 			query = query.toLowerCase(Locale.US);
@@ -632,6 +586,54 @@ public class StudySpaceListActivity extends ListActivity {
 		}
 		return arr;
 	}
+	
+	public ArrayList<StudySpace> sortByDistance(ArrayList<StudySpace> arr) {
+		double currentLatitude = SearchActivity.latitude;
+		double currentLongitude = SearchActivity.longitude;
+		for (StudySpace temp : arr) {
+			double spaceLatitude = temp.getSpaceLatitude();
+			double spaceLongitude = temp.getSpaceLongitude();
+			float results[] = new float[3];
+			Location.distanceBetween(currentLatitude, currentLongitude,
+					spaceLatitude, spaceLongitude, results);
+			double distance = results[0];
+			temp.setDistance(distance);
+		}
+		Collections.sort(arr);
+		System.out.println("Results havs already been sorted!");
+
+		if (arr.isEmpty()) {
+
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+					getBaseContext());
+			// set title
+			alertDialogBuilder.setTitle("No Results Found!");
+
+			// set dialog message
+			alertDialogBuilder
+					.setMessage(
+							"No rooms available with the selected criteria")
+					.setCancelable(false)
+					.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int id) {
+
+									dialog.cancel();
+								}
+							});
+
+			// create alert dialog
+			AlertDialog alertDialog = alertDialogBuilder.create();
+
+			// show it
+			alertDialog.show();
+
+		}
+
+		return arr;
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -639,6 +641,8 @@ public class StudySpaceListActivity extends ListActivity {
 		inflater.inflate(R.menu.menu, menu);
 		return true;
 	}
+	
+	
 	
 	public ArrayList<StudySpace> getList() {
 		return ss_list;

@@ -1,10 +1,16 @@
 package edu.upenn.cis573.test;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import edu.upenn.cis573.Room;
+import edu.upenn.cis573.SearchActivity;
+import edu.upenn.cis573.StudySpace;
 import edu.upenn.cis573.StudySpaceListActivity;
+
 
 public class StudySpaceListActivityTest extends
 		ActivityInstrumentationTestCase2<StudySpaceListActivity> {
@@ -23,10 +29,10 @@ public class StudySpaceListActivityTest extends
 	public void testListSize() {
 		StudySpaceListActivity _listActivity = getActivity();
 		
-//		ArrayList<StudySpace> _list = _listActivity.getList();
-//		_listActivity.getSpaces();
+		ArrayList<StudySpace> list = _listActivity.getList();
+	//	list = _listActivity.sortByDistance(list);
 		
-//		assertEquals(_list.size(), 206);
+		assertEquals(208, list.size());
 	}
-
+	
 }

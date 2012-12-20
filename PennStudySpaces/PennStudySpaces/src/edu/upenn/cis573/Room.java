@@ -19,6 +19,13 @@ public class Room implements Serializable{
 		availabilities = avail.toString();
 	}
 	
+	//this is used for build in test
+	public Room(int id, String name, String availabilities){
+		ID = id;
+		roomName = name;
+		this.availabilities = availabilities;
+	}
+	
 	public int getID() {
 		return ID;
 	}
